@@ -1,4 +1,4 @@
-#JACS 2018
+# JACS 2018
 
 Software engineering class at Cooper Union 
 
