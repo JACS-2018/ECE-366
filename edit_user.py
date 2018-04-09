@@ -4,7 +4,7 @@ import MySQLdb
 import datetime
 
 #opening db connection
-db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
+db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8v2")
 
 #preparing cursor option using cursor() method
 cursor = db.cursor()
