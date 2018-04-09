@@ -34,15 +34,13 @@ def insert_u(user):
 
 #read user info
 def read_u(f_name, l_name, u_name): 
-	# if u_name:
-	# 	read = ("SELECT * FROM User WHERE username = %s")
-	# 	value = u_name
-	# else:
-	# 	read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s")	
-	# 	value = (f_name, l_name)
+	if u_name:
+		read = ("SELECT * FROM User WHERE username = %(username)s")
+		value = {'username': u_name}
+	else:
+		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s")	
+		value = (f_name, l_name)
 
-	read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s")	
-	value = (f_name, l_name)
 	cursor.execute(read, value)
 	data = cursor.fetchall()
 	for user in data:
@@ -65,7 +63,7 @@ start_time = datetime.datetime.now()
 me = user(user_id, 'Jasmine', 'Tang', 'jtangqt', 'hehexd', 'tang@cooper.edu', start_time)
 			
 #insert_u(me)
-read_u('Jasmine', 'Tang', 0)
+read_u('Jasmine', 'Tang', "jtangqt")
 
 
 # cursor.execute(ins, data_user)
