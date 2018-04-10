@@ -30,8 +30,6 @@ def add_f(user_id_a, user_id_b):
 		value = (user_id_a, user_id_b)
 		cursor.execute(add, value)
 
-	print("add friend end")
-
 
 ## Confirm Friends ##
 # Confirm friends makes bit = 1, if not confirmed, then deletes table entry
@@ -43,31 +41,25 @@ def confirm_f(user_id_a, user_id_b, status):
 	else:
 		delete_f(user_id_a, user_id_b)
 
-	print("DONE CONFIRMING")
-
 ## Delete Friends ## 
 # deletes table entry of friends
 def delete_f(user_id_a, user_id_b):
 	f_delete = ("DELETE FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
 	value = (user_id_a, user_id_b, user_id_b, user_id_a)
 	cursor.execute(f_delete, value)
-	print("DONE DELETING")
 
 ## See Friendships ##
 def see_f(user_id):
-	print("hi")
 	see = ("SELECT * FROM Friendships WHERE (user_id_a = %s OR user_id_b = %s) AND status = 1")
 	value = (user_id, user_id)
 	cursor.execute(see, value)
 	s_friends = cursor.fetchall()
-	print("2")
+	
 	for all_f in s_friends:
-		print("3")
 		if all_f[0] == user_id:
 			user_id2 = all_f[1]
 		else: 
 			user_id2 == all_f[0]
-		print("hehe")
 		find_u = ("SELECT * FROM User WHERE user_id = %(user_id)s")
 		value = {'user_id': user_id2}
 		cursor.execute(find_u, value)
