@@ -44,7 +44,7 @@ def insert_u(user):
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
-				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
+				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 				
 		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
 
@@ -82,7 +82,6 @@ def update_u(u_name, new_u):
 
 
 	if old_u.u_name != new_u.u_name:
-		print("hello")
 		update = ("UPDATE User SET username = %s WHERE user_id = %s")
 		value = (new_u.u_name, old_u.user_id)
 		cursor.execute(update, value)
@@ -147,33 +146,34 @@ def confirm_u(sign_in, password):
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-car = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', '', '', 'wei1@cooper.edu', start_time, 1)
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-jas = user(user_id, 'Jas', 'Tea', 'jtangqt', 'heh', '', '', 'tang@cooper.edu', start_time, 1)
+car = user(user_id, 'Cardy', 'Wei', 'cwei', 'hehexd', '', '', 'wei1@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-sam = user(user_id, 'sam', 'cheng', 'scheng839', 'wow', '', '', 'scheng839@gmail.com', start_time, 1)
+jas = user(user_id, 'Jas', 'Tea', 'jtangb', 'heh', '', '', 'tang@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-alex = user(user_id, 'alex', 'hu', 'enigmamemory', 'cupnoodles', '', '', 'hu5@cooper.edu', start_time, 1)
+sam = user(user_id, 'sam', 'cheng', 'scheng829', 'wow', '', '', 'scheng839@gmail.com', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-eric = user(user_id, 'eric', 'n', 'eric.ng.501', 'hehe', '', '', '501@col.edu', start_time, 1)
+alex = user(user_id, 'alex', 'hu', 'enigmamemoryg', 'cupnoodles', '', '', 'hu5@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+eric = user(user_id, 'eric', 'n', 'eric.ng.5013', 'hehe', '', '', '501@col.edu', start_time, 1)
 
 
 #new_me = deepcopy(me)
 #new_me.email = "hehe@gmail.com"
 
 
-# insert_u(car)
-# insert_u(jas)
-# insert_u(sam)
-# insert_u(alex)
-# insert_u(eric)
+insert_u(car)
+insert_u(jas)
+insert_u(sam)
+insert_u(alex)
+insert_u(eric)
 
 
 # cursor.execute(ins, data_user)

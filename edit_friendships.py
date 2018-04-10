@@ -77,6 +77,7 @@ def see_f(user_id):
 		f_name = cursor.fetchone()
 		print("You are friends with %s %s" %(f_name[1], f_name[2]))
 
+
 ## See Potential Friendships ##
 def allpotential_f(user_id):
 	## you have to accept

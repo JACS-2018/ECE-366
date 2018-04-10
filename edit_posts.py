@@ -25,8 +25,8 @@ class post:
 
 ############################### Start Function Declarations ###############################
 
+## Creating a Post from A to B's Profile ##
 #user a is the one posting, user b is the one whose profile user_a is posting on 
-#user b is the profile you're looking at
 def create_p(post):
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (post.user_a, post.user_b, post.user_b, post.user_a)
@@ -43,6 +43,7 @@ def create_p(post):
 		print("You are not allowed to post on this person's profile")	
 
 
+## Shows Posts on User b's Profile ##
 def show_p(user_a, user_b):
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (user_a, user_b, user_b, user_a)
@@ -71,11 +72,44 @@ def show_p(user_a, user_b):
 			print("%s %s says: %s\nTime: %s" %(friend[1], friend[2], ind_p[4], ind_p[3]))
 	else:
 		print("You aren't friends with this person, so you cannot see their profile")
-			
-
-def edit_p(): 
-	print("hello")
 	
+
+## Can User Edit Post? ##	
+def can_edit_p(user_a, post_id):
+	find_w = ("SELECT * FROM Posts WHERE post_id = %(post_id)s")
+	value = {'post_id': post_id}
+	cursor.execute(find_w, value)
+	post = cursor.fetchone()
+	if post[1] == user_a:
+		return 1
+	else: 
+		return 0
+
+
+## Edit post made by user ##
+# Has to go through "can_edit_p" before edit_p
+def edit_p(post_id, new_p): 
+	edit = ("SELECT * FROM Posts WHERE post_id = %s")
+	value = {'post_id': post_id}
+	cursor.execute(edit, value)
+	old_p = cursor.fetchone()
+	if new_p[3] != old_p[3]:
+		update = ("UPDATE Posts SET content = %s WHERE post_id = %s")
+		value = (new_p[3], post_id)
+		cursor.execute(update, value)
+
+## TODO! 
+## Show Feed Post ##
+# def show_p(user_id):
+# 	show = ("SELECT * FROM Posts")
+# 	cursor.execute(show)
+# 	all_p = cursor.fetchall()
+# 	for ind_p in all_p:
+# 		friends = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
+# 		value = (ind_p[1], ind_p[2], ind_p[2], ind_p[1])
+# 		cursor.execute()
+# 		if friends: 
+			
 
 ############################### Finished Function Declarations ###############################
 
