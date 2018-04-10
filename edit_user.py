@@ -44,13 +44,12 @@ def insert_u(user):
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, email, signup_date, active)"
-				"VALUES (%s, %s, %s, %s, %s, %s, %s)")
+				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
 				
 		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.email, user.time, user.active)
 
 		cursor.execute(ins, data_user)
 
-	# TODO! make sure no usernames are the same and no emails are the same
 	
 ## Read User Info ##
 #read user info (mostly used for searching for friends or going to specific people's profiles -> username ?)
@@ -149,12 +148,16 @@ def confirm_u(sign_in, password):
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
 me = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+jas = user(user_id, 'Jas', 'Tea', 'jtangqt', 'heh', 'tang@cooper.edu', start_time, 1)
 
 new_me = deepcopy(me)
 new_me.email = "hehe@gmail.com"
 
 
 insert_u(me)
+insert_u(jas)
 deactivate_u('cwei1')
 read_u('Cardy', 'Wei', 'cwei1')
 update_u('cwei1', new_me)
