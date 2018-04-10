@@ -184,3 +184,13 @@ form.login a:hover
     padding: 10px;
     left: 45%;
 }
+
+.posted-by2
+{
+    bottom: 26px;
+    margin: 0 auto;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.66);
+    padding: 10px;
+    padding-bottom: 75px;
+}

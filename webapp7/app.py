@@ -18,7 +18,8 @@ def get_tasks():
 def get_tasks2():
     content = request.json
     bob = {'username':'bobby','firstName':'bobbert','lastName':'lee','id':'bobbity'}
-    return jsonify({'person':[bob]})
+    bob2 = {'username':'jimmy','firstName':'jimbert','lastName':'lee','id':'jimbity'}
+    return jsonify({'person':[bob,bob2]})
 
 @app.route('/api/users/<identity>', methods=['DELETE'])
 def get_tasks3(identity):
