@@ -2,9 +2,10 @@
 
 import MySQLdb
 import datetime
+from copy import deepcopy
 
 #opening db connection
-db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8v2	")
+db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
 
 #preparing cursor option using cursor() method
 cursor = db.cursor()
@@ -52,11 +53,10 @@ def read_u(f_name, l_name, u_name):
 
 	cursor.execute(read, value)
 	data = cursor.fetchall()
-	for user in data:
-	 	print("%s %s's signup date is %s" %(user[1], user[2], user[7]))
+	for r_user in data:
+	 	print("%s %s's with username %s and email %s has the signup date is %s" %(r_user[1], r_user[2], r_user[3], r_user[5], r_user[6]))
 	 	## TODO!! put it into the user class format + return from the function
 ## maybe change this to get the user_id and pass the user_id into another function called "read" and have this one as "find"
-
 
 
 ## Update User ##
@@ -67,19 +67,33 @@ def update_u(f_name, l_name, u_name, new_u):
 	read = ("SELECT * FROM User WHERE username = %s AND first_name = %s AND last_name = %s")
 	value = (u_name, f_name, l_name)
 	cursor.execute(read, value) #TODO, gets user_id then alter
-	user = cursor.fetchall()
-	old_u = user(user[0], user[1], user[2], user[3], user[4], user[5], user[6])
-	
+	u_user = cursor.fetchone()
+	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6])
+
+
 	if old_u.u_name != new_u.u_name:
 		print("hello")
+		update = ("UPDATE User SET username = %s WHERE user_id = %s")
+		value = (new_u.u_name, old_u.user_id)
+		cursor.execute(update, value)
 	if old_u.f_name != new_u.f_name:
-		print("hello")
+		update = ("UPDATE User SET first_name = %s WHERE user_id = %s")
+		value = (new_u.f_name, old_u.user_id)
+		cursor.execute(update, value)
 	if old_u.l_name != new_u.l_name:
-		print("hello")
+		update = ("UPDATE User SET last_name = %s WHERE user_id = %s")
+		value = (new_u.l_name, old_u.user_id)
+		cursor.execute(update, value)
 	if old_u.pwrd != new_u.pwrd:
-		print("hello")
+		update = ("UPDATE User SET password = %s WHERE user_id = %s")
+		value = (new_u.pwrd, old_u.user_id)
+		cursor.execute(update, value)
 	if old_u.email != new_u.email:
-		print("hello")
+		update = ("UPDATE User SET email = %s WHERE user_id = %s")
+		value = (new_u.email, old_u.user_id)
+		cursor.execute(update, value)
+
+	print("Done Updating!")
 
 #delete user
 def delete_u():
@@ -94,10 +108,16 @@ def confirm_u(u_name, email, password):
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-me = user(user_id, 'Jasmine', 'Tang', 'jtangqt', 'hehexd', 'tang@cooper.edu', start_time)
-			
-#insert_u(me)
-read_u('Jasmine', 'Tang', "jtangqt")
+me = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time)
+
+new_me = deepcopy(me)
+new_me.email = "HAHA@gmail.com"
+
+
+insert_u(me)
+read_u('Cardy', 'Wei', 'cwei1')
+update_u('Cardy', 'Wei', 'cwei1', new_me)
+read_u('Cardy', 'Wei', 'cwei1')
 
 
 # cursor.execute(ins, data_user)
