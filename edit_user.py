@@ -169,11 +169,11 @@ eric = user(user_id, 'eric', 'n', 'eric.ng.501', 'hehe', '', '', '501@col.edu', 
 #new_me.email = "hehe@gmail.com"
 
 
-insert_u(car)
-insert_u(jas)
-insert_u(sam)
-insert_u(alex)
-insert_u(eric)
+# insert_u(car)
+# insert_u(jas)
+# insert_u(sam)
+# insert_u(alex)
+# insert_u(eric)
 
 
 # cursor.execute(ins, data_user)

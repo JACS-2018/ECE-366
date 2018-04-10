@@ -72,24 +72,24 @@ def show_p(user_a, user_b):
 
 ############################### Finished Function Declarations ###############################
 
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post1 = post(post_id, '1', '2', post_time, 'hehe')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post2 = post(post_id, '2', '3', post_time, 'hi bff')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post3 = post(post_id, '3', '2', post_time, 'hello to you too bff')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post1 = post(post_id, '1', '2', post_time, 'hehe')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post2 = post(post_id, '2', '3', post_time, 'hi bff')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post3 = post(post_id, '3', '2', post_time, 'hello to you too bff')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
 
-create_p(post1)
-create_p(post2)
-create_p(post3)
-create_p(post4)
-show_p(2, 3)
+# create_p(post1)
+# create_p(post2)
+# create_p(post3)
+# create_p(post4)
+# show_p(2, 3)
 
 db.commit()
 cursor.close()
