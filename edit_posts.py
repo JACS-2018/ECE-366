@@ -56,7 +56,7 @@ def show_p(user_a, user_b):
 	
 	print("You are viewing %s %s's Profile" %(p_profile[1], p_profile[2]))
 
-	if friends:
+	if friends or user_a == user_b:
 		show = ("SELECT * FROM Posts WHERE user_b = %(user_b)s")
 		value = {'user_b' : user_b}
 		cursor.execute(show, value)
@@ -64,11 +64,18 @@ def show_p(user_a, user_b):
 
 		for ind_p in all_p: 
 			#TODO: make a linked list of posts (or something)
-			#TODO: find name of user_a and put in ind_p[0]
-			print("%s says: %s\nTime: %s" %(ind_p[0], ind_p[3], ind_p[2]))
+			find_u = ("SELECT * FROM User WHERE user_id = %(user_id)s")
+			value = {'user_id': ind_p[1]}
+			cursor.execute(find_u, value)
+			friend = cursor.fetchone()
+			print("%s %s says: %s\nTime: %s" %(friend[1], friend[2], ind_p[4], ind_p[3]))
 	else:
 		print("You aren't friends with this person, so you cannot see their profile")
 			
+
+def edit_p(): 
+	print("hello")
+	
 
 ############################### Finished Function Declarations ###############################
 
@@ -89,7 +96,7 @@ def show_p(user_a, user_b):
 # create_p(post2)
 # create_p(post3)
 # create_p(post4)
-# show_p(2, 3)
+show_p(2, 2)
 
 db.commit()
 cursor.close()

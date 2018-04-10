@@ -178,7 +178,5 @@ eric = user(user_id, 'eric', 'n', 'eric.ng.501', 'hehe', '', '', '501@col.edu', 
 
 # cursor.execute(ins, data_user)
 db.commit()
-
-
 cursor.close()
 db.close()
