@@ -40,7 +40,7 @@ def insert_u(user):
 	found = cursor.fetchall()
 
 	if found: 
-		print("This username OR email already exists!")
+		return 0
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
@@ -49,6 +49,7 @@ def insert_u(user):
 		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
 
 		cursor.execute(ins, data_user)
+		return 1
 
 	
 ## Read User Info ##
