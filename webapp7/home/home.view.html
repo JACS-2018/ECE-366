@@ -1,0 +1,13 @@
+﻿<p class="form-title">Hi {{vm.user.firstName}}!</p>
+<p class="form-title">You're logged in!!</p>
+<p class="form-title">All registered users:</p>
+<ul>
+    <li ng-repeat="user in vm.allUsers">
+	    <p class="form-title">
+	        {{user.username}} ({{user.firstName}} {{user.lastName}})
+	        - <a ng-click="vm.deleteUser(user.id)">Delete</a>
+        </p>
+    </li>
+</ul>
+<p>&nbsp;</p>
+<p><a href="#!/login" class="btn btn-primary">Logout</a></p>
