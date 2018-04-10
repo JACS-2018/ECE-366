@@ -16,7 +16,7 @@ cursor = db.cursor()
 ############################### User Class Declarations ###############################
 
 class user:
-	def __init__(self, user_id, f_name, l_name, u_name, pwrd, email, time):
+	def __init__(self, user_id, f_name, l_name, u_name, pwrd, email, time, active):
 		self.user_id = user_id
 		self.f_name = f_name
 		self.l_name = l_name
@@ -24,6 +24,7 @@ class user:
 		self.pwrd = pwrd
 		self.email = email
 		self.time = time
+		self.active = active
 
 
 ############################### Start Function Declarations ###############################
@@ -31,13 +32,21 @@ class user:
 ## Insert New User ##
 #insert new user takes in a class called User (as defined above and puts it into the database)
 def insert_u(user):
-	ins = ("INSERT INTO User" 
-			"(user_id, first_name, last_name, username, password, email, signup_date)"
-			"VALUES (%s, %s, %s, %s, %s, %s, %s)")
-			
-	data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.email, user.time)
+	find_u = ("SELECT * FROM User WHERE username = %(username)s")
+	value = {'username': user.u_name}
+	cursor.execute(find_u, value)
+	found = cursor.fetchall()
 
-	cursor.execute(ins, data_user)
+	if found: 
+		print("This username already exists!")
+	else: 
+		ins = ("INSERT INTO User" 
+				"(user_id, first_name, last_name, username, password, email, signup_date, active)"
+				"VALUES (%s, %s, %s, %s, %s, %s, %s)")
+				
+		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.email, user.time, user.active)
+
+		cursor.execute(ins, data_user)
 
 	# TODO! make sure no usernames are the same and no emails are the same
 	
@@ -60,15 +69,15 @@ def read_u(f_name, l_name, u_name):
 
 
 ## Update User ##
-#update user (takes information from their OWN profile)
-def update_u(f_name, l_name, u_name, new_u):
-	print("hello")
-	## TODO!! has to have first name, last name and username
-	read = ("SELECT * FROM User WHERE username = %s AND first_name = %s AND last_name = %s")
-	value = (u_name, f_name, l_name)
-	cursor.execute(read, value) #TODO, gets user_id then alter
+#update user (takes information from their OWN profile- first, last, username)
+def update_u(u_name, new_u):
+	
+	read = ("SELECT * FROM User WHERE username = %(username)s")
+	value = {'username': u_name}
+	cursor.execute(read, value) 
+	
 	u_user = cursor.fetchone()
-	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6])
+	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7])
 
 
 	if old_u.u_name != new_u.u_name:
@@ -96,8 +105,13 @@ def update_u(f_name, l_name, u_name, new_u):
 	print("Done Updating!")
 
 #delete user
-def delete_u():
+def deactivate_u(u_name):
 	print("hello")
+
+
+def reactivate_u(u_name): 
+	print("hello")
+
 
 #used for sign in/updating information in user
 def confirm_u(u_name, email, password):
@@ -108,15 +122,15 @@ def confirm_u(u_name, email, password):
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-me = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time)
+me = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time, 1)
 
 new_me = deepcopy(me)
-new_me.email = "HAHA@gmail.com"
+new_me.email = "hehe@gmail.com"
 
 
 insert_u(me)
 read_u('Cardy', 'Wei', 'cwei1')
-update_u('Cardy', 'Wei', 'cwei1', new_me)
+update_u('cwei1', new_me)
 read_u('Cardy', 'Wei', 'cwei1')
 
 
