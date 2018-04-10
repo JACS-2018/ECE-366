@@ -12,6 +12,9 @@ db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
 #preparing cursor option using cursor() method
 cursor = db.cursor()
 
+
+############################### Start Function Declarations ###############################
+
 ## Add Friends ##
 # Creates new table entry for friendship
 def add_f(user_id_a, user_id_b):
@@ -104,6 +107,7 @@ def allpotential_f(user_id):
 		print("You are waiting for a friendship with: %s %s" %(w_f_name[1], w_f_name[2]))
 
 
+############################### Finished Function Declarations ###############################
 
 add_f(1,2)
 add_f(1,4)
