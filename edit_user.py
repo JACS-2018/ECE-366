@@ -4,7 +4,9 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
-#opening db connection
+#current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8
+
+#opening db connection: 
 db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
 
 #preparing cursor option using cursor() method
@@ -32,13 +34,13 @@ class user:
 ## Insert New User ##
 #insert new user takes in a class called User (as defined above and puts it into the database)
 def insert_u(user):
-	find_u = ("SELECT * FROM User WHERE username = %(username)s")
-	value = {'username': user.u_name}
+	find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
+	value = (user.u_name, user.email)
 	cursor.execute(find_u, value)
 	found = cursor.fetchall()
 
 	if found: 
-		print("This username already exists!")
+		print("This username OR email already exists!")
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, email, signup_date, active)"
@@ -54,10 +56,10 @@ def insert_u(user):
 #read user info (mostly used for searching for friends or going to specific people's profiles -> username ?)
 def read_u(f_name, l_name, u_name): 
 	if u_name:
-		read = ("SELECT * FROM User WHERE username = %(username)s")
+		read = ("SELECT * FROM User WHERE username = %(username)s AND active = 1")
 		value = {'username': u_name}
 	else:
-		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s")	
+		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s AND active = 1")	
 		value = (f_name, l_name)
 
 	cursor.execute(read, value)
@@ -106,16 +108,40 @@ def update_u(u_name, new_u):
 
 #delete user
 def deactivate_u(u_name):
-	print("hello")
+	deactivate = ("SELECT * FROM User WHERE username = %(username)s")
+	value = {'username': u_name}
+	cursor.execute(deactivate, value)
+	d_user = cursor.fetchone()
+	
+	update = ("UPDATE User SET active = 0 WHERE user_id = %(user_id)s")
+	value = {'user_id': d_user[0]}
+	cursor.execute(update, value)
 
 
 def reactivate_u(u_name): 
-	print("hello")
+	reactivate = ("SELECT * FROM User WHERE username = %(username)s")
+	value = {'username': u_name}
+	cursor.execute(reactivate, value)
+	d_user = cursor.fetchone()
+	
+	update = ("UPDATE User SET active = 1 WHERE user_id = %(user_id)s")
+	value = {'user_id': d_user[0]}
+	cursor.execute(update, value)
 
 
 #used for sign in/updating information in user
-def confirm_u(u_name, email, password):
-	print("hello")
+#sign in can be either email or username
+def confirm_u(sign_in, password):
+	find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
+	value = (sign_in, sign_in)
+	cursor.execute(find_u, value)
+	found = cursor.fetchall()
+
+	if found: 
+		print("User found!")
+		user_id = found[0]
+	else: 
+		print("User does not exist!")
 
 ############################### Finished Function Declarations ###############################
 
@@ -129,8 +155,10 @@ new_me.email = "hehe@gmail.com"
 
 
 insert_u(me)
+deactivate_u('cwei1')
 read_u('Cardy', 'Wei', 'cwei1')
 update_u('cwei1', new_me)
+reactivate_u('cwei1')
 read_u('Cardy', 'Wei', 'cwei1')
 
 
