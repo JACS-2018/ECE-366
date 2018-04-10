@@ -99,7 +99,7 @@ def allpotential_f(user_id):
 	for all_w_f in w_friends:
 		find_w_f = ("SELECT * FROM User WHERE user_id = %(user_id)s")
 		value = {'user_id': all_w_f[1]}
-		cursor.execute(find_u_f, value)
+		cursor.execute(find_w_f, value)
 		w_f_name = cursor.fetchone()
 		print("You are waiting for a friendship with: %s %s" %(w_f_name[1], w_f_name[2]))
 
