@@ -1,52 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="example359" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Script Tutorials" />
-    <title>Responsive website using AngularJS | Script Tutorials</title>
-    <meta name="description" content="Responsive website using AngularJS - demo page">
+<html>
+<title>Babbl Homepage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+</style>
+<body class="w3-theme-l5">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<!-- Navbar -->
+<div class="w3-top">
+ <div class="w3-bar w3-dark-grey w3-left-align w3-large">
+  <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-dark-grey"></i><img src="images/Babbl_logo.png" style="height:40px;width:px" alt="Babbl"></a>
+  <a href="friends.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-grey" title="Friends"><i class="fa fa-users"></i></a>
+  <a href="requests.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-grey" title="Requests"><i class="fa fa-user-plus"></i></a>
+  <a href="profile.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-grey" title="My Profile">
+    <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/08/Spongebob-Weared-Big-Specs.jpg" class="w3-circle" style="height:35px;width:35px" alt="Profile">
+  </a>
+ </div>
+</div>
 
-    <!-- add styles -->
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-
-    <!-- add javascripts -->
-    <script src="js/jquery-2.0.3.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-</head>
-<body>
-    <header>
-        <div class="wrap">
-            <!-- logo -->
-            <a href="#!"><img class="logo" src="images/logo.png" /></a>
-
-            <!-- navigation menu -->
-            <nav>
-                <ul>
-                    <li><a id="workBtn" href="#!/" ng-class="{activeSmall:part == 'projects'}" >Dashboard</a></li>
-                    <li><a id="privacyBtn" href="#!/privacy" ng-class="{activeSmall:part == 'privacy'}">Profile</a></li>
-                    <li><a id="aboutBtn" href="#!/about" ng-class="{activeSmall:part == 'about'}">Friends</a></li>
-                    <li style="margin-right:0px"><a id="contactBtn" class="active" href="javascript: void(0)" ng-click="showForm()">Settings</a></li>
-                </ul>
-            </nav>
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    
+    <!-- Content -->
+    
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+          <div class="w3-card w3-round w3-white">
+              <style>
+                  input[type=text]{
+                      width: 100%;
+                  }
+              </style>
+              <input type="text" name="post" placeholder="Babbl to your heart's content">
+              <!-- <p contenteditable="true" class="w3-border w3-padding" placeholder="Babbl to your heart's content">Babbl to your heart's content</p> -->
+              <button type="button" class="w3-button w3-dark-grey"><i class="fa fa-pencil"></i>  Post</button> 
+            </div>
+          </div>
         </div>
-    </header>
+      
+      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/12/Patrick-Star-Smiling-eq245-600x457.gif" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
+        <span class="w3-right w3-opacity">1 min</span>
+        <h4>Alex Woot</h4><br>
+        <hr class="w3-clear">
+        <p>Post.</p>
+        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
+      
+      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <img src="http://www.cartoonbucket.com/wp-content/uploads/2016/07/Scooby-With-Staggy-600x750.jpg" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
+        <span class="w3-right w3-opacity">16 min</span>
+        <h4>Jasmine Tea</h4><br>
+        <hr class="w3-clear">
+        <p>Post.</p>
+        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>  
 
-    <!-- contact us form -->
-    <div class="paddRow contactRow">
-        <div class="wrap">
-            <div class="head">Settings</div>
-        </div>
-    </div>
+      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <img src="http://www.cartoonbucket.com/wp-content/uploads/2017/03/Jhonny-Dancing-Image-600x565.jpg" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
+        <span class="w3-right w3-opacity">32 min</span>
+        <h4>Cardi Way</h4><br>
+        <hr class="w3-clear">
+        <p>Post.</p>
+        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div> 
+      
+    <!-- End Content -->
+    
+<!-- End Page Container -->
+</div>
+<br>
 
-    <!-- main content -->
-    <div style="position:relative">
-        <div style="width:100%" ng-view ng-animate="{enter: 'view-enter', leave: 'view-leave'}"></div>
-    </div>
-
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-16">
+  <h5></h5>
+</footer>
 </body>
-</html>
+</html> 
