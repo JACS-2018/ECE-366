@@ -147,22 +147,33 @@ def confirm_u(sign_in, password):
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-me = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time, 1)
+car = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time, 1)
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
 jas = user(user_id, 'Jas', 'Tea', 'jtangqt', 'heh', 'tang@cooper.edu', start_time, 1)
 
-new_me = deepcopy(me)
-new_me.email = "hehe@gmail.com"
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+sam = user(user_id, 'sam', 'cheng', 'scheng839', 'wow', 'scheng839@gmail.com', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+alex = user(user_id, 'alex', 'hu', 'enigmamemory', 'cupnoodles', 'hu5@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+eric = user(user_id, 'eric', 'n', 'eric.ng.501', 'hehe', '501@col.edu', start_time, 1)
 
 
-insert_u(me)
+#new_me = deepcopy(me)
+#new_me.email = "hehe@gmail.com"
+
+
+insert_u(car)
 insert_u(jas)
-deactivate_u('cwei1')
-read_u('Cardy', 'Wei', 'cwei1')
-update_u('cwei1', new_me)
-reactivate_u('cwei1')
-read_u('Cardy', 'Wei', 'cwei1')
+insert_u(sam)
+insert_u(alex)
+insert_u(eric)
 
 
 # cursor.execute(ins, data_user)
