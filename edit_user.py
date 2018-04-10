@@ -4,7 +4,7 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
-#current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8
+#current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8; on github: playgroundapr9v2
 
 #opening db connection: 
 db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
@@ -13,17 +13,17 @@ db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
 cursor = db.cursor()
 
 
-# TODO! add profile picture, description, birthday
-
 ############################### User Class Declarations ###############################
 
 class user:
-	def __init__(self, user_id, f_name, l_name, u_name, pwrd, email, time, active):
+	def __init__(self, user_id, f_name, l_name, u_name, pwrd, pro_pic, about, email, time, active):
 		self.user_id = user_id
 		self.f_name = f_name
 		self.l_name = l_name
 		self.u_name = u_name
 		self.pwrd = pwrd
+		self.pro_pic = pro_pic
+		self.about = about
 		self.email = email
 		self.time = time
 		self.active = active
@@ -43,10 +43,10 @@ def insert_u(user):
 		print("This username OR email already exists!")
 	else: 
 		ins = ("INSERT INTO User" 
-				"(user_id, first_name, last_name, username, password, email, signup_date, active)"
+				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
 				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s)")
 				
-		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.email, user.time, user.active)
+		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
 
 		cursor.execute(ins, data_user)
 
@@ -78,7 +78,7 @@ def update_u(u_name, new_u):
 	cursor.execute(read, value) 
 	
 	u_user = cursor.fetchone()
-	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7])
+	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7], u_user[8], u_user[9])
 
 
 	if old_u.u_name != new_u.u_name:
@@ -147,22 +147,22 @@ def confirm_u(sign_in, password):
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-car = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', 'wei1@cooper.edu', start_time, 1)
+car = user(user_id, 'Cardy', 'Wei', 'cwei1', 'hehexd', '', '', 'wei1@cooper.edu', start_time, 1)
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-jas = user(user_id, 'Jas', 'Tea', 'jtangqt', 'heh', 'tang@cooper.edu', start_time, 1)
+jas = user(user_id, 'Jas', 'Tea', 'jtangqt', 'heh', '', '', 'tang@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-sam = user(user_id, 'sam', 'cheng', 'scheng839', 'wow', 'scheng839@gmail.com', start_time, 1)
+sam = user(user_id, 'sam', 'cheng', 'scheng839', 'wow', '', '', 'scheng839@gmail.com', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-alex = user(user_id, 'alex', 'hu', 'enigmamemory', 'cupnoodles', 'hu5@cooper.edu', start_time, 1)
+alex = user(user_id, 'alex', 'hu', 'enigmamemory', 'cupnoodles', '', '', 'hu5@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-eric = user(user_id, 'eric', 'n', 'eric.ng.501', 'hehe', '501@col.edu', start_time, 1)
+eric = user(user_id, 'eric', 'n', 'eric.ng.501', 'hehe', '', '', '501@col.edu', start_time, 1)
 
 
 #new_me = deepcopy(me)
