@@ -37,7 +37,7 @@ def insert_u(user):
 	if confirm_u(user.email): 
 		print("email is the same")
 		return 0	
-	elif confirm_u(user.username):
+	elif confirm_u(user.u_name):
 		print("username is the same ")
 		return 0
 	else: 
@@ -54,12 +54,16 @@ def insert_u(user):
 ## Read User Info ##
 #read user info (mostly used for searching for friends or going to specific people's profiles -> username ?)
 def read_u(f_name, l_name, u_name): 
-	if u_name:
+	if f_name == 0 and l_name == 0 and u_name == 0:
+		read = ("SELECT * FROM User")
+		value = {}
+	elif u_name:
 		read = ("SELECT * FROM User WHERE username = %(username)s AND active = 1")
 		value = {'username': u_name}
 	else:
 		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s AND active = 1")	
 		value = (f_name, l_name)
+
 
 	cursor.execute(read, value)
 	data = cursor.fetchall()
@@ -184,7 +188,7 @@ insert_u(jas)
 insert_u(sam)
 insert_u(alex)
 insert_u(eric)
-read_u(0, 0, 'jtangqt')
+read_u(0, 0, 0)
 
 
 # cursor.execute(ins, data_user)
