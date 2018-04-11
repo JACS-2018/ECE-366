@@ -40,7 +40,7 @@ def insert_u(user):
 	found = cursor.fetchall()
 
 	if found: 
-		return 0
+		return 0	
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
@@ -62,11 +62,17 @@ def read_u(f_name, l_name, u_name):
 		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s AND active = 1")	
 		value = (f_name, l_name)
 
+	print("hello")
 	cursor.execute(read, value)
 	data = cursor.fetchall()
+	user_dict = {}
+	
 	for r_user in data:
-	 	print("%s %s's with username %s and email %s has the signup date is %s" %(r_user[1], r_user[2], r_user[3], r_user[5], r_user[6]))
-	 	## TODO!! put it into the user class format + return from the function
+	 	user_dict[r_user[0]] = user(r_user[0], r_user[1], r_user[2], r_user[3], r_user[4], r_user[5], r_user[6], r_user[7], r_user[8], r_user[9])
+
+	# for u_id in user_dict:
+	# 	print("%s" %(user_dict[u_id].f_name))
+	return user_dict
 ## maybe change this to get the user_id and pass the user_id into another function called "read" and have this one as "find"
 
 
@@ -142,6 +148,10 @@ def confirm_u(sign_in, password):
 	else: 
 		print("User does not exist!")
 
+#TODO!!
+def delete_u(user_id):
+	print("hello")
+
 ############################### Finished Function Declarations ###############################
 
 
@@ -151,7 +161,7 @@ car = user(user_id, 'Cardy', 'Wei', 'cwei', 'hehexd', '', '', 'wei1@cooper.edu',
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-jas = user(user_id, 'Jas', 'Tea', 'jtangb', 'heh', '', '', 'tang@cooper.edu', start_time, 1)
+jas = user(user_id, 'Jas', 'Tea', 'jtangbb', 'heh', '', '', 'tang@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
@@ -175,6 +185,7 @@ insert_u(jas)
 insert_u(sam)
 insert_u(alex)
 insert_u(eric)
+read_u(0, 0, 'jtangqt')
 
 
 # cursor.execute(ins, data_user)

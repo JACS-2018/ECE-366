@@ -98,6 +98,10 @@ def edit_p(post_id, new_p):
 		value = (new_p[3], post_id)
 		cursor.execute(update, value)
 
+#TODO!! 
+def delete_p(post_id):
+	print("hello")
+
 ## TODO! 
 ## Show Feed Post ##
 # def show_p(user_id):
