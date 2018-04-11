@@ -151,9 +151,9 @@ def confirm_u(sign_in):
 
 ## Delete User (for debugging purposes) ##
 def delete_u(user_id):
-	delete = ("DELETE FROM User WHERE username = %(username)s")
-	value = {'username' : user_id}
-	cursor.execute(delete, value)
+	del_u = ("DELETE FROM User WHERE user_id = %(u_id)s")
+	value = {'u_id' : user_id}
+	cursor.execute(del_u, value)
 
 
 ############################### Finished Function Declarations ###############################
