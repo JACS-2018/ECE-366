@@ -44,7 +44,6 @@ def insert_u(user):
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
 				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-				
 		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
 
 		cursor.execute(ins, data_user)
@@ -165,7 +164,7 @@ def delete_u(user_id):
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-car = user(user_id, 'Cardy', 'Wei', 'cwei', 'hehexd', '', '', 'wei1@cooper.edu', start_time, 1)
+car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'hehexd', '', '', 'wei@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
