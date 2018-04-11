@@ -28,105 +28,41 @@ class user:
 		self.time = time
 		self.active = active
 
-
 ############################### Start Function Declarations ###############################
 
-##Function capable of starting server moving the cursor around
 def launchdb():
-        db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
-        return db
+	db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
+	return db
 
 def launchcursor(db):
-        cursor = db.cursor()
-        return cursor
+	cursor = db.cursor()
+	return cursor
 
 ## Insert New User ##
 #insert new user takes in a class called User (as defined above and puts it into the database)
-
 def insert_u(user, cursor):
-        '''
-	if confirm_u(user.email, cursor):
-                print("User email repeat")
-		return 0
-        '''
-        
-	if confirm_u(user.u_name, 0, cursor):
-	        print("username is the same ")
-		return 0
-        
-	#else: 
-	ins = ("INSERT INTO User" 
-	       "(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
-	       "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-				
-	data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
-
-	cursor.execute(ins, data_user)
-
-        print("Executed Properly")
-	return 1
-
-                        	
-	#elif
-        '''
-        if confirm_u(user.email, 0, cursor): 
-		print("email is the same")
-		return 0	
-	elif confirm_u(user.u_name, 0, cursor):
-		print("username is the same ")
-		return 0
-        '''
-
-'''
-def insert_u(user):
-	if confirm_u(user.email, 0): 
-		print("email is the same")
-		return 0	
-	elif confirm_u(user.u_name, 0):
+	# if confirm_u(user.email, 0): 
+	# 	print("email is the same")
+	# 	return 0	
+	# elif
+	if confirm_u(user.u_name, 0):
 		print("username is the same ")
 		return 0
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
 				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-				
 		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
 
 		cursor.execute(ins, data_user)
 		return 1
-'''
+
 	
 ## Read User Info ##
 #read user info (mostly used for searching for friends or going to specific people's profiles -> username ?)
-# TODO: different values of f_name & l_name
-'''
-def read_u(f_name, l_name, u_name): 
-	if f_name == 0 and l_name == 0 and u_name == 0:
-		read = ("SELECT * FROM User")
-		value = {}
-	elif u_name:
-		read = ("SELECT * FROM User WHERE username = %(username)s AND active = 1")
-		value = {'username': u_name}
-	else:
-		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s AND active = 1")	
-		value = (f_name, l_name)
-
-
-	cursor.execute(read, value)
-	data = cursor.fetchall()
-	user_dict = {}
-	
-	for r_user in data:
-	 	user_dict[r_user[0]] = user(r_user[0], r_user[1], r_user[2], r_user[3], r_user[4], r_user[5], r_user[6], r_user[7], r_user[8], r_user[9])
-	
-	# for u_id in user_dict:
-		# 	print("%s" %(user_dict[u_id].f_name))
-
-	return user_dict
-'''
-
+# TODO: different values of f_name & l_name 
 def read_u(f_name, l_name, u_name, cursor): 
-        if f_name == 0 and l_name == 0 and u_name == 0:
+	if f_name == 0 and l_name == 0 and u_name == 0:
 		read = ("SELECT * FROM User")
 		value = {}
 	elif u_name:
@@ -185,6 +121,7 @@ def update_u(u_name, new_u):
 
 	print("Done Updating!")
 
+
 ## Deactivate User ##
 def deactivate_u(u_name):
 	deactivate = ("SELECT * FROM User WHERE username = %(username)s")
@@ -195,6 +132,7 @@ def deactivate_u(u_name):
 	update = ("UPDATE User SET active = 0 WHERE user_id = %(user_id)s")
 	value = {'user_id': d_user[0]}
 	cursor.execute(update, value)
+
 
 ## Reactivate User ##
 def reactivate_u(u_name): 
@@ -209,23 +147,6 @@ def reactivate_u(u_name):
 
 
 ## Confirm user exists ##
-'''
-def confirm_u(sign_in, pwrd):
-	if pwrd: 
-		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
-		value = (sign_in, sign_in, pwrd)
-	else: 
-		find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
-		value = (sign_in, sign_in)
-	cursor.execute(find_u, value)
-	found = cursor.fetchall()
-
-	if found: 
-		return 1
-	else: 
-		return 0
-'''
-
 def confirm_u(sign_in, pwrd, cursor):
 	if pwrd: 
 		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
@@ -241,30 +162,25 @@ def confirm_u(sign_in, pwrd, cursor):
 	else: 
 		return 0
 
+
 ## Delete User (for debugging purposes) ##
-'''
-def delete_u(user_id):
+def delete_u(user_id, cursor):
 	del_u = ("DELETE FROM User WHERE user_id = %(u_id)s")
 	value = {'u_id' : user_id}
 	cursor.execute(del_u, value)
-'''
 
-def delete_u(user_id, cursor):
-	delete = ("DELETE FROM User WHERE user_id = %(user_id)s")
-	value = {'user_id' : user_id}
-	cursor.execute(delete, value)
 
-def commitclose(db,cursor):
-        db.commit()
-        cursor.close()
-        db.close()
-        
+def commitclose(db, cursor):
+		db.commit()
+		cursor.close()
+		db.close()
+
 ############################### Finished Function Declarations ###############################
 
-'''
+
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-car = user(user_id, 'Cardy', 'Wei', 'cwei', 'hehexd', '', '', 'wei1@cooper.edu', start_time, 1)
+car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'hehexd', '', '', 'wei@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
@@ -299,4 +215,3 @@ read_u(0, 0, 0)
 db.commit()
 cursor.close()
 db.close()
-'''
