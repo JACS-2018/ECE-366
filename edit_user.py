@@ -53,6 +53,7 @@ def insert_u(user):
 	
 ## Read User Info ##
 #read user info (mostly used for searching for friends or going to specific people's profiles -> username ?)
+# TODO: different values of f_name & l_name 
 def read_u(f_name, l_name, u_name): 
 	if f_name == 0 and l_name == 0 and u_name == 0:
 		read = ("SELECT * FROM User")
