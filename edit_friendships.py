@@ -44,12 +44,6 @@ def confirm_f(user_id_a, user_id_b, status):
 	else:
 		delete_f(user_id_a, user_id_b)
 
-## Delete Friends ## 
-# deletes table entry of friends
-def delete_f(user_id_a, user_id_b):
-	f_delete = ("DELETE FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
-	value = (user_id_a, user_id_b, user_id_b, user_id_a)
-	cursor.execute(f_delete, value)
 
 ## See Friendships ##
 def see_f(user_id):
@@ -106,6 +100,14 @@ def allpotential_f(user_id):
 		cursor.execute(find_w_f, value)
 		w_f_name = cursor.fetchone()
 		print("You are waiting for a friendship with: %s %s" %(w_f_name[1], w_f_name[2]))
+
+
+## Delete Friends ## 
+# deletes table entry of friends
+def delete_f(user_id_a, user_id_b):
+	f_delete = ("DELETE FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
+	value = (user_id_a, user_id_b, user_id_b, user_id_a)
+	cursor.execute(f_delete, value)
 
 
 ############################### Finished Function Declarations ###############################
