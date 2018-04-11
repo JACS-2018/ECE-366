@@ -177,7 +177,7 @@ def commitclose(db, cursor):
 
 ############################### Finished Function Declarations ###############################
 
-
+'''
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
 car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'hehexd', '', '', 'wei@cooper.edu', start_time, 1)
@@ -215,3 +215,4 @@ read_u(0, 0, 0)
 db.commit()
 cursor.close()
 db.close()
+'''
