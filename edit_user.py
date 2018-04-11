@@ -34,10 +34,10 @@ class user:
 ## Insert New User ##
 #insert new user takes in a class called User (as defined above and puts it into the database)
 def insert_u(user):
-	if confirm_u(user.email): 
+	if confirm_u(user.email, 0): 
 		print("email is the same")
 		return 0	
-	elif confirm_u(user.u_name):
+	elif confirm_u(user.u_name, 0):
 		print("username is the same ")
 		return 0
 	else: 
@@ -139,8 +139,12 @@ def reactivate_u(u_name):
 
 ## Confirm user exists ##
 def confirm_u(sign_in, pwrd):
-	find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
-	value = (sign_in, sign_in, pwrd)
+	if pwrd: 
+		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
+		value = (sign_in, sign_in, pwrd)
+	else: 
+		find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
+		value = (sign_in, sign_in)
 	cursor.execute(find_u, value)
 	found = cursor.fetchall()
 
