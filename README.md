@@ -17,3 +17,8 @@ https://www.digitalocean.com/community/tutorials/a-basic-mysql-tutorial
 Updating the SQL file: mysqldump -u [uname] -p db_name > db_backup.sql 
 
 Updating the database: mysql -u [uname] -p database_name < filename.sql
+
+
+
+## AngularJS User Registration and Login Example
+To see a demo and further details go to http://jasonwatmore.com/post/2015/03/10/AngularJS-User-Registration-and-Login-Example.aspx
