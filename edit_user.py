@@ -138,9 +138,9 @@ def reactivate_u(u_name):
 
 
 ## Confirm user exists ##
-def confirm_u(sign_in):
-	find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
-	value = (sign_in, sign_in)
+def confirm_u(sign_in, pwrd):
+	find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
+	value = (sign_in, sign_in, pwrd)
 	cursor.execute(find_u, value)
 	found = cursor.fetchall()
 
