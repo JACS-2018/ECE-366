@@ -28,12 +28,13 @@ class post:
 ## Creating a Post from A to B's Profile ##
 #user a is the one posting, user b is the one whose profile user_a is posting on 
 def create_p(post):
+
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (post.user_a, post.user_b, post.user_b, post.user_a)
 	cursor.execute(find, value)
 	friends = cursor.fetchone()
 	
-	if friends: 
+	if friends or post.user_a == post.user_b: 
 		create = ("INSERT INTO Posts"
 				"(post_id, user_a, user_b, timestamp, content)"
 				"VALUES (%s, %s, %s, %s, %s)")
@@ -63,15 +64,18 @@ def show_p(user_a, user_b):
 		cursor.execute(show, value)
 		all_p = cursor.fetchall()
 
+		post_dict = {}
 		for ind_p in all_p: 
-			#TODO: make a linked list of posts (or something)
 			find_u = ("SELECT * FROM User WHERE user_id = %(user_id)s")
 			value = {'user_id': ind_p[1]}
 			cursor.execute(find_u, value)
 			friend = cursor.fetchone()
-			print("%s %s says: %s\nTime: %s" %(friend[1], friend[2], ind_p[4], ind_p[3]))
+			print(ind_p[4])
+			post_dict[ind_p[0]] = post(ind_p[0], ind_p[1], ind_p[2], ind_p[3], ind_p[4])
+		return post_dict
 	else:
 		print("You aren't friends with this person, so you cannot see their profile")
+		return {}
 	
 
 ## Can User Edit Post? ##	
@@ -98,9 +102,11 @@ def edit_p(post_id, new_p):
 		value = (new_p[3], post_id)
 		cursor.execute(update, value)
 
-#TODO!! 
+## Delete post based on post_id ##
 def delete_p(post_id):
-	print("hello")
+	delete = ("DELETE FROM Posts WHERE post_id = %(post_id)s")
+	value = {'post_id' : post_id}
+	cursor.execute(delete, value)
 
 ## TODO! 
 ## Show Feed Post ##
@@ -117,24 +123,25 @@ def delete_p(post_id):
 
 ############################### Finished Function Declarations ###############################
 
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post1 = post(post_id, '1', '2', post_time, 'hehe')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post2 = post(post_id, '2', '3', post_time, 'hi bff')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post3 = post(post_id, '3', '2', post_time, 'hello to you too bff')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post1 = post(post_id, '1', '2', post_time, 'hehe')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post2 = post(post_id, '2', '3', post_time, 'hi bff')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post3 = post(post_id, '3', '2', post_time, 'hello to you too bff')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
 
 # create_p(post1)
 # create_p(post2)
 # create_p(post3)
 # create_p(post4)
 show_p(2, 2)
+
 
 db.commit()
 cursor.close()

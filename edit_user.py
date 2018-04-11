@@ -34,13 +34,10 @@ class user:
 ## Insert New User ##
 #insert new user takes in a class called User (as defined above and puts it into the database)
 def insert_u(user):
-	find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
-	value = (user.u_name, user.email)
-	cursor.execute(find_u, value)
-	found = cursor.fetchall()
-
-	if found: 
+	if confirm_u(user.email): 
 		return 0	
+	elif confirm_u(user.username):
+		return 0
 	else: 
 		ins = ("INSERT INTO User" 
 				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
@@ -62,18 +59,17 @@ def read_u(f_name, l_name, u_name):
 		read = ("SELECT * FROM User WHERE first_name = %s AND last_name = %s AND active = 1")	
 		value = (f_name, l_name)
 
-	print("hello")
 	cursor.execute(read, value)
 	data = cursor.fetchall()
 	user_dict = {}
 	
 	for r_user in data:
 	 	user_dict[r_user[0]] = user(r_user[0], r_user[1], r_user[2], r_user[3], r_user[4], r_user[5], r_user[6], r_user[7], r_user[8], r_user[9])
-
+	
 	# for u_id in user_dict:
-	# 	print("%s" %(user_dict[u_id].f_name))
+		# 	print("%s" %(user_dict[u_id].f_name))
+
 	return user_dict
-## maybe change this to get the user_id and pass the user_id into another function called "read" and have this one as "find"
 
 
 ## Update User ##
@@ -111,7 +107,7 @@ def update_u(u_name, new_u):
 
 	print("Done Updating!")
 
-#delete user
+## Deactivate User ##
 def deactivate_u(u_name):
 	deactivate = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': u_name}
@@ -122,7 +118,7 @@ def deactivate_u(u_name):
 	value = {'user_id': d_user[0]}
 	cursor.execute(update, value)
 
-
+## Reactivate User ##
 def reactivate_u(u_name): 
 	reactivate = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': u_name}
@@ -134,23 +130,24 @@ def reactivate_u(u_name):
 	cursor.execute(update, value)
 
 
-#used for sign in/updating information in user
-#sign in can be either email or username
-def confirm_u(sign_in, password):
+## Confirm user exists ##
+def confirm_u(sign_in):
 	find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
 	value = (sign_in, sign_in)
 	cursor.execute(find_u, value)
 	found = cursor.fetchall()
 
 	if found: 
-		print("User found!")
-		user_id = found[0]
+		return 1
 	else: 
-		print("User does not exist!")
+		return 0
 
-#TODO!!
+## Delete User (for debugging purposes) ##
 def delete_u(user_id):
-	print("hello")
+	delete = ("DELETE FROM User WHERE username = %(username)s")
+	value = {'username' : user_id}
+	cursor.execute(delete, value)
+
 
 ############################### Finished Function Declarations ###############################
 
