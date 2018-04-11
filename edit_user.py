@@ -35,8 +35,10 @@ class user:
 #insert new user takes in a class called User (as defined above and puts it into the database)
 def insert_u(user):
 	if confirm_u(user.email): 
+		print("email is the same")
 		return 0	
 	elif confirm_u(user.username):
+		print("username is the same ")
 		return 0
 	else: 
 		ins = ("INSERT INTO User" 
