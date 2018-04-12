@@ -6,13 +6,6 @@ from copy import deepcopy
 
 #current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8; on github: playgroundapr9v2
 
-#opening db connection: 
-db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
-
-#preparing cursor option using cursor() method
-cursor = db.cursor()
-
-
 ############################### User Class Declarations ###############################
 
 class user:
@@ -30,22 +23,15 @@ class user:
 
 ############################### Start Function Declarations ###############################
 
-def launchdb():
-	db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
-	return db
-
-def launchcursor(db):
-	cursor = db.cursor()
-	return cursor
 
 ## Insert New User ##
 #insert new user takes in a class called User (as defined above and puts it into the database)
-def insert_u(user, cursor):
-	# if confirm_u(user.email, 0): 
+def insert_u(cursor, user):
+	# if confirm_u(cursor, user.email, 0): 
 	# 	print("email is the same")
 	# 	return 0	
 	# elif
-	if confirm_u(user.u_name, 0, cursor):
+	if confirm_u(cursor, user.u_name, 0):
 		print("username is the same ")
 		return 0
 	else: 
@@ -61,7 +47,7 @@ def insert_u(user, cursor):
 ## Read User Info ##
 #read user info (mostly used for searching for friends or going to specific people's profiles -> username ?)
 # TODO: different values of f_name & l_name 
-def read_u(f_name, l_name, u_name, cursor): 
+def read_u(cursor, f_name, l_name, u_name): 
 	if f_name == 0 and l_name == 0 and u_name == 0:
 		read = ("SELECT * FROM User")
 		value = {}
@@ -88,7 +74,7 @@ def read_u(f_name, l_name, u_name, cursor):
 
 ## Update User ##
 #update user (takes information from their OWN profile- first, last, username)
-def update_u(u_name, new_u):
+def update_u(cursor, u_name, new_u):
 	
 	read = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': u_name}
@@ -123,7 +109,7 @@ def update_u(u_name, new_u):
 
 
 ## Deactivate User ##
-def deactivate_u(u_name):
+def deactivate_u(cursor, u_name):
 	deactivate = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': u_name}
 	cursor.execute(deactivate, value)
@@ -135,7 +121,7 @@ def deactivate_u(u_name):
 
 
 ## Reactivate User ##
-def reactivate_u(u_name): 
+def reactivate_u(cursor, u_name): 
 	reactivate = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': u_name}
 	cursor.execute(reactivate, value)
@@ -147,7 +133,7 @@ def reactivate_u(u_name):
 
 
 ## Confirm user exists ##
-def confirm_u(sign_in, pwrd, cursor):
+def confirm_u(cursor, sign_in, pwrd, cursor):
 	if pwrd: 
 		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
 		value = (sign_in, sign_in, pwrd)
@@ -164,16 +150,12 @@ def confirm_u(sign_in, pwrd, cursor):
 
 
 ## Delete User (for debugging purposes) ##
-def delete_u(user_id, cursor):
+def delete_u(cursor, user_id, cursor):
 	del_u = ("DELETE FROM User WHERE user_id = %(u_id)s")
 	value = {'u_id' : user_id}
 	cursor.execute(del_u, value)
 
 
-def commitclose(db, cursor):
-		db.commit()
-		cursor.close()
-		db.close()
 
 ############################### Finished Function Declarations ###############################
 
@@ -199,20 +181,13 @@ start_time = datetime.datetime.now()
 eric = user(user_id, 'eric', 'n', 'eric.ng.5013', 'hehe', '', '', '501@col.edu', start_time, 1)
 
 
-#new_me = deepcopy(me)
-#new_me.email = "hehe@gmail.com"
+new_me = deepcopy(me)
+new_me.email = "hehe@gmail.com"
 
 
-insert_u(car)
-insert_u(jas)
-insert_u(sam)
-insert_u(alex)
-insert_u(eric)
-read_u(0, 0, 0)
-
-
-# cursor.execute(ins, data_user)
-db.commit()
-cursor.close()
-db.close()
-'''
+insert_u(cursor, car)
+insert_u(cursor, jas)
+insert_u(cursor, sam)
+insert_u(cursor, alex)
+insert_u(cursor, eric)
+read_u(cursor, 0, 0, 0)

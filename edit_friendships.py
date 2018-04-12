@@ -6,18 +6,12 @@ from copy import deepcopy
 
 #current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8
 
-#opening db connection: 
-db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
-
-#preparing cursor option using cursor() method
-cursor = db.cursor()
-
 
 ############################### Start Function Declarations ###############################
 
 ## Add Friends ##
 # Creates new table entry for friendship
-def add_f(user_id_a, user_id_b):
+def add_f(cursor, user_id_a, user_id_b):
 	pot = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
 	value = (user_id_a, user_id_b, user_id_b, user_id_a)
 	cursor.execute(pot, value)
@@ -36,17 +30,17 @@ def add_f(user_id_a, user_id_b):
 
 ## Confirm Friends ##
 # Confirm friends makes bit = 1, if not confirmed, then deletes table entry
-def confirm_f(user_id_a, user_id_b, status):
+def confirm_f(cursor, user_id_a, user_id_b, status):
 	if status:
 		confirm = ("UPDATE Friendships SET status = 1 WHERE user_id_a = %s AND user_id_b = %s")
 		value = (user_id_a, user_id_b)
 		cursor.execute(confirm, value)
 	else:
-		delete_f(user_id_a, user_id_b)
+		delete_f(cursor, user_id_a, user_id_b)
 
 
 ## See Friendships ##
-def see_f(user_id):
+def see_f(cursor, user_id):
 	## for debugging purposes:
 	individual = ("SELECT * FROM User WHERE user_id = %(user_id)s")
 	value = {'user_id': user_id}
@@ -73,7 +67,7 @@ def see_f(user_id):
 
 
 ## See Potential Friendships ##
-def allpotential_f(user_id):
+def allpotential_f(cursor, user_id):
 	## you have to accept
 	unaccepted = ("SELECT * FROM Friendships WHERE user_id_b = %(user_id_b)s AND status = 0")
 	value = {'user_id_b': user_id}
@@ -104,7 +98,7 @@ def allpotential_f(user_id):
 
 ## Delete Friends ## 
 # deletes table entry of friends
-def delete_f(user_id_a, user_id_b):
+def delete_f(cursor, user_id_a, user_id_b):
 	f_delete = ("DELETE FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
 	value = (user_id_a, user_id_b, user_id_b, user_id_a)
 	cursor.execute(f_delete, value)
@@ -112,30 +106,28 @@ def delete_f(user_id_a, user_id_b):
 
 ############################### Finished Function Declarations ###############################
 
-# add_f(1,2)
-# add_f(1,4)
-# add_f(1,3)
-# add_f(2,3)
-# add_f(2,5)
-# add_f(3,5)
-# add_f(5,1)
-# add_f(4,3)
-# add_f(4,2)
-# confirm_f(2, 3,1)
-# confirm_f(2, 5, 1)
-# confirm_f(1, 4, 1)
-# confirm_f(4,3,1)
-# allpotential_f(1)
-# see_f(1)
-# allpotential_f(2)
-# see_f(2)
-# allpotential_f(3)
-# see_f(3)
-# allpotential_f(4)
-# see_f(4)
-# allpotential_f(5)
-# see_f(5)
 
-db.commit()
-cursor.close()
-db.close()
+'''
+add_f(cursor, 1,2)
+add_f(cursor, 1,4)
+add_f(cursor, 1,3)
+add_f(cursor, 2,3)
+add_f(cursor, 2,5)
+add_f(cursor, 3,5)
+add_f(cursor, 5,1)
+add_f(cursor, 4,3)
+add_f(cursor, 4,2)
+confirm_f(cursor, 2, 3,1)
+confirm_f(cursor, 2, 5, 1)
+confirm_f(cursor, 1, 4, 1)
+confirm_f(cursor, 4,3,1)
+allpotential_f(cursor, 1)
+see_f(cursor, 1)
+allpotential_f(cursor, 2)
+see_f(cursor, 2)
+allpotential_f(cursor, 3)
+see_f(cursor, 3)
+allpotential_f(cursor, 4)
+see_f(cursor, 4)
+allpotential_f(cursor, 5)
+see_f(cursor, 5)

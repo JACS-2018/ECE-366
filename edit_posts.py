@@ -6,12 +6,6 @@ from copy import deepcopy
 
 #current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8
 
-#opening db connection: 
-db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
-
-#preparing cursor option using cursor() method
-cursor = db.cursor()
-
 ############################### User Class Declarations ###############################
 
 class post:
@@ -27,7 +21,7 @@ class post:
 
 ## Creating a Post from A to B's Profile ##
 #user a is the one posting, user b is the one whose profile user_a is posting on 
-def create_p(post):
+def create_p(cursor, post):
 
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (post.user_a, post.user_b, post.user_b, post.user_a)
@@ -45,7 +39,7 @@ def create_p(post):
 
 
 ## Shows Posts on User b's Profile ##
-def show_p(user_a, user_b):
+def show_p(cursor, user_a, user_b):
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (user_a, user_b, user_b, user_a)
 	cursor.execute(find, value)
@@ -79,7 +73,7 @@ def show_p(user_a, user_b):
 	
 
 ## Can User Edit Post? ##	
-def can_edit_p(user_a, post_id):
+def can_edit_p(cursor, user_a, post_id):
 	find_w = ("SELECT * FROM Posts WHERE post_id = %(post_id)s")
 	value = {'post_id': post_id}
 	cursor.execute(find_w, value)
@@ -92,7 +86,7 @@ def can_edit_p(user_a, post_id):
 
 ## Edit post made by user ##
 # Has to go through "can_edit_p" before edit_p
-def edit_p(post_id, new_p): 
+def edit_p(cursor, post_id, new_p): 
 	edit = ("SELECT * FROM Posts WHERE post_id = %s")
 	value = {'post_id': post_id}
 	cursor.execute(edit, value)
@@ -103,14 +97,14 @@ def edit_p(post_id, new_p):
 		cursor.execute(update, value)
 
 ## Delete post based on post_id ##
-def delete_p(post_id):
+def delete_p(cursor, post_id):
 	delete = ("DELETE FROM Posts WHERE post_id = %(post_id)s")
 	value = {'post_id' : post_id}
 	cursor.execute(delete, value)
 
 ## TODO! 
 ## Show Feed Post ##
-# def show_p(user_id):
+# def show_p(cursor, user_id):
 # 	show = ("SELECT * FROM Posts")
 # 	cursor.execute(show)
 # 	all_p = cursor.fetchall()
@@ -123,6 +117,8 @@ def delete_p(post_id):
 
 ############################### Finished Function Declarations ###############################
 
+
+'''
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
 post1 = post(post_id, '1', '2', post_time, 'hehe')
@@ -136,13 +132,8 @@ post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
 post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
 
-# create_p(post1)
-# create_p(post2)
-# create_p(post3)
-# create_p(post4)
-show_p(2, 2)
-
-
-db.commit()
-cursor.close()
-db.close()
+# create_p(cursor, post1)
+# create_p(cursor, post2)
+# create_p(cursor, post3)
+# create_p(cursor, post4)
+show_p(cursor, 2, 2)
