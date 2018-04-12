@@ -45,7 +45,7 @@ def insert_u(user, cursor):
 	# 	print("email is the same")
 	# 	return 0	
 	# elif
-	if confirm_u(user.u_name, 0):
+	if confirm_u(user.u_name, 0, cursor):
 		print("username is the same ")
 		return 0
 	else: 
