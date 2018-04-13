@@ -4,7 +4,6 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
-#current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8; on github: playgroundapr9v2
 
 ############################### User Class Declarations ###############################
 

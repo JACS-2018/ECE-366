@@ -7,6 +7,7 @@ from flask import send_file, make_response, abort
 from flask_api import FlaskAPI
 from flask_cors import CORS
 import edit_user
+import start_db
 import datetime
 import MySQLdb
 app = Flask(__name__)
@@ -17,8 +18,8 @@ CORS(app)
 def get_tasks():
     content = request.json
 
-    db = edit_user.launchdb()
-    cursor = edit_user.launchcursor(db)
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
 
     firstname = content['firstName']
     lastname = content['lastName']
@@ -28,9 +29,9 @@ def get_tasks():
     user_id = cursor.lastrowid
     start_time = datetime.datetime.now()
     test = edit_user.user(user_id, firstname, lastname, username, password,'','','', start_time, 1)
-    check = edit_user.insert_u(test,cursor)
+    check = edit_user.insert_u(cursor, test)
     
-    edit_user.commitclose(db,cursor)
+    start_db.commitclose(cursor, db)
 
     if check == 1:
         return jsonify({'firstName':content['firstName'],'lastName':content['lastName'],'username':content['username'],'password':content['password'], 'success':'true'})
@@ -42,10 +43,10 @@ def get_tasks():
 def get_tasks2():
     content = request.json
 
-    db = edit_user.launchdb()
-    cursor = edit_user.launchcursor(db)    
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)    
 
-    testdict = edit_user.read_u(0,0,0,cursor)
+    testdict = edit_user.read_u(cursor, 0,0,0)
     bobarray = []
     
     for userid, user in testdict.items():
@@ -58,7 +59,7 @@ def get_tasks2():
 
         bobarray.append(johndoe)
     
-    edit_user.commitclose(db,cursor)
+    start_db.commitclose(db,cursor)
     
     #bob = {'username':'bobby','firstName':'bobbert','lastName':'lee','id':'bobbity'}
 
@@ -67,7 +68,7 @@ def get_tasks2():
     user_id = cursor.lastrowid
     start_time = datetime.datetime.now()
     test = edit_user.user(user_id, 'Blah','Lmao','test1','haHAAAA','','','enigmamemory@gmail.com', start_time, 1)
-    edit_user.insert_u(test,cursor)
+    edit_user.insert_u(cursor, test)
     
 
     '''
@@ -80,12 +81,12 @@ def get_tasks2():
 def get_tasks3(identity):
     content = request.json
 
-    db = edit_user.launchdb()
-    cursor = edit_user.launchcursor(db)    
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)    
 
-    edit_user.delete_u(identity, cursor)
+    edit_user.delete_u(cursor, identity)
 
-    edit_user.commitclose(db,cursor)
+    start_db.commitclose(cursor, db)
     
     return jsonify({'id':identity, 'success':'true'})
 
@@ -100,13 +101,13 @@ def Authenticate():
     
     content = request.json
     
-    db = edit_user.launchdb()
-    cursor = edit_user.launchcursor(db)    
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)    
     
     username = content['username']
     password = content['password']
 
-    check = edit_user.confirm_u(username,password,cursor)
+    check = edit_user.confirm_u(cursor, username, password)
     #insert some function to check username and password here
 
     if check == 1:
@@ -119,7 +120,7 @@ def Authenticate():
     #else:
     #res only has regular stuff
 
-    edit_user.commitclose(db,cursor)
+    start_db.commitclose(cursor, db)
     
     #res =  jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
     #do not add success true is false
