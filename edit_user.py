@@ -149,7 +149,7 @@ def confirm_u(cursor, sign_in, pwrd):
 
 
 ## Delete User (for debugging purposes) ##
-def delete_u(cursor, user_id, cursor):
+def delete_u(cursor, user_id):
 	del_u = ("DELETE FROM User WHERE user_id = %(u_id)s")
 	value = {'u_id' : user_id}
 	cursor.execute(del_u, value)
@@ -190,3 +190,4 @@ insert_u(cursor, sam)
 insert_u(cursor, alex)
 insert_u(cursor, eric)
 read_u(cursor, 0, 0, 0)
+'''
