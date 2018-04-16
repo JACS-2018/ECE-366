@@ -39,7 +39,13 @@
                     console.log(response);
                     callback(response.data);
                 },function(error){
-                    console.log(error);
+                    var response2
+                    response2 = { success: false, message: 'Username or password is incorrect' }
+                    console.log(response2);
+                    callback(response2);
+                })
+               .catch(function (error) { 
+                    console.error(error); // Note: this logs the js type error
                 });
                // .success(function (response) {
                //     callback(response);

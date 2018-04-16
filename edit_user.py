@@ -7,7 +7,7 @@ from copy import deepcopy
 #current db on VM: playgroundapr8v2; on jas' computer: playgroundapr8; on github: playgroundapr9v2
 
 #opening db connection: 
-db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
+db = MySQLdb.connect("localhost","root","password", "playgroundapr8")
 
 #preparing cursor option using cursor() method
 cursor = db.cursor()
@@ -31,7 +31,7 @@ class user:
 ############################### Start Function Declarations ###############################
 
 def launchdb():
-	db = MySQLdb.connect("localhost", "root", "password", "playgroundapr8")
+	db = MySQLdb.connect("localhost","root","password", "playgroundapr8")
 	return db
 
 def launchcursor(db):

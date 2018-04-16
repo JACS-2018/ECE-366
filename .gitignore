@@ -49,5 +49,8 @@ Thumbs.db
 *.swp
 *.swo
 *.dSYM/
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b6a00aa84dbfab7cfb093e59c504d06e12d74b5
 node_modules/*

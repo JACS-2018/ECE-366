@@ -4,7 +4,7 @@ import os
 from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
-from flask_api import FlaskAPI
+from flask_api import FlaskAPI, status
 from flask_cors import CORS
 import edit_user
 import datetime
@@ -35,8 +35,8 @@ def get_tasks():
     if check == 1:
         return jsonify({'firstName':content['firstName'],'lastName':content['lastName'],'username':content['username'],'password':content['password'], 'success':'true'})
     else:
-        return jsonify({'firstName':content['firstName'],'lastName':content['lastName'],'username':content['username'],'password':content['password']})
-
+        return '',status.HTTP_404_NOT_FOUND
+        
 #Read all users function
 @app.route('/api/users', methods=['GET'])
 def get_tasks2():
@@ -112,7 +112,7 @@ def Authenticate():
     if check == 1:
         res =  jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
     else:
-        res =  jsonify({'username':content['username'],'password':content['password']})
+        return '',status.HTTP_404_NOT_FOUND
     #if match:
     #res includes success:true
 
