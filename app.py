@@ -35,8 +35,8 @@ def get_tasks():
     if check == 1:
         return jsonify({'firstName':content['firstName'],'lastName':content['lastName'],'username':content['username'],'password':content['password'], 'success':'true'})
     else:
-        return jsonify({'firstName':content['firstName'],'lastName':content['lastName'],'username':content['username'],'password':content['password']})
-
+        return '',status.HTTP_404_NOT_FOUND
+        
 #Read all users function
 @app.route('/api/users', methods=['GET'])
 def get_tasks2():
@@ -112,7 +112,7 @@ def Authenticate():
     if check == 1:
         res =  jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
     else:
-        res =  jsonify({'username':content['username'],'password':content['password']})
+        return '',status.HTTP_404_NOT_FOUND
     #if match:
     #res includes success:true
 
