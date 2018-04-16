@@ -132,7 +132,7 @@ def reactivate_u(cursor, u_name):
 
 
 ## Confirm user exists ##
-def confirm_u(cursor, sign_in, pwrd, cursor):
+def confirm_u(cursor, sign_in, pwrd):
 	if pwrd: 
 		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
 		value = (sign_in, sign_in, pwrd)
