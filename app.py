@@ -6,10 +6,16 @@ from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
 from flask_api import FlaskAPI, status
 from flask_cors import CORS
-import edit_user
-import start_db
 import datetime
 import MySQLdb
+
+import sys
+sys.path.append('db_services')
+import start_db
+import edit_user
+import edit_friendships
+import edit_posts
+
 app = Flask(__name__)
 CORS(app)
 

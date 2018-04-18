@@ -136,3 +136,4 @@ post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
 # create_p(cursor, post3)
 # create_p(cursor, post4)
 show_p(cursor, 2, 2)
+'''
