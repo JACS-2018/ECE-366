@@ -21,7 +21,7 @@ CORS(app)
 
 #Register Function
 @app.route('/api/users', methods=['POST'])
-def get_tasks():
+def register_user():
     content = request.json
 
     db = start_db.launchdb()
@@ -46,7 +46,7 @@ def get_tasks():
         
 #Read all users function
 @app.route('/api/users', methods=['GET'])
-def get_tasks2():
+def see_users():
     content = request.json
 
     db = start_db.launchdb()
@@ -84,7 +84,7 @@ def get_tasks2():
 
 #Delete User Function
 @app.route('/api/users/<identity>', methods=['DELETE'])
-def get_tasks3(identity):
+def delete_user(identity):
     content = request.json
 
     db = start_db.launchdb()
@@ -114,23 +114,14 @@ def Authenticate():
     password = content['password']
 
     check = edit_user.confirm_u(cursor, username, password)
-    #insert some function to check username and password here
-
-    if check == 1:
-        res =  jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
-    else:
-        return '',status.HTTP_404_NOT_FOUND
-    #if match:
-    #res includes success:true
-
-    #else:
-    #res only has regular stuff
 
     start_db.commitclose(cursor, db)
-    
-    #res =  jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
-    #do not add success true is false
-    return res
+
+    if check == 1:
+        return jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
+    else:
+        return '',status.HTTP_404_NOT_FOUND
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000,debug=True)
