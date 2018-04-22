@@ -10,7 +10,7 @@ from copy import deepcopy
 class post:
 	def __init__(self, post_id, user_a, user_b, timestamp, content):
 		self.post_id = post_id
-		self.user_a = user_a
+		self.user_a = user_a #user a is the one posting, user b is the one whose profile user_a is posting on 
 		self.user_b = user_b
 		self.timestamp = timestamp
 		self.content = content #content can be words or it can also be a relative path to media content 
@@ -19,7 +19,6 @@ class post:
 ############################### Start Function Declarations ###############################
 
 ## Creating a Post from A to B's Profile ##
-#user a is the one posting, user b is the one whose profile user_a is posting on 
 def create_p(cursor, post):
 
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
@@ -33,8 +32,9 @@ def create_p(cursor, post):
 				"VALUES (%s, %s, %s, %s, %s)")
 		value = (post.post_id, post.user_a, post.user_b, post.timestamp, post.content)
 		cursor.execute(create, value)
+		return 1
 	else:
-		print("You are not allowed to post on this person's profile")	
+		return 0 	
 
 
 ## Shows Posts on User b's Profile ##
@@ -48,8 +48,6 @@ def show_p(cursor, user_a, user_b):
 	value = {'user_id' : user_b}
 	cursor.execute(name, value)
 	p_profile = cursor.fetchone()
-	
-	print("You are viewing %s %s's Profile" %(p_profile[1], p_profile[2]))
 
 	if friends or user_a == user_b:
 		show = ("SELECT * FROM Posts WHERE user_b = %(user_b)s")
@@ -63,13 +61,20 @@ def show_p(cursor, user_a, user_b):
 			value = {'user_id': ind_p[1]}
 			cursor.execute(find_u, value)
 			friend = cursor.fetchone()
-			print(ind_p[4])
-			post_dict[ind_p[0]] = post(ind_p[0], ind_p[1], ind_p[2], ind_p[3], ind_p[4])
+			i_dict = post(ind_p[0], ind_p[1], ind_p[2], ind_p[3], ind_p[4])
+			post_dict.append(i_dict)
+		
 		return post_dict
 	else:
-		print("You aren't friends with this person, so you cannot see their profile")
-		return {}
-	
+		return 0
+
+
+## Delete post based on post_id ##
+def delete_p(cursor, post_id):
+	delete = ("DELETE FROM Posts WHERE post_id = %(post_id)s")
+	value = {'post_id' : post_id}
+	cursor.execute(delete, value)
+
 
 ## Can User Edit Post? ##	
 def can_edit_p(cursor, user_a, post_id):
@@ -95,11 +100,7 @@ def edit_p(cursor, post_id, new_p):
 		value = (new_p[3], post_id)
 		cursor.execute(update, value)
 
-## Delete post based on post_id ##
-def delete_p(cursor, post_id):
-	delete = ("DELETE FROM Posts WHERE post_id = %(post_id)s")
-	value = {'post_id' : post_id}
-	cursor.execute(delete, value)
+
 
 ## TODO! 
 ## Show Feed Post ##

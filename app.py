@@ -20,6 +20,9 @@ app = Flask(__name__)
 CORS(app)
 
 
+######################################################## User ######################################################### 
+
+
 #Register Function
 @app.route('/api/users', methods=['POST'])
 def register_user():
@@ -46,6 +49,7 @@ def register_user():
         return '',status.HTTP_404_NOT_FOUND
         
 
+## TODO: READ all user except themselves and their friends (suggested friends)
 #Read all users function
 @app.route('/api/users', methods=['GET'])
 def see_users():
@@ -57,7 +61,7 @@ def see_users():
     dict_user = edit_user.read_u(cursor, 0,0,0)
     array_user = []
     
-    for userid, user in dict_user.items():
+    for user in dict_user.items():
         username = user.u_name
         firstName = user.f_name
         lastName = user.l_name
@@ -113,6 +117,48 @@ def Authenticate():
         return jsonify({'username':content['username'],'password':content['password'], 'success':'true'})
     else:
         return '',status.HTTP_404_NOT_FOUND
+
+
+
+##################################################### Friendships ##################################################### 
+
+Sees all Friends
+@app.route('/api/friendships/<username>',methods=['GET'])
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)    
+
+    f_dict = edit_friendships.see_f(cursor, username)
+    array_f = []
+    
+    for friend in f_dict.items():
+        username = friend.u_name
+        firstName = friend.f_name
+        lastName = friend.l_name
+        myid = friend.user_id
+
+        ind_f = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
+
+        array_f.append(ind_f)
+    
+    start_db.commitclose(cursor, db)
+    
+    return jsonify({'person':array_f})
+
+
+
+# Add a Friend
+
+
+
+# Confirm/Delete Friend
+
+
+
+
+######################################################## Posts ########################################################
+
 
 
 if __name__ == '__main__':
