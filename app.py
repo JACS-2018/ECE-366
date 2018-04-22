@@ -19,6 +19,7 @@ import edit_posts
 app = Flask(__name__)
 CORS(app)
 
+
 #Register Function
 @app.route('/api/users', methods=['POST'])
 def register_user():
@@ -44,6 +45,7 @@ def register_user():
     else:
         return '',status.HTTP_404_NOT_FOUND
         
+
 #Read all users function
 @app.route('/api/users', methods=['GET'])
 def see_users():
@@ -52,34 +54,22 @@ def see_users():
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)    
 
-    testdict = edit_user.read_u(cursor, 0,0,0)
-    bobarray = []
+    dict_user = edit_user.read_u(cursor, 0,0,0)
+    array_user = []
     
-    for userid, user in testdict.items():
+    for userid, user in dict_user.items():
         username = user.u_name
         firstName = user.f_name
         lastName = user.l_name
         myid = user.user_id
 
-        johndoe = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
+        ind_user = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
 
-        bobarray.append(johndoe)
+        array_user.append(ind_user)
     
     start_db.commitclose(cursor,db)
     
-    #bob = {'username':'bobby','firstName':'bobbert','lastName':'lee','id':'bobbity'}
-
-    '''
-
-    user_id = cursor.lastrowid
-    start_time = datetime.datetime.now()
-    test = edit_user.user(user_id, 'Blah','Lmao','test1','haHAAAA','','','enigmamemory@gmail.com', start_time, 1)
-    edit_user.insert_u(cursor, test)
-    
-
-    '''
-    return jsonify({'person':bobarray})
-    #return jsonify({'person':[bob]})
+    return jsonify({'person':array_user})
 
 
 #Delete User Function
@@ -96,12 +86,14 @@ def delete_user(identity):
     
     return jsonify({'id':identity, 'success':'true'})
 
+
 @app.route('/api/users/<user>', methods=['GET'])
 def get_tasks4(user):
     content = request.json
     return jsonify({'user':user, 'success':'true'})
 
 
+# Authenticates people
 @app.route('/api/authenticate',methods=['POST'])
 def Authenticate():
     
