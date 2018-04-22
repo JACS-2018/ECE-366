@@ -38,30 +38,37 @@ def confirm_f(cursor, user_id_a, user_id_b, status):
 
 
 ## See Friendships ##
-def see_f(cursor, user_id):
+def see_f(cursor, username):
 	## for debugging purposes:
-	individual = ("SELECT * FROM User WHERE user_id = %(user_id)s")
-	value = {'user_id': user_id}
+	individual = ("SELECT * FROM User WHERE username = %(username)s")
+	value = {'username': username}
 	cursor.execute(individual, value) 
 	i_name = cursor.fetchone()
-	print("Your name is: %s %s" %(i_name[1], i_name[2]))
+	user_id = i_name[0]
 
 	
 	see = ("SELECT * FROM Friendships WHERE (user_id_a = %s OR user_id_b = %s) AND status = 1")
 	value = (user_id, user_id)
 	cursor.execute(see, value)
 	s_friends = cursor.fetchall()
+	f_dict = {}
 	
 	for all_f in s_friends:
 		if all_f[0] == user_id:
 			user_id2 = all_f[1]
 		else: 
 			user_id2 = all_f[0]
+		
 		find_u = ("SELECT * FROM User WHERE user_id = %(user_id)s")
 		value = {'user_id': user_id2}
+		
 		cursor.execute(find_u, value)
 		f_name = cursor.fetchone()
-		print("You are friends with %s %s" %(f_name[1], f_name[2]))
+		
+		ind_f = user(f_name[0], f_name[1], f_name[2], f_name[3], f_name[4], f_name[5], f_name[6], f_name[7], f_name[8], f_name[9])
+		f_dict.append(ind_f)
+
+	return f_dict
 
 
 ## See Potential Friendships ##
