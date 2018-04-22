@@ -16,12 +16,12 @@ import edit_user
 import edit_friendships
 import edit_posts
 
-app = Flask(__name__)
-CORS(app)
+app_user = Flask(__name__)
+CORS(app_user)
 
 
 #Register Function
-@app.route('/api/users', methods=['POST'])
+@app_user.route('/api/users', methods=['POST'])
 def register_user():
     content = request.json
 
@@ -47,7 +47,7 @@ def register_user():
         
 
 #Read all users function
-@app.route('/api/users', methods=['GET'])
+@app_user.route('/api/users', methods=['GET'])
 def see_users():
     content = request.json
 
@@ -65,7 +65,7 @@ def see_users():
 
         ind_user = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
 
-        array_user.append(ind_user)
+        array_user.app_userend(ind_user)
     
     start_db.commitclose(cursor,db)
     
@@ -73,7 +73,7 @@ def see_users():
 
 
 #Delete User Function
-@app.route('/api/users/<identity>', methods=['DELETE'])
+@app_user.route('/api/users/<identity>', methods=['DELETE'])
 def delete_user(identity):
     content = request.json
 
@@ -87,14 +87,14 @@ def delete_user(identity):
     return jsonify({'id':identity, 'success':'true'})
 
 
-@app.route('/api/users/<user>', methods=['GET'])
+@app_user.route('/api/users/<user>', methods=['GET'])
 def get_tasks4(user):
     content = request.json
     return jsonify({'user':user, 'success':'true'})
 
 
 # Authenticates people
-@app.route('/api/authenticate',methods=['POST'])
+@app_user.route('/api/authenticate',methods=['POST'])
 def Authenticate():
     
     content = request.json
@@ -116,4 +116,4 @@ def Authenticate():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000,debug=True)
+    app_user.run(host='0.0.0.0', port=5000,debug=True)
