@@ -2,7 +2,7 @@
     'use strict';
  
     angular
-        .module('app_user')
+        .module('app')
         .factory('AuthenticationService', AuthenticationService);
  
     AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
