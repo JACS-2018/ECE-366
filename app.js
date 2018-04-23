@@ -11,7 +11,22 @@
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
-                templateUrl: 'home/home.view.html',
+                templateUrl: 'home/index.html',
+                controllerAs: 'vm'
+            })
+            .when('/friend', {
+                controller: 'HomeController',
+                templateUrl: 'friend/friends.html',
+                controllerAs: 'vm'
+            })
+            .when('/profile', {
+                controller: 'HomeController',
+                templateUrl: 'profile/profile.html',
+                controllerAs: 'vm'
+            })
+            .when('/request', {
+                controller: 'HomeController',
+                templateUrl: 'request/requests.html',
                 controllerAs: 'vm'
             })
 

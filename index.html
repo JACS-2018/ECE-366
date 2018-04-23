@@ -5,26 +5,11 @@
     <title>BookFace</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="app-content/app.css" rel="stylesheet" />
+
 </head>
 <body>
-	<div class="posted-by2">
-	    <p class="form-title">Welcome to BookFace</p>
-	    
-	    <div class="container">
-	        <div class="row">
-	            <div class="col-md-12">
-	                <div>
-	                    <div class="col-sm-8 col-sm-offset-2">
-	                        <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-	                        <div ng-view></div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="posted-by">Github Link: <a href="https://github.com/Cwei1">Github</a></div>
-	    </div>
-	</div>
+    <div ng-view> </div>
+	
 
 
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>

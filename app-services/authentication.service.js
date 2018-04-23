@@ -34,7 +34,7 @@
  
             /* Use this for real authentication
              ----------------------------------------------*/
-            $http.post('http://199.98.27.115:5000/api/authenticate', { username: username, password: password })
+            $http.post('http://127.0.0.1:5000/api/authenticate', { username: username, password: password })
                .then(function(response){
                     console.log(response);
                     callback(response.data);
