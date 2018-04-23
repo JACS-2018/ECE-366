@@ -122,14 +122,15 @@ def Authenticate():
 
 ##################################################### Friendships ##################################################### 
 
-Sees all Friends
+#Sees all Friends
 @app.route('/api/friendships/<username>',methods=['GET'])
+def read_friends(username):
     content = request.json
 
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)    
 
-    f_dict = edit_friendships.see_f(cursor, username)
+    f_dict = edit_friendships.allpotential_f(cursor, username, 0)
     array_f = []
     
     for friend in f_dict.items():
@@ -147,13 +148,21 @@ Sees all Friends
     return jsonify({'person':array_f})
 
 
+# #Sees Potential Friends
+# @app.route('/api/friendships/confirm/<username>',methods=['GET'])
 
-# Add a Friend
+# #Friends you're awaiting confirmation from
+# @app.route('/api/friendships/awaiting/<username>',methods=['GET'])
 
 
+# # Add a Friend
+# @app.route('/api/friendships/',methods=['POST'])
 
-# Confirm/Delete Friend
 
+# # Confirm/Delete Friend
+# @app.route('/api/friendships/',methods=['PUT', 'DELETE'])
+# def is_friend():
+#     if request == 'PUT'
 
 
 
