@@ -37,7 +37,7 @@ def create_p(cursor, post):
 		return 0 	
 
 
-## Shows Posts on User b's Profile ##
+## Shows Posts on User b's Profile ## (TODO!! if original poster isnt there anymore, show null)
 def show_p(cursor, user_a, user_b):
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (user_a, user_b, user_b, user_a)
@@ -55,7 +55,7 @@ def show_p(cursor, user_a, user_b):
 		cursor.execute(show, value)
 		all_p = cursor.fetchall()
 
-		post_dict = {}
+		post_dict = []
 		for ind_p in all_p: 
 			find_u = ("SELECT * FROM User WHERE user_id = %(user_id)s")
 			value = {'user_id': ind_p[1]}

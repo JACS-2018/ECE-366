@@ -104,7 +104,30 @@ def update_u(cursor, u_name, new_u):
 		value = (new_u.email, old_u.user_id)
 		cursor.execute(update, value)
 
-	print("Done Updating!")
+	return 1
+
+## Confirm user exists ##
+def confirm_u(cursor, sign_in, pwrd):
+	if pwrd: 
+		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
+		value = (sign_in, sign_in, pwrd)
+	else: 
+		find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
+		value = (sign_in, sign_in)
+	cursor.execute(find_u, value)
+	found = cursor.fetchall()
+
+	if found: 
+		return 1
+	else: 
+		return 0
+
+
+## Delete User (for debugging purposes) ## (TODO!! also delete all frienships)
+def delete_u(cursor, user_id):
+	del_u = ("DELETE FROM User WHERE user_id = %(u_id)s")
+	value = {'u_id' : user_id}
+	cursor.execute(del_u, value)
 
 
 ## Deactivate User ##
@@ -129,30 +152,6 @@ def reactivate_u(cursor, u_name):
 	update = ("UPDATE User SET active = 1 WHERE user_id = %(user_id)s")
 	value = {'user_id': d_user[0]}
 	cursor.execute(update, value)
-
-
-## Confirm user exists ##
-def confirm_u(cursor, sign_in, pwrd):
-	if pwrd: 
-		find_u = ("SELECT * FROM User WHERE (username = %s OR email = %s) AND password = %s")
-		value = (sign_in, sign_in, pwrd)
-	else: 
-		find_u = ("SELECT * FROM User WHERE username = %s OR email = %s")
-		value = (sign_in, sign_in)
-	cursor.execute(find_u, value)
-	found = cursor.fetchall()
-
-	if found: 
-		return 1
-	else: 
-		return 0
-
-
-## Delete User (for debugging purposes) ##
-def delete_u(cursor, user_id):
-	del_u = ("DELETE FROM User WHERE user_id = %(u_id)s")
-	value = {'u_id' : user_id}
-	cursor.execute(del_u, value)
 
 
 

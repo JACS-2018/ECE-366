@@ -3,6 +3,8 @@
 import MySQLdb
 import datetime
 from copy import deepcopy
+import start_db
+import edit_user
 
 
 ############################### Start Function Declarations ###############################
@@ -37,68 +39,44 @@ def confirm_f(cursor, user_id_a, user_id_b, status):
 		delete_f(cursor, user_id_a, user_id_b)
 
 
-## See Friendships ##
-def see_f(cursor, username):
-	## for debugging purposes:
+## See All Friendships & Potential Friendships (0- where you guys are friends, 1 - where you have to accept, 2 - where you are awaiting their acceptance) ##
+def allpotential_f(cursor, username, val):
+	## you have to accept
 	individual = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': username}
 	cursor.execute(individual, value) 
 	i_name = cursor.fetchone()
 	user_id = i_name[0]
 
-	
-	see = ("SELECT * FROM Friendships WHERE (user_id_a = %s OR user_id_b = %s) AND status = 1")
-	value = (user_id, user_id)
-	cursor.execute(see, value)
-	s_friends = cursor.fetchall()
-	f_dict = {}
-	
-	for all_f in s_friends:
-		if all_f[0] == user_id:
-			user_id2 = all_f[1]
-		else: 
-			user_id2 = all_f[0]
-		
-		find_u = ("SELECT * FROM User WHERE user_id = %(user_id)s")
-		value = {'user_id': user_id2}
-		
-		cursor.execute(find_u, value)
-		f_name = cursor.fetchone()
-		
-		ind_f = user(f_name[0], f_name[1], f_name[2], f_name[3], f_name[4], f_name[5], f_name[6], f_name[7], f_name[8], f_name[9])
-		f_dict.append(ind_f)
+	if val == 0: 
+		find_p_f = ("SELECT * FROM Friendships WHERE (user_id_a = %s OR user_id_b = %s) AND status = 1")
+		value = (user_id, user_id)
+	elif val == 1: 
+		find_p_f = ("SELECT * FROM Friendships WHERE user_id_b = %(user_id_b)s AND status = 0")
+		value = {'user_id_b': user_id}
+	else: 
+		find_p_f = ("SELECT * FROM Friendships WHERE user_id_a = %(user_id_a)s AND status = 0")
+		value = {"user_id_a": user_id}
 
-	return f_dict
-
-
-## See Potential Friendships ##
-def allpotential_f(cursor, user_id):
-	## you have to accept
-	unaccepted = ("SELECT * FROM Friendships WHERE user_id_b = %(user_id_b)s AND status = 0")
-	value = {'user_id_b': user_id}
-	cursor.execute(unaccepted, value)
+	cursor.execute(find_p_f, value)
 	u_friends = cursor.fetchall()
 
+	ap_dict = []
 	for all_u_f in u_friends:
-		find_u_f = ("SELECT * FROM User WHERE user_id = %(user_id)s")
-		value = {'user_id': all_u_f[0]}
-		cursor.execute(find_u_f, value)
+		if all_u_f[0] == user_id:
+			user_id2 = all_u_f[1]
+		else: 
+			user_id2 = all_u_f[0]
+
+		find_f = ("SELECT * FROM User WHERE user_id = %(user_id)s")
+		value = {'user_id': user_id2}
+		cursor.execute(find_f, value)
 		u_f_name = cursor.fetchone()
-		print("You have an unconfirmed friendship with: %s %s" %(u_f_name[1], u_f_name[2]))
-	
+		i_conf = edit_user.user(u_f_name[0], u_f_name[1], u_f_name[2], u_f_name[3], u_f_name[4], u_f_name[5], u_f_name[6], u_f_name[7], u_f_name[8], u_f_name[9])
+		print("%s %s", u_f_name[1], u_f_name[2])
+		ap_dict.append(i_conf)
 
-	## they have to accept
-	waiting = ("SELECT * FROM Friendships WHERE user_id_a = %(user_id_a)s AND status = 0")
-	value = {"user_id_a": user_id}
-	cursor.execute(waiting, value)
-	w_friends = cursor.fetchall()
-
-	for all_w_f in w_friends:
-		find_w_f = ("SELECT * FROM User WHERE user_id = %(user_id)s")
-		value = {'user_id': all_w_f[1]}
-		cursor.execute(find_w_f, value)
-		w_f_name = cursor.fetchone()
-		print("You are waiting for a friendship with: %s %s" %(w_f_name[1], w_f_name[2]))
+	return ap_dict
 
 
 ## Delete Friends ## 
@@ -110,6 +88,12 @@ def delete_f(cursor, user_id_a, user_id_b):
 
 
 ############################### Finished Function Declarations ###############################
+
+
+db = start_db.launchdb()
+cursor = start_db.launchcursor(db)
+allpotential_f(cursor, 'eric.ng.501', 1)
+start_db.commitclose(cursor, db)
 
 
 '''
