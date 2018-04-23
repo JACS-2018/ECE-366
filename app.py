@@ -61,7 +61,7 @@ def see_users():
     dict_user = edit_user.read_u(cursor, 0,0,0)
     array_user = []
     
-    for user in dict_user.items():
+    for userid,user in dict_user.items():
         username = user.u_name
         firstName = user.f_name
         lastName = user.l_name

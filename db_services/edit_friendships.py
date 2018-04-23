@@ -90,11 +90,6 @@ def delete_f(cursor, user_id_a, user_id_b):
 ############################### Finished Function Declarations ###############################
 
 
-db = start_db.launchdb()
-cursor = start_db.launchcursor(db)
-allpotential_f(cursor, 'eric.ng.501', 1)
-start_db.commitclose(cursor, db)
-
 
 '''
 add_f(cursor, 1,2)
