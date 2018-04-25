@@ -4,6 +4,7 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
+#import start_db
 
 ############################### User Class Declarations ###############################
 
@@ -91,13 +92,13 @@ def can_edit_p(cursor, user_a, post_id):
 ## Edit post made by user ##
 # Has to go through "can_edit_p" before edit_p
 def edit_p(cursor, post_id, new_p): 
-	edit = ("SELECT * FROM Posts WHERE post_id = %s")
+	edit = ("SELECT * FROM Posts WHERE post_id = %(post_id)s")
 	value = {'post_id': post_id}
 	cursor.execute(edit, value)
 	old_p = cursor.fetchone()
-	if new_p[3] != old_p[3]:
+	if new_p != old_p[4]:
 		update = ("UPDATE Posts SET content = %s WHERE post_id = %s")
-		value = (new_p[3], post_id)
+		value = (new_p, post_id)
 		cursor.execute(update, value)
 
 
@@ -119,22 +120,34 @@ def edit_p(cursor, post_id, new_p):
 
 
 '''
+db = start_db.launchdb()
+cursor = start_db.launchcursor(db)   
+
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post1 = post(post_id, '1', '2', post_time, 'hehe')
+post1 = post(post_id, 18, 12, post_time, 'hehe')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post2 = post(post_id, '2', '3', post_time, 'hi bff')
+post2 = post(post_id, 14, 13, post_time, 'hi bff')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post3 = post(post_id, '3', '2', post_time, 'hello to you too bff')
+post3 = post(post_id, 13, 14, post_time, 'hello to you too bff')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post4 = post(post_id, '4', '4', post_time, 'i can make my own post!!!')
+post4 = post(post_id, 14, 16, post_time, 'i can make my own post!!!')
+post_id = cursor.lastrowid
+post5 = post(post_id, 14, 14, post_time, 'i can make my own post!!!')
+#create_p(cursor, post5)
 
 # create_p(cursor, post1)
 # create_p(cursor, post2)
 # create_p(cursor, post3)
 # create_p(cursor, post4)
-show_p(cursor, 2, 2)
+
+edit_p(cursor, 4, 'HIIII WAZZUP')
+#delete_p(cursor, 7)
+
+
+
+start_db.commitclose(cursor, db)
 '''

@@ -3,8 +3,10 @@
 import MySQLdb
 import datetime
 from copy import deepcopy
-import start_db
 import edit_user
+
+#import start_db
+
 
 
 ############################### Start Function Declarations ###############################
@@ -89,30 +91,39 @@ def delete_f(cursor, user_id_a, user_id_b):
 
 ############################### Finished Function Declarations ###############################
 
-
-
 '''
-add_f(cursor, 1,2)
-add_f(cursor, 1,4)
-add_f(cursor, 1,3)
-add_f(cursor, 2,3)
-add_f(cursor, 2,5)
-add_f(cursor, 3,5)
-add_f(cursor, 5,1)
-add_f(cursor, 4,3)
-add_f(cursor, 4,2)
-confirm_f(cursor, 2, 3,1)
-confirm_f(cursor, 2, 5, 1)
-confirm_f(cursor, 1, 4, 1)
-confirm_f(cursor, 4,3,1)
-allpotential_f(cursor, 1)
-see_f(cursor, 1)
-allpotential_f(cursor, 2)
-see_f(cursor, 2)
-allpotential_f(cursor, 3)
-see_f(cursor, 3)
-allpotential_f(cursor, 4)
-see_f(cursor, 4)
-allpotential_f(cursor, 5)
-see_f(cursor, 5)
+db = start_db.launchdb()
+cursor = start_db.launchcursor(db)   
+
+# add_f(cursor, 12, 13)
+# add_f(cursor, 14, 13)
+# add_f(cursor, 15, 13)
+# add_f(cursor, 16, 13)
+# add_f(cursor, 17, 13)
+# add_f(cursor, 18, 13)
+# add_f(cursor, 19, 13)
+# add_f(cursor, 20, 13)
+# add_f(cursor, 12, 15)
+# add_f(cursor, 15, 19)
+# add_f(cursor, 12, 18)
+# add_f(cursor, 12, 17)
+# add_f(cursor, 14, 16)
+# add_f(cursor, 12, 14)
+# add_f(cursor, 12, 12)
+# add_f(cursor, 14, 20)
+# add_f(cursor, 14, 19)
+# add_f(cursor, 15, 18)
+confirm_f(cursor, 14, 13, 1)
+confirm_f(cursor, 18, 13, 1)
+confirm_f(cursor, 19, 13, 1)
+confirm_f(cursor, 20, 13, 1)
+confirm_f(cursor, 12, 15, 1)
+confirm_f(cursor, 12, 18, 1)
+confirm_f(cursor, 12, 17, 1)
+confirm_f(cursor, 14, 16, 1)
+confirm_f(cursor, 12, 14, 1)
+
+
+
+start_db.commitclose(cursor, db)
 '''

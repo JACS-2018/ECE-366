@@ -4,6 +4,7 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
+# import start_db
 
 ############################### User Class Declarations ###############################
 
@@ -31,7 +32,6 @@ def insert_u(cursor, user):
 	# 	return 0	
 	# elif
 	if confirm_u(cursor, user.u_name, 0):
-		print("username is the same ")
 		return 0
 	else: 
 		ins = ("INSERT INTO User" 
@@ -157,36 +157,56 @@ def reactivate_u(cursor, u_name):
 
 ############################### Finished Function Declarations ###############################
 
+
 '''
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'hehexd', '', '', 'wei@cooper.edu', start_time, 1)
+db = start_db.launchdb()
+cursor = start_db.launchcursor(db)    
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-jas = user(user_id, 'Jas', 'Tea', 'jtangbb', 'heh', '', '', 'tang@cooper.edu', start_time, 1)
+car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'cardywei', '', '5V ground', 'wei@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-sam = user(user_id, 'sam', 'cheng', 'scheng829', 'wow', '', '', 'scheng839@gmail.com', start_time, 1)
+jas = user(user_id, 'Jasmine', 'Tang', 'jtangqt', 'jasminetang', '', 'Friends dont harrass other friends.', 'tang@cooper.edu', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-alex = user(user_id, 'alex', 'hu', 'enigmamemoryg', 'cupnoodles', '', '', 'hu5@cooper.edu', start_time, 1)
+sam = user(user_id, 'sam', 'cheng', 'scheng829', 'samcheng', '', 'Watch my dance moves', 'scheng839@gmail.com', start_time, 1)
 
 user_id = cursor.lastrowid
 start_time = datetime.datetime.now()
-eric = user(user_id, 'eric', 'n', 'eric.ng.5013', 'hehe', '', '', '501@col.edu', start_time, 1)
+alex = user(user_id, 'alex', 'hu', 'enigmamemoryg', 'alexhu', '', 'AHH NLP', 'hu5@cooper.edu', start_time, 1)
 
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+kc = user(user_id, 'casey', 'he', 'squishybluewristbutt', 'caseyhe', '', 'ROCK CLIMBING', 'he@cooper.edu', start_time, 1)
 
-new_me = deepcopy(me)
-new_me.email = "hehe@gmail.com"
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+joey = user(user_id, 'joey', 'benghaasllkfdldaflaf', 'tritus', 'joey', '', '@everyone, league???', 'jbengtlfdf15@gmail.com', start_time, 1)
 
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+jerry = user(user_id, 'jeremiah', 'pratt', 'sabooap', 'jeremiahpratt', '', 'Again, our sincere apologies to the families who went home disappointed.', 'pratt@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+dan = user(user_id, 'dan', 'park', 'solarien', 'danpark', '', 'Join the army with me!', 'park100000@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+chris = user(user_id, 'chris', 'watkins', 'WATGOIN', 'chriswatkins', '', 'I am a front end developer', 'watkins@cooper.edu', start_time, 1)
 
 insert_u(cursor, car)
 insert_u(cursor, jas)
 insert_u(cursor, sam)
 insert_u(cursor, alex)
-insert_u(cursor, eric)
-read_u(cursor, 0, 0, 0)
+insert_u(cursor, kc)
+insert_u(cursor, joey)
+insert_u(cursor, jerry)
+insert_u(cursor, dan)
+insert_u(cursor, chris)
+
+start_db.commitclose(cursor, db)
 '''
