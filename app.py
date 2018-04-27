@@ -168,7 +168,65 @@ def read_friends(username):
 
 ######################################################## Posts ########################################################
 
+#requires fill in based on front end
+@app.route('/api/posts/<user_id_a>/<user_id_b>',methods=['POST'])
 
+def makepost(user_id_a,user_id_b):
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    '''
+    #usera = edit_user.read_u(cursor, username_a) #might be (cursor, 0, 0, username_a)
+    #userb = edit_user.read_u(cursor, username_b)
+    '''
+    #Supposedly want user_id, not user
+
+    post_id = cursor.lastrowid
+    timestamp = datetime.datetime.now()
+    writeup = content['content']
+    newpost = edit_posts.post(post_id, user_id_a, user_id_b, timestamp, writeup)
+    check = create_p(cursor, post)
+    
+    start_db.commitclose(cursor, db)
+    '''
+    if check == 1:
+        #return correct jsonify
+    else:
+        #return error jsonify?
+    '''
+    return 0
+
+@app.route('/api/posts/<user_id_a>/<user_id_b>',methods=['GET'])
+
+def getpost(user_id_a,user_id_b):
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    post_dict = edit_posts.show_p(cursor,user_id_a,user_id_b)
+
+    #Need to decide what to do with post_dict after grabbing it
+
+    start_db.commitclose(cursor, db)
+    '''
+    if check == 1:
+        #return correct jsonify
+    else:
+        #return error jsonify?
+    '''
+    return 0
+
+#Need to be able to grab all posts for display
+#Delete Posts (bugtesting)
+
+
+#Optional?
+#Comments on Posts
+#Editing Posts
+#Editing Comments
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000,debug=True)
