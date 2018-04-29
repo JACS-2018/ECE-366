@@ -198,15 +198,15 @@ def makepost(user_id_a,user_id_b):
     '''
     return 0
 
-@app.route('/api/posts/<user_id_a>/<user_id_b>',methods=['GET'])
+@app.route('/api/posts/<user_id_b>',methods=['GET'])
 
-def getpost(user_id_a,user_id_b):
+def getpost(user_id_b):
     content = request.json
 
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
-    post_dict = edit_posts.show_p(cursor,user_id_a,user_id_b)
+    post_dict = edit_posts.show_p(cursor,user_id_b,user_id_b)
 
     #Need to decide what to do with post_dict after grabbing it
 
