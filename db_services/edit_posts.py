@@ -5,6 +5,7 @@ import datetime
 from copy import deepcopy
 
 import start_db
+import edit_user
 
 ############################### User Class Declarations ###############################
 
@@ -20,18 +21,8 @@ class post:
 		db = start_db.launchdb()
 		cursor = start_db.launchcursor(db)   
 
-		query_a = ("SELECT * FROM User WHERE username = %(username_a)s")
-		value_a = {'username_a': username_a}
-		cursor.execute(query_a, value_a)
-		person_a = cursor.fetchone()
-
-		query_b = ("SELECT * FROM User WHERE username = %(username_b)s")
-		value_b = {'username_b': username_b}
-		cursor.execute(query_b, value_b)
-		person_b = cursor.fetchone()
-		
-		self.user_a = person_a[0] 
-		self.user_b = person_b[0]
+		self.user_a = edit_user.find_u(cursor, username_a) 
+		self.user_b = edit_user.find_u(cursor, username_b)
 
 		start_db.commitclose(cursor, db)
 
@@ -58,7 +49,9 @@ def create_p(cursor, post):
 
 
 ## Shows Posts on User b's Profile ## (TODO!! if original poster isnt there anymore, show null)
-def show_p(cursor, user_a, user_b):
+def show_p(cursor, username_a, username_b):
+	user_a = edit_user.find_u(cursor, username_a)
+	user_b = edit_user.find_u(cursor, username_b)
 	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
 	value = (user_a, user_b, user_b, user_a)
 	cursor.execute(find, value)
@@ -81,9 +74,9 @@ def show_p(cursor, user_a, user_b):
 			value = {'user_id': ind_p[1]}
 			cursor.execute(find_u, value)
 			friend = cursor.fetchone()
-			i_dict = post(ind_p[0], ind_p[1], ind_p[2], ind_p[3], ind_p[4])
+			i_dict = post(ind_p[0], ind_p[3], ind_p[4], ind_p[5], ind_p[6])
 			post_dict.append(i_dict)
-			print (ind_p[4])
+			print(ind_p[6])
 		
 		return post_dict
 	else:
@@ -138,32 +131,34 @@ def edit_p(cursor, post_id, new_p):
 
 ############################### Finished Function Declarations ###############################
 
-'''
+
 db = start_db.launchdb()
 cursor = start_db.launchcursor(db)   
 
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post1 = post(post_id, 'scheng829', 'cwei3', post_time, 'once upon a time')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post2 = post(post_id, 'enigmamemoryg', 'cwei3', post_time, 'there was a person')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post3 = post(post_id, 'sabooap', 'cwei3', post_time, 'who wanted to eat ')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post4 = post(post_id, 'tritus', 'cwei3', post_time, 'cup noooooodles all the time')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post5 = post(post_id, 'enigmamemoryg','cwei3', post_time, 'and his name was........ exdee')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post1 = post(post_id, 'scheng829', 'cwei3', post_time, 'once upon a time')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post2 = post(post_id, 'enigmamemoryg', 'cwei3', post_time, 'there was a person')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post3 = post(post_id, 'sabooap', 'cwei3', post_time, 'who wanted to eat ')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post4 = post(post_id, 'tritus', 'cwei3', post_time, 'cup noooooodles all the time')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post5 = post(post_id, 'enigmamemoryg','cwei3', post_time, 'and his name was........ exdee')
 
 
-create_p(cursor, post1)
-create_p(cursor, post2)
-create_p(cursor, post3)
-create_p(cursor, post4)
-create_p(cursor, post5)
+# create_p(cursor, post1)
+# create_p(cursor, post2)
+# create_p(cursor, post3)
+# create_p(cursor, post4)
+# create_p(cursor, post5)
+
+show_p(cursor, 'cwei3', 'cwei3')
 
 #edit_p(cursor, 4, 'HIIII WAZZUP')
 # delete_p(cursor, 10)
@@ -172,4 +167,3 @@ create_p(cursor, post5)
 
 
 start_db.commitclose(cursor, db)
-'''

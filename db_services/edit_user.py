@@ -154,6 +154,14 @@ def reactivate_u(cursor, u_name):
 	cursor.execute(update, value)
 
 
+def find_u(cursor, username):
+	query = ("SELECT * FROM User WHERE username = %(username)s")
+	value = {'username': username}
+	cursor.execute(query, value)
+	person = cursor.fetchone()
+	return person[0]
+
+
 
 ############################### Finished Function Declarations ###############################
 
