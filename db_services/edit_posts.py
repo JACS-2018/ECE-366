@@ -131,7 +131,7 @@ def edit_p(cursor, post_id, new_p):
 
 ############################### Finished Function Declarations ###############################
 
-'''
+
 db = start_db.launchdb()
 cursor = start_db.launchcursor(db)   
 
@@ -167,4 +167,3 @@ show_p(cursor, 'cwei3', 'cwei3')
 
 
 start_db.commitclose(cursor, db)
-'''
