@@ -31,14 +31,7 @@
                 .then(function (user) {
                     vm.user = user['person'][0];
                     console.log(user['person'][0].id)
-                    loadPosts(user['person'][0].id);
-                });
-        }
-
-         function loadUser(id) {
-            UserService.GetByUsername(id)
-                .then(function (user) {
-                    console.log( user['person'][0].firstName + ' ' + user['person'][0].lastName);
+                    loadPosts(user['person'][0].username);
                 });
         }
 
@@ -56,11 +49,12 @@
             });
         }
 
-        function loadPosts(id) {
-            UserService.GetPostById(id)
+        function loadPosts(userName) {
+            UserService.GetPostById(userName)
                 .then(function (posting) {
                     vm.allPosts = posting['posts'];
                     console.log(vm.allPosts);
+
                 });
         }
     }
