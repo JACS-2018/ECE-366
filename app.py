@@ -186,8 +186,8 @@ def read_friends(username):
 ######################################################## Posts ########################################################
 
 #requires fill in based on front end
-@app.route('/api/posts/<user_id_a>/<user_id_b>',methods=['POST'])
-def makepost(user_id_a,user_id_b):
+@app.route('/api/posts',methods=['POST'])
+def makepost():
     content = request.json
 
     db = start_db.launchdb()
@@ -201,6 +201,8 @@ def makepost(user_id_a,user_id_b):
 
     post_id = cursor.lastrowid
     timestamp = datetime.datetime.now()
+    user_id_a = content['user_id_a']
+    user_id_b = content['user_id_b']
     writeup = content['content']
     newpost = edit_posts.post(post_id, user_id_a, user_id_b, timestamp, writeup)
     check = create_p(cursor, post)
