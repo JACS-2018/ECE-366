@@ -10,17 +10,17 @@ import edit_user
 ############################### User Class Declarations ###############################
 
 class post:
-	def __init__(self, post_id, username_a, username_b, timestamp, content):
-		self.post_id = post_id
+	def __init__(self, username_a, username_b, content):
 		self.username_a = username_a #user a is the one posting, user b is the one whose profile user_a is posting on
 		self.username_b = username_b
-		self.timestamp = timestamp
+		self.timestamp = datetime.datetime.now()
 		self.content = content #content can be words or it can also be a relative path to media content 
 		
 
 		db = start_db.launchdb()
 		cursor = start_db.launchcursor(db)   
 
+		self.post_id = cursor.lastrowid
 		self.user_a = edit_user.find_u(cursor, username_a) 
 		self.user_b = edit_user.find_u(cursor, username_b)
 
@@ -131,13 +131,13 @@ def edit_p(cursor, post_id, new_p):
 
 ############################### Finished Function Declarations ###############################
 
-
+'''
 db = start_db.launchdb()
 cursor = start_db.launchcursor(db)   
 
-# post_time = datetime.datetime.now()
+
 # post_id = cursor.lastrowid
-# post1 = post(post_id, 'scheng829', 'cwei3', post_time, 'once upon a time')
+post1 = post('scheng829', 'cwei3', 'hardy har har')
 # post_time = datetime.datetime.now()
 # post_id = cursor.lastrowid
 # post2 = post(post_id, 'enigmamemoryg', 'cwei3', post_time, 'there was a person')
@@ -152,7 +152,7 @@ cursor = start_db.launchcursor(db)
 # post5 = post(post_id, 'enigmamemoryg','cwei3', post_time, 'and his name was........ exdee')
 
 
-# create_p(cursor, post1)
+create_p(cursor, post1)
 # create_p(cursor, post2)
 # create_p(cursor, post3)
 # create_p(cursor, post4)
@@ -167,3 +167,4 @@ show_p(cursor, 'cwei3', 'cwei3')
 
 
 start_db.commitclose(cursor, db)
+'''
