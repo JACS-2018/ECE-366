@@ -52,15 +52,10 @@ def create_p(cursor, post):
 def show_p(cursor, username_a, username_b):
 	user_a = edit_user.find_u(cursor, username_a)
 	user_b = edit_user.find_u(cursor, username_b)
-	find = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s) AND status = 1")
+	find = ("SELECT * FROM Friendships WHERE ((user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)) AND status = 1")
 	value = (user_a, user_b, user_b, user_a)
 	cursor.execute(find, value)
 	friends = cursor.fetchone()
-	
-	name = ("SELECT * FROM User WHERE user_id = %(user_id)s")
-	value = {'user_id' : user_b}
-	cursor.execute(name, value)
-	p_profile = cursor.fetchone()
 
 	if friends or user_a == user_b:
 		show = ("SELECT * FROM Posts WHERE user_b = %(user_b)s")
@@ -77,6 +72,7 @@ def show_p(cursor, username_a, username_b):
 			resp = {'post_id':ind_p[0], 'username_a':ind_p[3], 'username_b':ind_p[4], 'timestamp':ind_p[5], 'content':ind_p[6]}
 			post_dict.append(resp)
 
+		print("hi")
 		return post_dict
 	else:
 		return 0
@@ -129,26 +125,41 @@ def edit_p(cursor, post_id, new_p):
 			
 
 ############################### Finished Function Declarations ###############################
-'''
 
+'''
 db = start_db.launchdb()
 cursor = start_db.launchcursor(db)   
 
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post1 = post(post_id, 'scheng829', 'cwei3', post_time, 'once upon a time')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post2 = post(post_id, 'enigmamemoryg', 'cwei3', post_time, 'there was a person')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post3 = post(post_id, 'sabooap', 'cwei3', post_time, 'who wanted to eat ')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post4 = post(post_id, 'tritus', 'cwei3', post_time, 'cup noooooodles all the time')
-# post_time = datetime.datetime.now()
-# post_id = cursor.lastrowid
-# post5 = post(post_id, 'enigmamemoryg','cwei3', post_time, 'and his name was........ exdee')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post1 = post(post_id, 'scheng829', 'jtangqt', post_time, 'once upon a time')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post2 = post(post_id, 'jtangqt', 'jtangqt', post_time, 'there was a person')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post3 = post(post_id, 'sabooap', 'jtangqt', post_time, 'who wanted to eat ')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post4 = post(post_id, 'tritus', 'jtangqt', post_time, 'cup noooooodles all the time')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post5 = post(post_id, 'squishybluewristbutt','jtangqt', post_time, 'and his name was........ exdee')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post6 = post(post_id, 'enigmamemory','enigmamemory', post_time, 'and his name was........ exdee')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post7 = post(post_id, 'cwei3','enigmamemory', post_time, 'and his name was........ exdee')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post8 = post(post_id, 'cwei3','jtangqt', post_time, 'and his name was........ exdee')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post9 = post(post_id, 'solarien','jtangqt', post_time, 'YA LIKE JAZZ?')
+post_time = datetime.datetime.now()
+post_id = cursor.lastrowid
+post10 = post(post_id, 'solarien','jtangqt', post_time, 'i know you do')
 
 
 # create_p(cursor, post1)
@@ -156,8 +167,14 @@ cursor = start_db.launchcursor(db)
 # create_p(cursor, post3)
 # create_p(cursor, post4)
 # create_p(cursor, post5)
+# create_p(cursor, post6)
+# create_p(cursor, post7)
+# create_p(cursor, post8)
+# create_p(cursor, post9)
+# create_p(cursor, post10)
 
-show_p(cursor, 'cwei3', 'cwei3')
+
+show_p(cursor, 'cwei3', 'jtangqt')
 
 #edit_p(cursor, 4, 'HIIII WAZZUP')
 # delete_p(cursor, 10)
