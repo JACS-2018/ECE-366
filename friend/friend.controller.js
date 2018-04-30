@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .controller('HomeController', HomeController);
+        .controller('FriendController', FriendController);
 
-    HomeController.$inject = ['UserService', '$rootScope','$location'];
-    function HomeController(UserService, $rootScope) {
+    FriendController.$inject = ['UserService', '$rootScope','$location'];
+    function FriendController(UserService, $rootScope) {
         var vm = this;
 
         vm.user = null;

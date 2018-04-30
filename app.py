@@ -217,8 +217,6 @@ def makepost():
         return '',status.HTTP_404_NOT_FOUND
         #return error jsonify?
 
-    return 0
-
 @app.route('/api/posts/<useridb>',methods=['GET'])
 def getpost(useridb):
     content = request.json

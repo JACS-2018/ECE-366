@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .controller('HomeController', HomeController);
+        .controller('RequestController', RequestController);
 
-    HomeController.$inject = ['UserService', '$rootScope','$location'];
-    function HomeController(UserService, $rootScope) {
+    RequestController.$inject = ['UserService', '$rootScope','$location'];
+    function RequestController(UserService, $rootScope) {
         var vm = this;
 
         vm.user = null;

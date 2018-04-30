@@ -15,22 +15,22 @@
                 controllerAs: 'vm'
             })
             .when('/friend', {
-                controller: 'HomeController',
+                controller: 'FriendController',
                 templateUrl: 'friend/friends.html',
                 controllerAs: 'vm'
             })
             .when('/friendpage', {
-                controller: 'HomeController1',
-                templateUrl: 'friendpage/indexfriend.html',
+                controller: 'FriendPageController',
+                templateUrl: 'friendpage/friendpage.view.html',
                 controllerAs: 'vm'
             })
             .when('/profile', {
-                controller: 'HomeController',
+                controller: 'ProfileController',
                 templateUrl: 'profile/profile.html',
                 controllerAs: 'vm'
             })
             .when('/request', {
-                controller: 'HomeController',
+                controller: 'RequestController',
                 templateUrl: 'request/requests.html',
                 controllerAs: 'vm'
             })

@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .controller('HomeController1', HomeController);
+        .controller('FriendPageController', FriendPageController);
 
-    HomeController.$inject = ['UserService', '$rootScope','$location', '$scope'];
-    function HomeController(UserService, $rootScope) {
+    FriendPageController.$inject = ['UserService', '$rootScope','$location', '$scope'];
+    function FriendPageController(UserService, $rootScope, $location) {
         var vm = this;
 
         vm.user = null;
@@ -20,13 +20,14 @@
         function initController() {
             loadCurrentUser();
             loadAllUsers();
+            console.log($location.url().split('#')[1]);
         }
 
         function post(content) {
             if (typeof content !== 'undefined'){
                 if(content.length !== 0){
                     content = content.trim();
-                    var newpost = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':vm.user.username, 'content':content});
+                    var newpost = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1], 'content':content});
                     console.log(content);
                      UserService.MakePost(newpost)
                         .then(function (posting) {
@@ -43,7 +44,7 @@
                 .then(function (user) {
                     vm.user = user['person'][0];
                     console.log(user['person'][0].id)
-                    loadPosts(user['person'][0].username);
+                    loadPosts($location.url().split('#')[1]);
                 });
         }
 
