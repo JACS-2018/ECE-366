@@ -64,7 +64,7 @@ CREATE TABLE `Posts` (
 
 LOCK TABLES `Posts` WRITE;
 /*!40000 ALTER TABLE `Posts` DISABLE KEYS */;
-INSERT INTO `Posts` VALUES (1,14,12,'scheng829','cwei3','2018-04-30 16:26:00','once upon a time'),(2,15,12,'enigmamemoryg','cwei3','2018-04-30 16:26:00','there was a person'),(3,18,12,'sabooap','cwei3','2018-04-30 16:26:00','who wanted to eat '),(4,17,12,'tritus','cwei3','2018-04-30 16:26:00','cup noooooodles all the time'),(5,15,12,'enigmamemoryg','cwei3','2018-04-30 16:26:00','and his name was........ exdee'),(6,14,13,'scheng829','jtangqt','2018-04-30 18:29:44','once upon a time'),(7,13,13,'jtangqt','jtangqt','2018-04-30 18:29:44','there was a person'),(8,18,13,'sabooap','jtangqt','2018-04-30 18:29:44','who wanted to eat '),(9,17,13,'tritus','jtangqt','2018-04-30 18:29:44','cup noooooodles all the time'),(10,16,13,'squishybluewristbutt','jtangqt','2018-04-30 18:29:44','and his name was........ exdee'),(11,15,15,'enigmamemory','enigmamemory','2018-04-30 18:29:44','and his name was........ exdee'),(12,12,15,'cwei3','enigmamemory','2018-04-30 18:29:44','and his name was........ exdee'),(13,12,13,'cwei3','jtangqt','2018-04-30 18:29:44','and his name was........ exdee'),(14,19,13,'solarien','jtangqt','2018-04-30 18:29:44','YA LIKE JAZZ?'),(15,19,13,'solarien','jtangqt','2018-04-30 18:29:44','i know you do');
+INSERT INTO `Posts` VALUES (1,14,12,'scheng829','cwei3','2018-04-30 16:26:00','once upon a time'),(2,15,12,'enigmamemory','cwei3','2018-04-30 16:26:00','there was a person'),(3,18,12,'sabooap','cwei3','2018-04-30 16:26:00','who wanted to eat '),(4,17,12,'tritus','cwei3','2018-04-30 16:26:00','cup noooooodles all the time'),(5,15,12,'enigmamemory','cwei3','2018-04-30 16:26:00','and his name was........ exdee'),(6,14,13,'scheng829','jtangqt','2018-04-30 18:29:44','once upon a time'),(7,13,13,'jtangqt','jtangqt','2018-04-30 18:29:44','there was a person'),(8,18,13,'sabooap','jtangqt','2018-04-30 18:29:44','who wanted to eat '),(9,17,13,'tritus','jtangqt','2018-04-30 18:29:44','cup noooooodles all the time'),(10,16,13,'squishybluewristbutt','jtangqt','2018-04-30 18:29:44','and his name was........ exdee'),(11,15,15,'enigmamemory','enigmamemory','2018-04-30 18:29:44','and his name was........ exdee'),(12,12,15,'cwei3','enigmamemory','2018-04-30 18:29:44','and his name was........ exdee'),(13,12,13,'cwei3','jtangqt','2018-04-30 18:29:44','and his name was........ exdee'),(14,19,13,'solarien','jtangqt','2018-04-30 18:29:44','YA LIKE JAZZ?'),(15,19,13,'solarien','jtangqt','2018-04-30 18:29:44','i know you do');
 /*!40000 ALTER TABLE `Posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-30 18:30:45
+-- Dump completed on 2018-04-30 19:01:21
