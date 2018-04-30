@@ -49,7 +49,6 @@
         }
 
         function GetPostById(id) {
-            console.log('gothere');
             return $http.get('http://127.0.0.1:5000/api/posts/' + id).then(handleSuccess, handleError('Error getting post by id'));
         }
 
