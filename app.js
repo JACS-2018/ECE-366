@@ -19,6 +19,11 @@
                 templateUrl: 'friend/friends.html',
                 controllerAs: 'vm'
             })
+            .when('/friendpage', {
+                controller: 'HomeController1',
+                templateUrl: 'friendpage/indexfriend.html',
+                controllerAs: 'vm'
+            })
             .when('/profile', {
                 controller: 'HomeController',
                 templateUrl: 'profile/profile.html',
