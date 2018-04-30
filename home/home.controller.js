@@ -35,14 +35,6 @@
                 });
         }
 
-        function loadUser(id){
-             UserService.GetByUsername(id)
-                .then(function (user) {
-                    vm.user = user['person'][0];
-                    console.log(user['person'][0].username)
-                });
-        }
-
         function loadAllUsers() {
             UserService.GetAll()
                 .then(function (users) {
