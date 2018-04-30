@@ -4,8 +4,8 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 import edit_user
-
-#import start_db
+import start_db
+	
 
 
 
@@ -89,6 +89,19 @@ def delete_f(cursor, user_id_a, user_id_b):
 	cursor.execute(f_delete, value)
 
 
+def is_f(cursor, username_a, username_b):
+	user_a = edit_user.find_u(cursor, username_a)
+	user_b = edit_user.find_u(cursor, username_b)
+	find = ("SELECT * FROM Friendships WHERE ((user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)) AND status = 1")
+	value = (user_a, user_b, user_b, user_a)
+	cursor.execute(find, value)
+	friends = cursor.fetchone()
+
+	if friends:
+		return 1
+	else:
+		return 0
+
 ############################### Finished Function Declarations ###############################
 
 '''
@@ -113,15 +126,18 @@ cursor = start_db.launchcursor(db)
 # add_f(cursor, 14, 20)
 # add_f(cursor, 14, 19)
 # add_f(cursor, 15, 18)
-confirm_f(cursor, 14, 13, 1)
-confirm_f(cursor, 18, 13, 1)
-confirm_f(cursor, 19, 13, 1)
-confirm_f(cursor, 20, 13, 1)
-confirm_f(cursor, 12, 15, 1)
-confirm_f(cursor, 12, 18, 1)
-confirm_f(cursor, 12, 17, 1)
-confirm_f(cursor, 14, 16, 1)
-confirm_f(cursor, 12, 14, 1)
+# confirm_f(cursor, 14, 13, 1)
+# confirm_f(cursor, 18, 13, 1)
+# confirm_f(cursor, 19, 13, 1)
+# confirm_f(cursor, 20, 13, 1)
+# confirm_f(cursor, 12, 15, 1)
+# confirm_f(cursor, 12, 18, 1)
+# confirm_f(cursor, 12, 17, 1)
+# confirm_f(cursor, 14, 16, 1)
+# confirm_f(cursor, 12, 14, 1)
+
+print is_f(cursor, 'cwei3', 'jtangqt')
+print is_f(cursor, 'enigmamemory', 'cwei3')
 
 
 

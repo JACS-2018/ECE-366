@@ -6,6 +6,7 @@ from copy import deepcopy
 
 import start_db
 import edit_user
+import edit_friendships
 
 ############################### User Class Declarations ###############################
 
@@ -50,16 +51,11 @@ def create_p(cursor, post):
 
 ## Shows Posts on User b's Profile ## (TODO!! if original poster isnt there anymore, show null)
 def show_p(cursor, username_a, username_b):
-	user_a = edit_user.find_u(cursor, username_a)
-	user_b = edit_user.find_u(cursor, username_b)
-	find = ("SELECT * FROM Friendships WHERE ((user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)) AND status = 1")
-	value = (user_a, user_b, user_b, user_a)
-	cursor.execute(find, value)
-	friends = cursor.fetchone()
+	friends = edit_friendships.is_f(cursor, username_a, username_b)
 
-	if friends or user_a == user_b:
-		show = ("SELECT * FROM Posts WHERE user_b = %(user_b)s")
-		value = {'user_b' : user_b}
+	if friends or username_a == username_b:
+		show = ("SELECT * FROM Posts WHERE username_b = %(username_b)s")
+		value = {'username_b' : username_b}
 		cursor.execute(show, value)
 		all_p = cursor.fetchall()
 
@@ -72,7 +68,6 @@ def show_p(cursor, username_a, username_b):
 			resp = {'post_id':ind_p[0], 'username_a':ind_p[3], 'username_b':ind_p[4], 'timestamp':ind_p[5], 'content':ind_p[6]}
 			post_dict.append(resp)
 
-		print("hi")
 		return post_dict
 	else:
 		return 0
@@ -127,8 +122,7 @@ def edit_p(cursor, post_id, new_p):
 ############################### Finished Function Declarations ###############################
 
 '''
-db = start_db.launchdb()
-cursor = start_db.launchcursor(db)   
+  
 
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
@@ -173,8 +167,9 @@ post10 = post(post_id, 'solarien','jtangqt', post_time, 'i know you do')
 # create_p(cursor, post9)
 # create_p(cursor, post10)
 
-
-show_p(cursor, 'cwei3', 'jtangqt')
+db = start_db.launchdb()
+cursor = start_db.launchcursor(db) 
+show_p(cursor, 'solarien', 'jtangqt')
 
 #edit_p(cursor, 4, 'HIIII WAZZUP')
 # delete_p(cursor, 10)
