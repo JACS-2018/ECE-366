@@ -93,8 +93,25 @@ def delete_user(identity):
 
 @app.route('/api/users/<user>', methods=['GET'])
 def get_tasks4(user):
-    content = request.json
-    return jsonify({'user':user, 'success':'true'})
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)    
+
+    dict_user = edit_user.read_u(cursor, 0,0,user)
+    array_user = []
+    
+    for userid,user in dict_user.items():
+        username = user.u_name
+        firstName = user.f_name
+        lastName = user.l_name
+        myid = user.user_id
+
+        ind_user = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
+
+        array_user.append(ind_user)
+    
+    start_db.commitclose(cursor,db)
+    
+    return jsonify({'person':array_user, 'success':'true'})
 
 
 # Authenticates people
@@ -170,7 +187,6 @@ def read_friends(username):
 
 #requires fill in based on front end
 @app.route('/api/posts/<user_id_a>/<user_id_b>',methods=['POST'])
-
 def makepost(user_id_a,user_id_b):
     content = request.json
 
@@ -198,26 +214,20 @@ def makepost(user_id_a,user_id_b):
     '''
     return 0
 
-@app.route('/api/posts/<user_id_b>',methods=['GET'])
-
-def getpost(user_id_b):
+@app.route('/api/posts/<useridb>',methods=['GET'])
+def getpost(useridb):
     content = request.json
 
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
-    post_dict = edit_posts.show_p(cursor,user_id_b,user_id_b)
+    post_dict = edit_posts.show_p(cursor,useridb,useridb)
 
     #Need to decide what to do with post_dict after grabbing it
 
     start_db.commitclose(cursor, db)
-    '''
-    if check == 1:
-        #return correct jsonify
-    else:
-        #return error jsonify?
-    '''
-    return 0
+
+    return jsonify({'posts':post_dict})
 
 #Need to be able to grab all posts for display
 #Delete Posts (bugtesting)

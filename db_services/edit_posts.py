@@ -63,8 +63,8 @@ def show_p(cursor, user_a, user_b):
 			cursor.execute(find_u, value)
 			friend = cursor.fetchone()
 			i_dict = post(ind_p[0], ind_p[1], ind_p[2], ind_p[3], ind_p[4])
-			post_dict.append(i_dict)
-		
+			resp = {'post_id':ind_p[0], 'user_a':ind_p[1], 'user_b':ind_p[2], 'timestamp':ind_p[3], 'content':ind_p[4]}
+			post_dict.append(resp)
 		return post_dict
 	else:
 		return 0

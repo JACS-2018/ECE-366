@@ -27,7 +27,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
     
     <!-- Content -->
-    
+    <form name="form" ng-submit="vm.post()" role="form" >
       <div class="w3-row-padding">
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
@@ -36,42 +36,25 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                       width: 100%;
                   }
               </style>
-              <input type="text" name="post" placeholder="Babbl to your heart's content">
+              <input type="text" name="post" ng-model = 'vm.post.content' placeholder="Babbl to your heart's content">
               <!-- <p contenteditable="true" class="w3-border w3-padding" placeholder="Babbl to your heart's content">Babbl to your heart's content</p> -->
-              <button type="button" class="w3-button w3-dark-grey"><i class="fa fa-pencil"></i>  Post</button> 
+              <button type="submit" class="w3-button w3-dark-grey"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
           </div>
         </div>
-      
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+      </form>
+      <li ng-repeat="post in vm.allPosts">
+        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/12/Patrick-Star-Smiling-eq245-600x457.gif" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">1 min</span>
-        <h4>Alex Woot</h4><br>
+        <span class="w3-right w3-opacity">{{post.timestamp}}</span>
+        <h4>{{post.fullName}}</h4><br>
         <hr class="w3-clear">
-        <p>Post.</p>
+        <p>{{post.content}}</p>
         <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
+    </li>
       
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="http://www.cartoonbucket.com/wp-content/uploads/2016/07/Scooby-With-Staggy-600x750.jpg" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">16 min</span>
-        <h4>Jasmine Tea</h4><br>
-        <hr class="w3-clear">
-        <p>Post.</p>
-        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>  
-
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="http://www.cartoonbucket.com/wp-content/uploads/2017/03/Jhonny-Dancing-Image-600x565.jpg" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">32 min</span>
-        <h4>Cardi Way</h4><br>
-        <hr class="w3-clear">
-        <p>Post.</p>
-        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div> 
       
     <!-- End Content -->
     <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
