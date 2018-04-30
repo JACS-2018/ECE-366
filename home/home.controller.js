@@ -5,13 +5,15 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', '$rootScope','$location'];
+    HomeController.$inject = ['UserService', '$rootScope','$location', '$scope'];
     function HomeController(UserService, $rootScope) {
         var vm = this;
 
         vm.user = null;
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
+        vm.allPosts= [];
+        vm.post = post;
 
         initController();
 
@@ -20,11 +22,23 @@
             loadAllUsers();
         }
 
+        function post() {
+            console.log(vm.post.content);
+        }
 
         function loadCurrentUser() {
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
-                    vm.user = user;
+                    vm.user = user['person'][0];
+                    console.log(user['person'][0].id)
+                    loadPosts(user['person'][0].id);
+                });
+        }
+
+         function loadUser(id) {
+            UserService.GetByUsername(id)
+                .then(function (user) {
+                    console.log( user['person'][0].firstName + ' ' + user['person'][0].lastName);
                 });
         }
 
@@ -32,7 +46,6 @@
             UserService.GetAll()
                 .then(function (users) {
                     vm.allUsers = users['person'];
-                    console.log(users['person']);
                 });
         }
 
@@ -41,6 +54,14 @@
             .then(function () {
                 loadAllUsers();
             });
+        }
+
+        function loadPosts(id) {
+            UserService.GetPostById(id)
+                .then(function (posting) {
+                    vm.allPosts = posting['posts'];
+                    console.log(vm.allPosts);
+                });
         }
     }
 
