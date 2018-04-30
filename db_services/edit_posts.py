@@ -76,7 +76,6 @@ def show_p(cursor, username_a, username_b):
 			friend = cursor.fetchone()
 			i_dict = post(ind_p[0], ind_p[3], ind_p[4], ind_p[5], ind_p[6])
 			post_dict.append(i_dict)
-			print(ind_p[6])
 		
 		return post_dict
 	else:
