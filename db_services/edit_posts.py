@@ -4,17 +4,36 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
-#import start_db
+import start_db
 
 ############################### User Class Declarations ###############################
 
 class post:
-	def __init__(self, post_id, user_a, user_b, timestamp, content):
+	def __init__(self, post_id, username_a, username_b, timestamp, content):
 		self.post_id = post_id
-		self.user_a = user_a #user a is the one posting, user b is the one whose profile user_a is posting on 
-		self.user_b = user_b
+		self.username_a = username_a #user a is the one posting, user b is the one whose profile user_a is posting on
+		self.username_b = username_b
 		self.timestamp = timestamp
 		self.content = content #content can be words or it can also be a relative path to media content 
+		
+
+		db = start_db.launchdb()
+		cursor = start_db.launchcursor(db)   
+
+		query_a = ("SELECT * FROM User WHERE username = %(username_a)s")
+		value_a = {'username_a': username_a}
+		cursor.execute(query_a, value_a)
+		person_a = cursor.fetchone()
+
+		query_b = ("SELECT * FROM User WHERE username = %(username_b)s")
+		value_b = {'username_b': username_b}
+		cursor.execute(query_b, value_b)
+		person_b = cursor.fetchone()
+		
+		self.user_a = person_a[0] 
+		self.user_b = person_b[0]
+
+		start_db.commitclose(cursor, db)
 
 
 ############################### Start Function Declarations ###############################
@@ -29,9 +48,9 @@ def create_p(cursor, post):
 	
 	if friends or post.user_a == post.user_b: 
 		create = ("INSERT INTO Posts"
-				"(post_id, user_a, user_b, timestamp, content)"
-				"VALUES (%s, %s, %s, %s, %s)")
-		value = (post.post_id, post.user_a, post.user_b, post.timestamp, post.content)
+				"(post_id, user_a, user_b, username_a, username_b, timestamp, content)"
+				"VALUES (%s, %s, %s, %s, %s, %s, %s)")
+		value = (post.post_id, post.user_a, post.user_b, post.username_a, post.username_b, post.timestamp, post.content)
 		cursor.execute(create, value)
 		return 1
 	else:
@@ -65,6 +84,7 @@ def show_p(cursor, user_a, user_b):
 			i_dict = post(ind_p[0], ind_p[1], ind_p[2], ind_p[3], ind_p[4])
 			resp = {'post_id':ind_p[0], 'user_a':ind_p[1], 'user_b':ind_p[2], 'timestamp':ind_p[3], 'content':ind_p[4]}
 			post_dict.append(resp)
+
 		return post_dict
 	else:
 		return 0
@@ -118,35 +138,37 @@ def edit_p(cursor, post_id, new_p):
 
 ############################### Finished Function Declarations ###############################
 
-
 '''
 db = start_db.launchdb()
 cursor = start_db.launchcursor(db)   
 
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post1 = post(post_id, 18, 12, post_time, 'hehe')
+post1 = post(post_id, 'scheng829', 'cwei3', post_time, 'once upon a time')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post2 = post(post_id, 14, 13, post_time, 'hi bff')
+post2 = post(post_id, 'enigmamemoryg', 'cwei3', post_time, 'there was a person')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post3 = post(post_id, 13, 14, post_time, 'hello to you too bff')
+post3 = post(post_id, 'sabooap', 'cwei3', post_time, 'who wanted to eat ')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post4 = post(post_id, 14, 16, post_time, 'i can make my own post!!!')
+post4 = post(post_id, 'tritus', 'cwei3', post_time, 'cup noooooodles all the time')
+post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post5 = post(post_id, 14, 14, post_time, 'i can make my own post!!!')
-#create_p(cursor, post5)
+post5 = post(post_id, 'enigmamemoryg','cwei3', post_time, 'and his name was........ exdee')
 
-# create_p(cursor, post1)
-# create_p(cursor, post2)
-# create_p(cursor, post3)
-# create_p(cursor, post4)
 
-edit_p(cursor, 4, 'HIIII WAZZUP')
-#delete_p(cursor, 7)
+create_p(cursor, post1)
+create_p(cursor, post2)
+create_p(cursor, post3)
+create_p(cursor, post4)
+create_p(cursor, post5)
 
+#edit_p(cursor, 4, 'HIIII WAZZUP')
+# delete_p(cursor, 10)
+# delete_p(cursor, 11)
+# delete_p(cursor, 12)
 
 
 start_db.commitclose(cursor, db)
