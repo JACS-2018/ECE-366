@@ -153,7 +153,7 @@ def reactivate_u(cursor, u_name):
 	value = {'user_id': d_user[0]}
 	cursor.execute(update, value)
 
-
+## Given Username, find User ID ##
 def find_u(cursor, username):
 	query = ("SELECT * FROM User WHERE username = %(username)s")
 	value = {'username': username}
