@@ -65,10 +65,11 @@
 
         function loadPosts(userName) {
             UserService.GetPostById(userName)
-                .then(function (posting) {
-                    vm.allPosts = posting['posts'];
-                    console.log(vm.allPosts);
-
+               .then(function (posting) {
+                    if(posting['posts'] !== 0){
+                        vm.allPosts = posting['posts'];
+                        console.log(vm.allPosts);
+                    }
                 });
         }
     }
