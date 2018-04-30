@@ -8,7 +8,7 @@ from flask_api import FlaskAPI, status
 from flask_cors import CORS
 import datetime
 import MySQLdb
-
+import json
 import sys
 sys.path.append('db_services')
 import start_db
@@ -219,12 +219,14 @@ def makepost():
 
 @app.route('/api/posts/<useridb>',methods=['GET'])
 def getpost(useridb):
-    content = request.json
-
+    print useridb
+    json_acceptable_string = useridb.replace("'", "\"")
+    useridb = json.loads(json_acceptable_string)
+    print useridb
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
-    post_dict = edit_posts.show_p(cursor,useridb,useridb)
+    post_dict = edit_posts.show_p(cursor,useridb['user_id_a'],useridb['user_id_b'])
 
     #Need to decide what to do with post_dict after grabbing it
 

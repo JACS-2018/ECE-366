@@ -33,7 +33,8 @@
                         .then(function (posting) {
                             console.log(posting);
                             console.log(vm.user.username);
-                            loadPosts(vm.user.username);
+                            var morepost = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1]});
+                            loadPosts(morepost);
                         });
                 }
             }
@@ -44,7 +45,8 @@
                 .then(function (user) {
                     vm.user = user['person'][0];
                     console.log(user['person'][0].id)
-                    loadPosts($location.url().split('#')[1]);
+                    var getpost = JSON.stringify({'user_id_a':user['person'][0].username,'user_id_b':$location.url().split('#')[1]});
+                    loadPosts(getpost);
                 });
         }
 

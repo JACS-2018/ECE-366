@@ -32,7 +32,8 @@
                         .then(function (posting) {
                             console.log(posting);
                             console.log(vm.user.username);
-                            loadPosts(vm.user.username);
+                            var morepost = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':vm.user.username});
+                            loadPosts(morepost);
                         });
                 }
             }
@@ -42,8 +43,9 @@
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
                     vm.user = user['person'][0];
+                    var getpost = JSON.stringify({'user_id_a':user['person'][0].username,'user_id_b':user['person'][0].username});
                     console.log(user['person'][0].id)
-                    loadPosts(user['person'][0].username);
+                    loadPosts(getpost);
                 });
         }
 
