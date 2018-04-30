@@ -44,8 +44,8 @@
             return $http.delete('http://127.0.0.1:5000/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
-        function MakePost(id1, id2){
-            return $http.post('http://127.0.0.1:5000/api/posts/' + id1 + '/' + id2).then(handleSuccess, handleError('Error deleting user'));
+        function MakePost(post){
+            return $http.post('http://127.0.0.1:5000/api/posts', post).then(handleSuccess, handleError('Error making post'));
         }
 
         function GetPostById(id) {

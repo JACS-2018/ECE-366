@@ -27,29 +27,47 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
     
     <!-- Content -->
-    <form name="form" ng-submit="vm.post()" role="form" >
+
       <div class="w3-row-padding">
         <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
+          <div class="w3-card w3-round w3-white w3-padding-large">
               <style>
-                  input[type=text]{
-                      width: 100%;
+                  textarea {
+                    width: 640px;
+                    height: 125px;
+                    padding: 12px 20px;
+                    margin: 20px 0;
+                    box-sizing: border-box;
+                    border: 3px solid #555;
+                    overflow: auto;
+                    resize: none;
+                    display: block;
+                    background-color: #f8f8f8;
                   }
               </style>
-              <input type="text" name="post" ng-model = 'vm.post.content' placeholder="Babbl to your heart's content">
+              <script  type="text/javascript">
+                function clearTextArea() {
+                document.getElementById("txtArea").value='';
+                }
+              </script>
+              <textarea id=txtArea name="post" rows="14" cols="10" wrap="soft" ng-model = 'vm.post.content' placeholder="Babbl to your heart's content"> </textarea>
               <!-- <p contenteditable="true" class="w3-border w3-padding" placeholder="Babbl to your heart's content">Babbl to your heart's content</p> -->
-              <button type="submit" class="w3-button w3-dark-grey"><i class="fa fa-pencil"></i>  Post</button> 
+
+                <button type="submit" class="w3-button w3-dark-grey" ng-click="vm.post(vm.post.content)" onclick="clearTextArea()"><i class="fa fa-pencil"></i>  Post</button> 
+
             </div>
           </div>
         </div>
-      </form>
-      <li ng-repeat="post in vm.allPosts">
+        <style>
+          .multi_lines_text { white-space: pre-line; word-wrap: break-word; }
+        </style>
+      <li ng-repeat="post in vm.allPosts | orderBy:'-'">
         <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/12/Patrick-Star-Smiling-eq245-600x457.gif" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">{{post.timestamp}}</span>
         <h4>{{post.username_a}}</h4><br>
         <hr class="w3-clear">
-        <p>{{post.content}}</p>
+        <p class = "multi_lines_text">{{post.content}}</p>
         <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>

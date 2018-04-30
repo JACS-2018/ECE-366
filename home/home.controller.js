@@ -22,8 +22,20 @@
             loadAllUsers();
         }
 
-        function post() {
-            console.log(vm.post.content);
+        function post(content) {
+            if (typeof content !== 'undefined'){
+                if(content.length !== 0){
+                    content = content.trim();
+                    var newpost = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':vm.user.username, 'content':content});
+                    console.log(content);
+                     UserService.MakePost(newpost)
+                        .then(function (posting) {
+                            console.log(posting);
+                            console.log(vm.user.username);
+                            loadPosts(vm.user.username);
+                        });
+                }
+            }
         }
 
         function loadCurrentUser() {

@@ -204,16 +204,19 @@ def makepost():
     user_id_a = content['user_id_a']
     user_id_b = content['user_id_b']
     writeup = content['content']
+    print user_id_b
+    print writeup
     newpost = edit_posts.post(post_id, user_id_a, user_id_b, timestamp, writeup)
-    check = create_p(cursor, post)
-    
+    check = edit_posts.create_p(cursor, newpost)
     start_db.commitclose(cursor, db)
-    '''
+
     if check == 1:
+        return jsonify({'stuff':content})
         #return correct jsonify
     else:
+        return '',status.HTTP_404_NOT_FOUND
         #return error jsonify?
-    '''
+
     return 0
 
 @app.route('/api/posts/<useridb>',methods=['GET'])
