@@ -20,6 +20,7 @@
         vm.friendUser = $location.url().split('#')[1];
         vm.friendrequestsuccess = friendrequestsuccess;
         vm.requestings = null;
+        vm.cancel = cancel;
 
         initController();
 
@@ -49,6 +50,16 @@
                 .then(function (response) {
                     vm.requestings = response['exists'];
                     console.log(vm.requestings);
+                });
+        }
+
+        function cancel(){
+            var morecancel = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1], 'status':0});
+            UserService.ConfirmFriend(morecancel)
+                .then(function (response) {
+                    vm.cancel = response['result'];
+                    console.log(vm.cancel);
+                    requestexists(vm.user.username);
                 });
         }
 

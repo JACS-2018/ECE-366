@@ -146,7 +146,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       </div>
       <div ng-if="vm.requestings == 'requestgood'">
 
-        <p><center><button type="button" class="btn btn-primary" disabled>Awaiting Friend Request Response</button></center></p>
+        <p><center><button type="button" class="btn btn-primary" disabled>Awaiting Friend Request Response</button>
+          <button type="button" class="btn btn-primary" ng-click="vm.cancel()">Cancel Request</button></center></p>
       </div>
       
     <div>
