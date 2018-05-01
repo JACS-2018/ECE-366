@@ -17,6 +17,7 @@
         vm.areFriends = 0;
         vm.hasPosts = false;
         vm.noPosts = true;
+        vm.friendUser = $location.url().split('#')[1];
 
         initController();
 
