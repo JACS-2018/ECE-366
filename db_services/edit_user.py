@@ -4,7 +4,6 @@ import MySQLdb
 import datetime
 from copy import deepcopy
 
-import start_db
 
 ############################### User Class Declarations ###############################
 
@@ -176,81 +175,3 @@ def find_u(cursor, username):
 
 
 ############################### Finished Function Declarations ###############################
-'''
-
-
-db = start_db.launchdb()
-cursor = start_db.launchcursor(db)    
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-bday = '2016-05-09'
-car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'cardywei', '', '5V ground', 'UNDERWATER DOLPHIN CHARMER', bday, 'wei@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-jas = user(user_id, 'Jasmine', 'Tang', 'jtangqt', 'jasminetang', '', 'Friends dont harrass other friends.', 'supermodel', bday, 'tang@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-sam = user(user_id, 'sam', 'cheng', 'scheng829', 'samcheng', '', 'Watch my dance moves', 'professional dancer', bday, 'scheng839@gmail.com', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-alex = user(user_id, 'alex', 'hu', 'enigmamemoryg', 'alexhu', '', 'AHH NLP', 'cooper union student', bday,'hu5@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-kc = user(user_id, 'casey', 'he', 'squishybluewristbutt', 'caseyhe', '', 'ROCK CLIMBING', 'ALIVE', bday,'he@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-joey = user(user_id, 'joey', 'benghaasllkfdldaflaf', 'tritus', 'joey', '', '@everyone, league???', 'miner in data', bday,'jbengtlfdf15@gmail.com', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-jerry = user(user_id, 'jeremiah', 'pratt', 'sabooap', 'jeremiahpratt', '', 'Again, our sincere apologies to the families who went home disappointed.', 'politician', bday, 'pratt@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-dan = user(user_id, 'dan', 'park', 'solarien', 'danpark', '', 'Join the army with me!', 'General of the ONE Korean Army', bday, 'park100000@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-dk = user(user_id, 'dongkyu', 'kim', 'dongkyu0419', 'dongkyukim', '', 'TRIVIAL', 'Professor Kirtman :POGGERS:', bday, 'kim800@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-minyoung = user(user_id, 'minyoung', 'na', 'BSEintruder', 'minyuongna', '', 'REEEEEEEEEEEEE', 'i want to be a puppy', bday, 'na4@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-bri = user(user_id, 'brian', 'hong', 'th0m4s', 'brianhong', '', '66k+ groups', 'thomas', bday, 'bri@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-paul = user(user_id, 'paul', 'kang', 'cheeseheadpk', 'paulkang', '', 'I own a burger joint', 'Construction Worker/Bob the Builder', bday, 'kang3@cooper.edu', start_time, 1)
-
-user_id = cursor.lastrowid
-start_time = datetime.datetime.now()
-chris = user(user_id, 'chris', 'watkins', 'WATGOIN', 'chriswatkins', '', 'I am a front end developer', 'full stack developer', bday, 'watkins@cooper.edu', start_time, 1)
-
-
-insert_u(cursor, car)
-insert_u(cursor, jas)
-insert_u(cursor, sam)
-insert_u(cursor, alex)
-insert_u(cursor, kc)
-insert_u(cursor, joey)
-insert_u(cursor, jerry)
-insert_u(cursor, dan)
-insert_u(cursor, dk)
-insert_u(cursor, minyoung)
-insert_u(cursor, bri)
-insert_u(cursor, paul)
-insert_u(cursor, chris)
-# new_user = user(0, 'alex', 'hu', 'enigmamemory', 'alexhu', '', 'AHH NLP', 'hu5@cooper.edu', 0, 1)
-# update_u(cursor, 'enigmamemoryg', new_user)
-
-start_db.commitclose(cursor, db)
-'''
