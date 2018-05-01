@@ -166,22 +166,120 @@ def read_friends(username):
 
 
 # #Sees Potential Friends
-# @app.route('/api/friendships/confirm/<username>',methods=['GET'])
+@app.route('/api/friendships/confirm/<username>',methods=['GET'])
+def see_pot_friends(username):
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+    
+    f_dict = edit_friendships.allpotential_f(cursor, username, 1)
+    array_f = []
+
+    for friend in f_dict.items():
+        username = friend.u_name
+        firstName = friend.f_name
+        lastName = friend.l_name
+        myid = friend.user_id
+
+        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid}
+
+        array_f.append(ind_f)
+    
+    start_db.commitclose(cursor, db)
+
+    return jsonify({'person':array_f})
 
 # #Friends you're awaiting confirmation from
-# @app.route('/api/friendships/awaiting/<username>',methods=['GET'])
+@app.route('/api/friendships/awaiting/<username>',methods=['GET'])
+def wait_confirm(username):
+    content = request.json
 
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    f_dict = edit_friendships.allpotential_f(cursor, username, 2)
+    array_f = []
+
+    for friend in f_dict.items():
+        username = friend.u_name
+        firstName = friend.f_name
+        lastName = friend.l_name
+        myid = friend.user_id
+
+        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid}
+
+        array_f.append(ind_f)
+    
+    start_db.commitclose(cursor, db)
+
+    return jsonify({'person':array_f})
 
 # # Add a Friend
-# @app.route('/api/friendships/',methods=['POST'])
+@app.route('/api/friendships/<username_a>/<username_b>',methods=['POST'])
+def add_friend(username_a,username_b):
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    checkbit = edit_friendships.add_f(cursor,username_a,username_b) #just in case, "supposed" to be user_id
+    
+    start_db.commitclose(cursor, db)
+
+    #need to pull relevant info out of content, if necessary
+
+    '''
+    if checkbit == 0:
+        return jsonify() #jsonify response for an error
+    else:
+        return jsonify() #jsonify response for a success
+    '''
+    return 0
+
+# # Confirm Friend
+@app.route('/api/friendships/<username_a>/<username_b>/<status>',methods=['POST'])
+def confirm_friend(username_a,username_b,status):
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    #may need to change status from string to int
+    checkbit = edit_friendships.confirm_f(cursor,username_a,username_b,status)
+
+    start_db.commitclose(cursor, db)
+
+    #Again, need to pull out all relevant info from content
+    
+    '''
+    if checkbit > 0:
+        if checkbit == 2:
+            return jsonify() #return for deny, success
+        else:
+            return jsonify() #return for accept, success
+    else:
+        if checkbit == -2:
+            return jsonify() #return for deny, failed
+        else:
+            return jsonify() #return for accept, failed
+    '''
+    return 0
 
 
-# # Confirm/Delete Friend
-# @app.route('/api/friendships/',methods=['PUT', 'DELETE'])
-# def is_friend():
-#     if request == 'PUT'
+# # Delete Friend
+@app.route('/api/friendships/<username_a>/<username_b>',methods=['DELETE'])
+def delete_friend():
+    content = request.json
 
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
 
+    edit_friendships.delete_f(cursor,username_a,username_b) #if either this or confirm friend breaks, check if delete_f in edit_friendships has been switched to usernames
+    
+    start_db.commitclose(cursor, db)
+
+    return jsonify({'username_a':username_a,'username_b':username_b,'success':'true'})
 
 ######################################################## Posts ########################################################
 
