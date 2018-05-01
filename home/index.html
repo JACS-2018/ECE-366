@@ -26,8 +26,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
     
-    <!-- Content -->
-
+      <!-- Content -->
+    <div ng-if="vm.areFriends == 1">
       <div class="w3-row-padding">
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white w3-padding-large">
@@ -80,23 +80,58 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
               text-decoration: none;
           }
         </style>
-      <li ng-repeat="post in vm.allPosts | orderBy:'-'">
-        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/12/Patrick-Star-Smiling-eq245-600x457.gif" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">{{post.timestamp}}</span>
-        <h4><a ng-href="#!/friendpage/#{{post.username_a}}">{{post.username_a}}</a></h4><br>
-        <hr class="w3-clear">
-        <p class = "multi_lines_text">{{post.content}}</p>
-        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+        <div ng-if="vm.hasPosts==true">
+          <li ng-repeat="post in vm.allPosts | orderBy:'-'">
+            <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+            <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/12/Patrick-Star-Smiling-eq245-600x457.gif" alt="Avatar" class="w3-left w3-margin-right" style="width:60px">
+            <span class="w3-right w3-opacity">{{post.timestamp}}</span>
+            <h4><a ng-href="#!/friendpage/#{{post.username_a}}">{{post.username_a}}</a></h4><br>
+            <hr class="w3-clear">
+            <p class = "multi_lines_text">{{post.content}}</p>
+            <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+            <button type="button" class="w3-button w3-dark-grey w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+          </div>
+        </li>
       </div>
-    </li>
+  <div ng-if="vm.hasPosts==false">
+      <center><h4>Your friend has no posts! Be a good bud and be the first to post!</h4></center>
+    </div>
+    <div>
+    <!-- End Content -->
+      <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
+    </div>
+  </div>
+
+      
+        <div ng-if="vm.areFriends == 2">
+     
+        <style>
+          .multi_lines_text { white-space: pre-line; word-wrap: break-word; }
+          a:link {
+              text-decoration: none;
+          }
+
+          a:visited {
+              text-decoration: none;
+          }
+
+          a:hover {
+              text-decoration: none;
+              color:black;
+          }
+
+          a:active {
+              text-decoration: none;
+          }
+        </style>
+        <center><h4>This person isn't your friend! If you would like to connect, send a friend request!</h4></center>
       
     <div>
     <!-- End Content -->
       <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
     </div>
-    
+  </div>
+
 <!-- End Page Container -->
 </div>
 <br>

@@ -14,6 +14,9 @@
         vm.deleteUser = deleteUser;
         vm.allPosts= [];
         vm.post = post;
+        vm.areFriends = 0;
+        vm.hasPosts = false;
+        vm.noPosts = true;
 
         initController();
 
@@ -66,9 +69,18 @@
         function loadPosts(userName) {
             UserService.GetPostById(userName)
                .then(function (posting) {
-                    if(posting['posts'] !== 0){
-                        vm.allPosts = posting['posts'];
-                        console.log(vm.allPosts);
+                    vm.allPosts = posting['posts'];
+                    console.log(vm.allPosts);
+                    if(posting['posts'] == 1){
+                        vm.areFriends = 1;
+                    }
+                    else if (posting['posts'] == 0){
+                        vm.areFriends = 2;
+                    }
+                    else{
+                        vm.hasPosts = true;
+                        vm.noPosts = false;
+                        vm.areFriends = 1;    
                     }
                 });
         }

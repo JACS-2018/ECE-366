@@ -227,12 +227,20 @@ def getpost(useridb):
     cursor = start_db.launchcursor(db)
 
     post_dict = edit_posts.show_p(cursor,useridb['user_id_a'],useridb['user_id_b'])
-
+    print post_dict
     #Need to decide what to do with post_dict after grabbing it
-
+    friendzone = edit_friendships.is_f(cursor,useridb['user_id_a'],useridb['user_id_b'])
     start_db.commitclose(cursor, db)
-
-    return jsonify({'posts':post_dict})
+    print post_dict
+    if (post_dict != 0):
+        if(len(post_dict) != 0):
+            return jsonify({'posts':post_dict})
+        else:
+            return jsonify({'posts': 1})
+    elif (friendzone == 1):
+        return jsonify({'posts': 1})
+    else:
+        return jsonify({'posts': 0})
 
 #Need to be able to grab all posts for display
 #Delete Posts (bugtesting)
