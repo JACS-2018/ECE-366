@@ -138,16 +138,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
               text-decoration: none;
           }
         </style>
-        <center><h4>This person isn't your friend! If you would like to connect, send a friend request!</h4></center>
-      <!-- End Content -->
-      <div ng-if="vm.requestings == 'requestbad'">
-
-        <p><center><button type="button" class="btn btn-primary" ng-click="vm.friendrequestsuccess()">Friend Me!</button></center></p>
+      <div ng-if="vm.requestings2 == 'requestgood'">
+        <center><h4>This person has sent you a friend request!</h4></center>
+        <p><center><button type="button" class="btn btn-primary" ng-click="vm.result()">Accept Request</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.cancel2()">Deny Request</button></center></p>
       </div>
-      <div ng-if="vm.requestings == 'requestgood'">
-
-        <p><center><button type="button" class="btn btn-primary" disabled>Awaiting Friend Request Response</button>
-          <button type="button" class="btn btn-primary" ng-click="vm.cancel()">Cancel Request</button></center></p>
+      <!-- End Content -->
+      <div ng-if="vm.requestings2 == 'requestbad'">
+        <div ng-if="vm.requestings == 'requestbad'">
+          <center><h4>This person isn't your friend! If you would like to connect, send a friend request!</h4></center>
+          <p><center><button type="button" class="btn btn-primary" ng-click="vm.friendrequestsuccess()">Friend Me!</button></center></p>
+        </div>
+        <div ng-if="vm.requestings == 'requestgood'">
+          <center><h4>This person isn't your friend! If you would like to connect, send a friend request!</h4></center>
+          <p><center><button type="button" class="btn btn-primary" disabled>Awaiting Friend Request Response</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.cancel()">Cancel Request</button></center></p>
+        </div>
       </div>
       
     <div>

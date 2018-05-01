@@ -21,9 +21,13 @@
         vm.friendrequestsuccess = friendrequestsuccess;
         vm.friendrequestsuccesser = null
         vm.canceller = null;
+        vm.canceller2 = null;
         vm.requestings = null;
         vm.cancel = cancel;
         vm.getUser = getUser;
+        vm.requestings2 = null;
+        vm.cancel2 = cancel2;
+        vm.result = result;
 
         initController();
 
@@ -44,6 +48,7 @@
                     vm.friendrequestsuccesser = response['success'];
                     console.log(response);
                     requestexists(vm.user.username);
+                    requestexists2(vm.user.username);
                 });
         }
 
@@ -57,6 +62,16 @@
                 });
         }
 
+        function requestexists2(current){
+            var morefriend = JSON.stringify({'user_id_a':$location.url().split('#')[1],'user_id_b':current});
+            console.log(morefriend);
+            UserService.RequestExists(morefriend)
+                .then(function (response) {
+                    vm.requestings2 = response['exists'];
+                    console.log(vm.requestings);
+                });
+        }
+
         function cancel(){
             var morecancel = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1], 'status':0});
             UserService.ConfirmFriend(morecancel)
@@ -64,6 +79,30 @@
                     vm.canceller = response['result'];
                     console.log(vm.canceller);
                     requestexists(vm.user.username);
+                    requestexists2(vm.user.username);
+                });
+        }
+
+        function result(){
+            var moreresult = JSON.stringify({'user_id_a':$location.url().split('#')[1],'user_id_b':vm.user.username, 'status':1});
+            UserService.ConfirmFriend(moreresult)
+                .then(function (response) {
+                    vm.result = response['result'];
+                    console.log(vm.result);
+                    requestexists(vm.user.username);
+                    requestexists2(vm.user.username);
+                    loadPosts($location.url().split('#')[1]);
+                });
+        }
+
+        function cancel2(){
+            var morecancel = JSON.stringify({'user_id_a':$location.url().split('#')[1],'user_id_b':vm.user.username, 'status':0});
+            UserService.ConfirmFriend(morecancel)
+                .then(function (response) {
+                    vm.canceller2 = response['result'];
+                    console.log(vm.canceller2);
+                    requestexists(vm.user.username);
+                    requestexists2(vm.user.username);
                 });
         }
 
@@ -92,6 +131,7 @@
                     var getpost = JSON.stringify({'user_id_a':user['person'][0].username,'user_id_b':$location.url().split('#')[1]});
                     loadPosts(getpost);
                     requestexists(user['person'][0].username);
+                    requestexists2(user['person'][0].username);
                 });
         }
 

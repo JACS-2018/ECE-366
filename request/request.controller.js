@@ -27,7 +27,9 @@
         vm.allRequestsIncomingLen = 0;
         vm.AllFriendsLen = 0;
         vm.result = result;
+        vm.resulter = null;
         vm.cancel = cancel;
+        vm.canceller = null;
 
         initController();
 
@@ -90,7 +92,7 @@
             var moreresult = JSON.stringify({'user_id_a':requester,'user_id_b':vm.user.username, 'status':status});
             UserService.ConfirmFriend(moreresult)
                 .then(function (response) {
-                    vm.result = response['result'];
+                    vm.resulter = response['result'];
                     console.log(vm.result);
                     getallIncomingRequests(vm.user.username);
                 });
@@ -100,7 +102,7 @@
             var morecancel = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':requester, 'status':status});
             UserService.ConfirmFriend(morecancel)
                 .then(function (response) {
-                    vm.cancel = response['result'];
+                    vm.canceller = response['result'];
                     console.log(vm.cancel);
                     getallRequestedRequests(vm.user.username);
                 });
