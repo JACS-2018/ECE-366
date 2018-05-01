@@ -18,6 +18,7 @@
         vm.hasPosts = false;
         vm.noPosts = true;
         vm.friendUser = $location.url().split('#')[1];
+        vm.friendrequest = friendrequest;
 
         initController();
 
@@ -25,6 +26,10 @@
             loadCurrentUser();
             loadAllUsers();
             console.log($location.url().split('#')[1]);
+        }
+
+        function friendrequest(){
+            
         }
 
         function post(content) {
