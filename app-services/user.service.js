@@ -28,63 +28,63 @@
         return service;
 
         function GetAll() {
-            return $http.get('http://127.0.0.1:5000/api/users').then(handleSuccess, handleError('Error getting all users'));
+            return $http.get('http://199.98.27.115:5000/api/users').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {
-            return $http.get('http://127.0.0.1:5000/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
+            return $http.get('http://199.98.27.115:5000/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
         function GetByUsername(username) {
-            return $http.get('http://127.0.0.1:5000/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get('http://199.98.27.115:5000/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {
-            return $http.post('http://127.0.0.1:5000/api/users', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post('http://199.98.27.115:5000/api/users', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function CreateTemp(user) {
-            return $http.post('http://127.0.0.1:5000/api/create', user).then(handleSuccess, handleError('Error creating temporary user'));
+            return $http.post('http://199.98.27.115:5000/api/create', user).then(handleSuccess, handleError('Error creating temporary user'));
         }
 
         function Update(user) {
-            return $http.put('http://127.0.0.1:5000/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('http://199.98.27.115:5000/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {
-            return $http.delete('http://127.0.0.1:5000/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.delete('http://199.98.27.115:5000/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
         function MakePost(post){
-            return $http.post('http://127.0.0.1:5000/api/posts', post).then(handleSuccess, handleError('Error making post'));
+            return $http.post('http://199.98.27.115:5000/api/posts', post).then(handleSuccess, handleError('Error making post'));
         }
 
         function GetPostById(id) {
-            return $http.get('http://127.0.0.1:5000/api/posts/' + id).then(handleSuccess, handleError('Error getting post by id'));
+            return $http.get('http://199.98.27.115:5000/api/posts/' + id).then(handleSuccess, handleError('Error getting post by id'));
         }
 
         function GetAllFriends(id) {
-            return $http.get('http://127.0.0.1:5000/api/friendships/' + id).then(handleSuccess, handleError('Error getting friends by id'));
+            return $http.get('http://199.98.27.115:5000/api/friendships/' + id).then(handleSuccess, handleError('Error getting friends by id'));
         }
 
         function GetRequestedFriends(id) {
-            return $http.get('http://127.0.0.1:5000/api/friendships/awaiting/' + id).then(handleSuccess, handleError('Error getting requested friends by id'));
+            return $http.get('http://199.98.27.115:5000/api/friendships/awaiting/' + id).then(handleSuccess, handleError('Error getting requested friends by id'));
         }
 
         function GetIncomingFriends(id) {
-            return $http.get('http://127.0.0.1:5000/api/friendships/confirm/' + id).then(handleSuccess, handleError('Error getting incoming friends by id'));
+            return $http.get('http://199.98.27.115:5000/api/friendships/confirm/' + id).then(handleSuccess, handleError('Error getting incoming friends by id'));
         }
 
         function MakeFriend(friend){
-            return $http.post('http://127.0.0.1:5000/api/friendships/add', friend).then(handleSuccess, handleError('Error making friend'));
+            return $http.post('http://199.98.27.115:5000/api/friendships/add', friend).then(handleSuccess, handleError('Error making friend'));
         }
 
         function ConfirmFriend(friend){
-            return $http.post('http://127.0.0.1:5000/api/friendships/confirming', friend).then(handleSuccess, handleError('Error confirming friend'));
+            return $http.post('http://199.98.27.115:5000/api/friendships/confirming', friend).then(handleSuccess, handleError('Error confirming friend'));
         }
 
         function RequestExists(id) {
-            return $http.get('http://127.0.0.1:5000/api/friendships/exists/' + id).then(handleSuccess, handleError('Error getting request'));
+            return $http.get('http://199.98.27.115:5000/api/friendships/exists/' + id).then(handleSuccess, handleError('Error getting request'));
         }
         // private functions
 
