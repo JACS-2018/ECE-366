@@ -22,6 +22,7 @@
         service.GetIncomingFriends = GetIncomingFriends;
         service.MakeFriend = MakeFriend;
         service.ConfirmFriend = ConfirmFriend;
+        service.RequestExists = RequestExists;
 
         return service;
 
@@ -62,7 +63,7 @@
         }
 
         function GetRequestedFriends(id) {
-            return $http.get('http://127.0.0.1:5000/api/friendships/awaited/' + id).then(handleSuccess, handleError('Error getting requested friends by id'));
+            return $http.get('http://127.0.0.1:5000/api/friendships/awaiting/' + id).then(handleSuccess, handleError('Error getting requested friends by id'));
         }
 
         function GetIncomingFriends(id) {

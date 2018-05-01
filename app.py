@@ -150,13 +150,17 @@ def read_friends(username):
     f_dict = edit_friendships.allpotential_f(cursor, username, 0)
     array_f = []
     
-    for friend in f_dict.items():
+    for friend in f_dict:
         username = friend.u_name
         firstName = friend.f_name
         lastName = friend.l_name
         myid = friend.user_id
+        bday = friend.bday
+        occupation = friend.occupation
+        about = friend.about
+        email = friend.email
 
-        ind_f = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
+        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid, 'bday':bday, 'occupation':occupation, 'about':about, 'email':email}
 
         array_f.append(ind_f)
     
@@ -176,31 +180,34 @@ def see_pot_friends(username):
     f_dict = edit_friendships.allpotential_f(cursor, username, 1)
     array_f = []
 
-    for friend in f_dict.items():
+    for friend in f_dict:
         username = friend.u_name
         firstName = friend.f_name
         lastName = friend.l_name
         myid = friend.user_id
+        bday = friend.bday
+        occupation = friend.occupation
+        about = friend.about
+        email = friend.email
 
-        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid}
+        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid, 'bday':bday, 'occupation':occupation, 'about':about, 'email':email}
 
         array_f.append(ind_f)
     
     start_db.commitclose(cursor, db)
-
+    print array_f
     return jsonify({'person':array_f})
 
 @app.route('/api/friendships/exists/<requestexists>',methods=['GET'])
-def check_request(requestexists):
-    content = request.json
-    print "content2"
-    print content
+def check_requests(requestexists):
+    json_acceptable_string = requestexists.replace("'", "\"")
+    requestexists = json.loads(json_acceptable_string)
 
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
     f_dict = edit_friendships.request_exists_f(cursor, requestexists['user_id_a'],requestexists['user_id_b'])
-    
+    print f_dict
     start_db.commitclose(cursor, db)
 
     if f_dict == 1:
@@ -211,7 +218,6 @@ def check_request(requestexists):
 # #Friends you're awaiting confirmation from
 @app.route('/api/friendships/awaiting/<username>',methods=['GET'])
 def wait_confirm(username):
-    content = request.json
 
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
@@ -219,16 +225,20 @@ def wait_confirm(username):
     f_dict = edit_friendships.allpotential_f(cursor, username, 2)
     array_f = []
 
-    for friend in f_dict.items():
+    for friend in f_dict:
         username = friend.u_name
         firstName = friend.f_name
         lastName = friend.l_name
         myid = friend.user_id
+        bday = friend.bday
+        occupation = friend.occupation
+        about = friend.about
+        email = friend.email
 
-        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid}
+        ind_f = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid, 'bday':bday, 'occupation':occupation, 'about':about, 'email':email}
 
         array_f.append(ind_f)
-    
+    print array_f
     start_db.commitclose(cursor, db)
 
     return jsonify({'person':array_f})
@@ -315,8 +325,6 @@ def makepost():
     user_id_a = content['user_id_a']
     user_id_b = content['user_id_b']
     writeup = content['content']
-    print user_id_b
-    print writeup
     newpost = edit_posts.post(post_id, user_id_a, user_id_b, timestamp, writeup)
     check = edit_posts.create_p(cursor, newpost)
     start_db.commitclose(cursor, db)
@@ -330,19 +338,15 @@ def makepost():
 
 @app.route('/api/posts/<useridb>',methods=['GET'])
 def getpost(useridb):
-    print useridb
     json_acceptable_string = useridb.replace("'", "\"")
     useridb = json.loads(json_acceptable_string)
-    print useridb
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
     post_dict = edit_posts.show_p(cursor,useridb['user_id_a'],useridb['user_id_b'])
-    print post_dict
     #Need to decide what to do with post_dict after grabbing it
     friendzone = edit_friendships.is_f(cursor,useridb['user_id_a'],useridb['user_id_b'])
     start_db.commitclose(cursor, db)
-    print post_dict
     if (post_dict != 0):
         if(len(post_dict) != 0):
             return jsonify({'posts':post_dict})

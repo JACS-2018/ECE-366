@@ -98,7 +98,7 @@ def allpotential_f(cursor, username, val):
 		value = {'user_id': user_id2}
 		cursor.execute(find_f, value)
 		u_f_name = cursor.fetchone()
-		i_conf = edit_user.user(u_f_name[0], u_f_name[1], u_f_name[2], u_f_name[3], u_f_name[4], u_f_name[5], u_f_name[6], u_f_name[7], u_f_name[8], u_f_name[9])
+		i_conf = edit_user.user(u_f_name[0], u_f_name[1], u_f_name[2], u_f_name[3], u_f_name[4], u_f_name[5], u_f_name[6], u_f_name[7], u_f_name[8], u_f_name[9], u_f_name[10], u_f_name[11])
 		ap_dict.append(i_conf)
 
 	return ap_dict

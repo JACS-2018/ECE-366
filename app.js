@@ -34,6 +34,16 @@
                 templateUrl: 'request/requests.html',
                 controllerAs: 'vm'
             })
+            .when('/request2', {
+                controller: 'RequestController',
+                templateUrl: 'request/requests2.html',
+                controllerAs: 'vm'
+            })
+            .when('/request3', {
+                controller: 'RequestController',
+                templateUrl: 'request/requests3.html',
+                controllerAs: 'vm'
+            })
 
             .when('/login', {
                 controller: 'LoginController',
