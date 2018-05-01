@@ -27,6 +27,7 @@
         vm.allRequestsIncomingLen = 0;
         vm.AllFriendsLen = 0;
         vm.result = result;
+        vm.cancel = cancel;
 
         initController();
 
@@ -40,12 +41,12 @@
             UserService.GetRequestedFriends(current)
                 .then(function (users) {
                     vm.allRequests = users['person'];
-                    console.log("Outgoing");
-                    console.log(vm.allRequests.length);
                     if (vm.allRequests.length !== 0){
                         vm.allRequestsLen = 1;
                     }
-                    console.log(vm.allRequestsLen);
+                    else{
+                        vm.allRequestsLen = 0;
+                    }
                 });
         }
 
@@ -53,10 +54,11 @@
             UserService.GetIncomingFriends(current)
                 .then(function (users) {
                     vm.allRequestsIncoming = users['person'];
-                    console.log("Incoming");
-                    console.log(vm.allRequestsIncoming.length);
                     if (vm.allRequestsIncoming.length !== 0){
                         vm.allRequestsIncomingLen =  1;
+                    }
+                    else{
+                        vm.allRequestsIncomingLen =  0;
                     }
                     console.log(vm.allRequestsIncomingLen);
                 });
@@ -66,12 +68,12 @@
             UserService.GetAllFriends(current)
                 .then(function (users) {
                     vm.AllFriends = users['person'];
-                    console.log("All");
-                    console.log(vm.AllFriends.length);
                     if (vm.AllFriends.length !== 0){
                         vm.AllFriendsLen = 1;
                     }
-                    console.log(vm.AllFriendsLen);
+                    else{
+                        vm.AllFriendsLen = 0;
+                    }
                 });
         }
 
@@ -85,7 +87,23 @@
         }
 
         function result(requester, status){
-            console.log(requester);
+            var moreresult = JSON.stringify({'user_id_a':requester,'user_id_b':vm.user.username, 'status':status});
+            UserService.ConfirmFriend(moreresult)
+                .then(function (response) {
+                    vm.result = response['result'];
+                    console.log(vm.result);
+                    getallIncomingRequests(vm.user.username);
+                });
+        }
+
+        function cancel(requester, status){
+            var morecancel = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':requester, 'status':status});
+            UserService.ConfirmFriend(morecancel)
+                .then(function (response) {
+                    vm.cancel = response['result'];
+                    console.log(vm.cancel);
+                    getallRequestedRequests(vm.user.username);
+                });
         }
 
         function post(content) {

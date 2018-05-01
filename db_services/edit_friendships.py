@@ -46,9 +46,9 @@ def confirm_f(cursor, username_a, username_b, status):
 		confirm = ("UPDATE Friendships SET status = 1 WHERE user_id_a = %s AND user_id_b = %s")
 		value = (user_id_a, user_id_b)
 		cursor.execute(confirm, value)
-		test = ("SELECT * WHERE user_id_a = %s AND user_id_b = %s AND status = 1")
+		test = ("SELECT * FROM Friendships WHERE user_id_a = %s AND user_id_b = %s AND status = 1")
 		value = (user_id_a, user_id_b)
-		cursor.execute(confirm, value)
+		cursor.execute(test, value)
 		found = cursor.fetchall()
 		if found:
 			return 1
@@ -56,14 +56,14 @@ def confirm_f(cursor, username_a, username_b, status):
 			return -1
 	else:
 		delete_f(cursor, user_id_a, user_id_b)
-		test = ("SELECT * WHERE user_id_a = %s AND user_id_b = %s")
+		test = ("SELECT * FROM Friendships WHERE user_id_a = %s AND user_id_b = %s")
 		value = (user_id_a, user_id_b)
-		cursor.execute(confirm, value)
+		cursor.execute(test, value)
 		found = cursor.fetchall()
 		if found:
-			return 2
-		else:
 			return -2
+		else:
+			return 2
 
 ## See All Friendships & Potential Friendships (0- where you guys are friends, 1 - where you have to accept, 2 - where you are awaiting their acceptance) ##
 def allpotential_f(cursor, username, val):

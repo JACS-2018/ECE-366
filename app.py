@@ -275,7 +275,8 @@ def confirm_friend():
     checkbit = edit_friendships.confirm_f(cursor,content['user_id_a'], content['user_id_b'],content['status'])
 
     start_db.commitclose(cursor, db)
-
+    print "checkbit"
+    print checkbit
     #Again, need to pull out all relevant info from content
  
     if checkbit > 0:
