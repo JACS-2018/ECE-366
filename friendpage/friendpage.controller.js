@@ -21,6 +21,7 @@
         vm.friendrequestsuccess = friendrequestsuccess;
         vm.requestings = null;
         vm.cancel = cancel;
+        vm.getUser = getUser;
 
         initController();
 
@@ -28,6 +29,7 @@
         function initController() {
             loadCurrentUser();
             loadAllUsers();
+            getUser();
             console.log($location.url().split('#')[1]);
             console.log(vm.allPosts);
             console.log(vm.requestings);
@@ -88,6 +90,13 @@
                     var getpost = JSON.stringify({'user_id_a':user['person'][0].username,'user_id_b':$location.url().split('#')[1]});
                     loadPosts(getpost);
                     requestexists(user['person'][0].username);
+                });
+        }
+
+        function getUser() {
+            UserService.GetByUsername(vm.friendUser)
+                .then(function (user) {
+                    vm.getUser = user['person'][0];
                 });
         }
 

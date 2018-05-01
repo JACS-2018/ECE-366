@@ -12,7 +12,7 @@
         vm.user = null;
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
-        vm.changePage=changePage;
+  
 
         initController();
 
@@ -21,16 +21,11 @@
             loadAllUsers();
         }
 
-        function changePage(path){
-            $location.path(path);
-            console.log(path);
-            console.log("hello");
-        }
-
         function loadCurrentUser() {
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
-                    vm.user = user;
+                    console.log(user['person'][0]);
+                    vm.user = user['person'][0];
                 });
         }
 

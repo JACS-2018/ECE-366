@@ -66,8 +66,12 @@ def see_users():
         firstName = user.f_name
         lastName = user.l_name
         myid = user.user_id
+        bday = user.bday
+        occupation = user.occupation
+        about = user.about
+        email = user.email
 
-        ind_user = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
+        ind_user = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid, 'bday':bday, 'occupation':occupation, 'about':about, 'email':email}
 
         array_user.append(ind_user)
     
@@ -104,8 +108,12 @@ def get_tasks4(user):
         firstName = user.f_name
         lastName = user.l_name
         myid = user.user_id
+        bday = user.bday
+        occupation = user.occupation
+        about = user.about
+        email = user.email
 
-        ind_user = {'username':username,'firstName':firstName,'lastName':lastName,'id':myid}
+        ind_user = {'username':username, 'firstName':firstName, 'lastName':lastName, 'id':myid, 'bday':bday, 'occupation':occupation, 'about':about, 'email':email}
 
         array_user.append(ind_user)
     
