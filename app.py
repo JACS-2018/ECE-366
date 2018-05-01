@@ -216,55 +216,50 @@ def wait_confirm(username):
     return jsonify({'person':array_f})
 
 # # Add a Friend
-@app.route('/api/friendships/<username_a>/<username_b>',methods=['POST'])
-def add_friend(username_a,username_b):
+@app.route('/api/friendships/add',methods=['POST'])
+def add_friend():
     content = request.json
-
+    print "content" 
+    print content
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
-    checkbit = edit_friendships.add_f(cursor,username_a,username_b) #just in case, "supposed" to be user_id
+    checkbit = edit_friendships.add_f(cursor,content['user_id_a'], content['user_id_b']) #just in case, "supposed" to be user_id
     
     start_db.commitclose(cursor, db)
 
     #need to pull relevant info out of content, if necessary
 
-    '''
     if checkbit == 0:
-        return jsonify() #jsonify response for an error
+        return jsonify({'user_a':content['user_id_a'], 'user_b':content['user_id_b'], 'success':'false'})
     else:
-        return jsonify() #jsonify response for a success
-    '''
-    return 0
+        return jsonify({'user_a':content['user_id_a'], 'user_b':content['user_id_b'], 'success':'true'}) 
 
 # # Confirm Friend
-@app.route('/api/friendships/<username_a>/<username_b>/<status>',methods=['POST'])
-def confirm_friend(username_a,username_b,status):
+@app.route('/api/friendships/confirming',methods=['POST'])
+def confirm_friend():
     content = request.json
 
     db = start_db.launchdb()
     cursor = start_db.launchcursor(db)
 
     #may need to change status from string to int
-    checkbit = edit_friendships.confirm_f(cursor,username_a,username_b,status)
+    checkbit = edit_friendships.confirm_f(cursor,content['user_id_a'], content['user_id_b'],content['status'])
 
     start_db.commitclose(cursor, db)
 
     #Again, need to pull out all relevant info from content
-    
-    '''
+ 
     if checkbit > 0:
         if checkbit == 2:
-            return jsonify() #return for deny, success
+            return jsonify({'user_a':content['user_id_a'], 'user_b':content['user_id_b'], 'result':'denied'}) #return for deny, success
         else:
-            return jsonify() #return for accept, success
+            return jsonify({'user_a':content['user_id_a'], 'user_b':content['user_id_b'], 'result':'accepted'}) #return for accept, success
     else:
         if checkbit == -2:
-            return jsonify() #return for deny, failed
+            return '',status.HTTP_404_NOT_FOUND
         else:
-            return jsonify() #return for accept, failed
-    '''
-    return 0
+            return '',status.HTTP_404_NOT_FOUND
 
 
 # # Delete Friend
