@@ -19,6 +19,11 @@
                 templateUrl: 'input/input.html',
                 controllerAs: 'vm'
             })
+            .when('/friend', {
+                controller: 'FriendController',
+                templateUrl: 'friend/friend.html',
+                controllerAs: 'vm'
+            })
             .when('/friendpage', {
                 controller: 'FriendPageController',
                 templateUrl: 'friendpage/friendpage.view.html',
