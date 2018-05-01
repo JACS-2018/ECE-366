@@ -91,7 +91,8 @@
                     console.log(vm.result);
                     requestexists(vm.user.username);
                     requestexists2(vm.user.username);
-                    loadPosts($location.url().split('#')[1]);
+                    var morepost = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1]});
+                    loadPosts(morepost);
                 });
         }
 
