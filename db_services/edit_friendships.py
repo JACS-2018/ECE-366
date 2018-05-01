@@ -13,14 +13,16 @@ import start_db
 
 ## Add Friends ##
 # Creates new table entry for friendship
-def add_f(cursor, user_id_a, user_id_b):
+def add_f(cursor, username_a, username_b):
+	user_id_a = edit_user.find_u(cursor, username_a)
+	user_id_b = edit_user.find_u(cursor, username_b)
 	pot = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
 	value = (user_id_a, user_id_b, user_id_b, user_id_a)
 	cursor.execute(pot, value)
 	found = cursor.fetchall()
 
 	if found: 
-		print("We have this value already")
+		return 0
 	else:
 		add = ("INSERT INTO Friendships"
 		"(user_id_a, user_id_b, status)"
@@ -28,11 +30,16 @@ def add_f(cursor, user_id_a, user_id_b):
 
 		value = (user_id_a, user_id_b)
 		cursor.execute(add, value)
+		return 1
 
 
 ## Confirm Friends ##
 # Confirm friends makes bit = 1, if not confirmed, then deletes table entry
-def confirm_f(cursor, user_id_a, user_id_b, status):
+# 1 in status makes friends and 0 in status deletes table entry
+def confirm_f(cursor, username_a, username_b, status):
+	user_id_a = edit_user.find_u(cursor, username_a)
+	user_id_b = edit_user.find_u(cursor, username_b)
+	
 	if status:
 		confirm = ("UPDATE Friendships SET status = 1 WHERE user_id_a = %s AND user_id_b = %s")
 		value = (user_id_a, user_id_b)
