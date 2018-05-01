@@ -65,7 +65,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                 }
               </style>
 
-             <h4 class="w3-center"><a ng-href="#!/friendpage/#{{request.username}}">{{request.username}}</a></h4><br>
+             <div ng-if="request.username==vm.user.username">
+            <h4 class="w3-center"><a ng-href="#!/">{{request.username}}</h4><br>
+          </div>
+          <div ng-if="request.username !=vm.user.username">
+            <h4 class="w3-center"><a ng-href="#!/friendpage/#{{request.username}}">{{request.username}}</a></h4><br>
+          </div>
              <p class="w3-center"><img src="http://www.cartoonbucket.com/wp-content/uploads/2017/03/Jhonny-Dancing-Image-600x565.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
              <button type="button" class="w3-button w3-dark-grey" ng-click="vm.cancel(request.username, 0)"><i class="fa fa-trash"></i>Cancel Request</button>
              <hr>
