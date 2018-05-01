@@ -38,7 +38,7 @@ def register_user():
     
     user_id = cursor.lastrowid
     start_time = datetime.datetime.now()
-    test = edit_user.user(user_id, firstname, lastname, username, password,'','','', start_time, 1)
+    test = edit_user.user(user_id, firstname, lastname, username, password,'','','','','', start_time, 1)
     check = edit_user.insert_u(cursor, test)
     
     start_db.commitclose(cursor, db)
