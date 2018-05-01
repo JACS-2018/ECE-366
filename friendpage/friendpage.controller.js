@@ -18,7 +18,7 @@
         vm.hasPosts = false;
         vm.noPosts = true;
         vm.friendUser = $location.url().split('#')[1];
-        vm.friendrequest = friendrequest;
+        vm.friendrequestsuccess = friendrequestsuccess;
 
         initController();
 
@@ -28,8 +28,13 @@
             console.log($location.url().split('#')[1]);
         }
 
-        function friendrequest(){
-            
+        function friendrequestsuccess(){
+            var morefriend = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1]});
+            UserService.MakeFriend(morefriend)
+                .then(function (response) {
+                    vm.friendrequestsuccess = response['success'];
+                    console.log(response);
+                });
         }
 
         function post(content) {

@@ -119,7 +119,6 @@ def is_f(cursor, username_a, username_b):
 	value = (user_a, user_b, user_b, user_a)
 	cursor.execute(find, value)
 	friends = cursor.fetchone()
-
 	if friends:
 		return 1
 	else:
