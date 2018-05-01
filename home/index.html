@@ -18,9 +18,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <a href="#!/" class="w3-bar-item w3-button w3-padding-large w3-dark-grey"></i><img src="images/Babbl_logo.png" style="height:40px;width:px" alt="Babbl"></a>
   <a  href="#!/friend" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-grey" title="Friends" ><i class="fa fa-users"></i></a>
   <a  href="#!/request" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-grey" title="Requests" ><i class="fa fa-user-plus"></i></a>
+  <a  href="#!/login" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-grey" title="Logout" >Logout</a>
   <a  href="#!/profile" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-grey" title="My Profile" >
     <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/08/Spongebob-Weared-Big-Specs.jpg" class="w3-circle" style="height:35px;width:35px" alt="Profile">
   </a>
+   
  </div>
 </div>
 <!-- Page Container -->
@@ -115,10 +117,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <div ng-if="vm.hasPosts==false">
       <center><h4>You have no posts on your wall!</h4></center>
     </div>
-    <div>
-    <!-- End Content -->
-      <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
-    </div>
+
   </div>
 
       
@@ -144,11 +143,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
           }
         </style>
         <center><h4>This person isn't your friend! If you would like to connect, send a friend request!</h4></center>
-      
-    <div>
-    <!-- End Content -->
-      <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
-    </div>
   </div>
 
 <!-- End Page Container -->

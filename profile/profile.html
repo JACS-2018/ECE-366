@@ -18,9 +18,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <a href="#!/" class="w3-bar-item w3-button w3-padding-large w3-dark-grey"></i><img src="images/Babbl_logo.png" style="height:40px;width:px" alt="Babbl"></a>
   <a  href="#!/friend" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-grey" title="Friends" ><i class="fa fa-users"></i></a>
   <a  href="#!/request" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-grey" title="Requests" ><i class="fa fa-user-plus"></i></a>
+  <a  href="#!/login" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-grey" title="Logout" >Logout</a>
   <a  href="#!/profile" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-grey" title="My Profile" >
     <img src="http://www.cartoonbucket.com/wp-content/uploads/2015/08/Spongebob-Weared-Big-Specs.jpg" class="w3-circle" style="height:35px;width:35px" alt="Profile">
   </a>
+   
  </div>
 </div>
 
@@ -76,6 +78,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
             <textarea id=txtArea type="text" ng-model="email" placeholder="Email"></textarea><br>
             Birthday:<br>
              <textarea id=txtArea type="text" ng-model="birthday" placeholder="Birthday"></textarea><br>
+             <br>
+             <button type="submit" class="w3-button w3-dark-grey w3-margin-bottom" ng-click="vm.update(description, email, birthday)" onclick="clearTextArea()"><i class="fa fa-pencil"></i>Update</button>
              <br>
         </form>
         </div>

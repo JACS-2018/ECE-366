@@ -81,40 +81,32 @@ def update_u(cursor, u_name, new_u):
 	cursor.execute(read, value) 
 	
 	u_user = cursor.fetchone()
-	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7], u_user[8], u_user[9], r_user[10], r_user[11])
+	print u_user
+	print new_u.bday
+	print new_u.about
+	print new_u.email
+	print new_u.u_name
+	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7], u_user[8], u_user[9], u_user[10], u_user[11])
 
-
-	if old_u.u_name != new_u.u_name:
-		update = ("UPDATE User SET username = %s WHERE user_id = %s")
-		value = (new_u.u_name, old_u.user_id)
-		cursor.execute(update, value)
-	if old_u.f_name != new_u.f_name:
-		update = ("UPDATE User SET first_name = %s WHERE user_id = %s")
-		value = (new_u.f_name, old_u.user_id)
-		cursor.execute(update, value)
-	if old_u.l_name != new_u.l_name:
-		update = ("UPDATE User SET last_name = %s WHERE user_id = %s")
-		value = (new_u.l_name, old_u.user_id)
-		cursor.execute(update, value)
-	if old_u.pwrd != new_u.pwrd:
-		update = ("UPDATE User SET password = %s WHERE user_id = %s")
-		value = (new_u.pwrd, old_u.user_id)
-		cursor.execute(update, value)
 	if old_u.pro_pic != new_u.pro_pic:
 		update = ("UPDATE User SET pro_pic = %s WHERE user_id = %s")
-		value = (new_u.email, old_u.user_id)
+		value = (new_u.pro_pic, old_u.user_id)
 		cursor.execute(update, value)
 	if old_u.about != new_u.about:
 		update = ("UPDATE User SET about = %s WHERE user_id = %s")
-		value = (new_u.email, old_u.user_id)
+		value = (new_u.about, old_u.user_id)
 		cursor.execute(update, value)
 	if old_u.occupation != new_u.occupation:
 		update = ("UPDATE User SET occupation = %s WHERE user_id = %s")
-		value = (new_u.email, old_u.user_id)
+		value = (new_u.occupation, old_u.user_id)
 		cursor.execute(update, value)
 	if old_u.email != new_u.email:
 		update = ("UPDATE User SET email = %s WHERE user_id = %s")
 		value = (new_u.email, old_u.user_id)
+		cursor.execute(update, value)
+	if old_u.bday != new_u.bday:
+		update = ("UPDATE User SET bday = %s WHERE user_id = %s")
+		value = (new_u.bday, old_u.user_id)
 		cursor.execute(update, value)
 	return 1
 

@@ -23,6 +23,7 @@
         service.MakeFriend = MakeFriend;
         service.ConfirmFriend = ConfirmFriend;
         service.RequestExists = RequestExists;
+        service.CreateTemp = CreateTemp;
 
         return service;
 
@@ -40,6 +41,10 @@
 
         function Create(user) {
             return $http.post('http://127.0.0.1:5000/api/users', user).then(handleSuccess, handleError('Error creating user'));
+        }
+
+        function CreateTemp(user) {
+            return $http.post('http://127.0.0.1:5000/api/create', user).then(handleSuccess, handleError('Error creating temporary user'));
         }
 
         function Update(user) {

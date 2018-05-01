@@ -47,6 +47,30 @@ def register_user():
         return jsonify({'firstName':content['firstName'],'lastName':content['lastName'],'username':content['username'],'password':content['password'], 'success':'true'})
     else:
         return '',status.HTTP_404_NOT_FOUND
+
+@app.route('/api/create', methods=['POST'])
+def create_user():
+    content = request.json
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    username = content['username']
+    desc = content['desc']
+    email = content['email']
+    bday = content['bday']
+    
+    user_id = cursor.lastrowid
+    start_time = datetime.datetime.now()
+    test = edit_user.user(0, 0, 0, username, 0,0,desc,0,bday,email, start_time, 1)
+    check = edit_user.update_u(cursor, username, test)
+    
+    start_db.commitclose(cursor, db)
+
+    if check == 1:
+        return jsonify({'username':content['username'],'desc':content['desc'],'email':content['email'],'bday':content['bday'], 'success':'true'})
+    else:
+        return '',status.HTTP_404_NOT_FOUND
         
 
 ## TODO: READ all user except themselves and their friends (suggested friends)

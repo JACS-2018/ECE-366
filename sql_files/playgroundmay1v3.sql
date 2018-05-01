@@ -84,7 +84,7 @@ CREATE TABLE `User` (
   `pro_pic` varchar(30) DEFAULT NULL,
   `about` varchar(150) DEFAULT NULL,
   `occupation` varchar(100) DEFAULT NULL,
-  `bday` date DEFAULT NULL,
+  `bday` varchar(50) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `signup_date` datetime DEFAULT NULL,
   `active` bit(1) DEFAULT NULL,
