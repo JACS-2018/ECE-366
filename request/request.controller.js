@@ -23,6 +23,9 @@
         vm.allRequests = [];
         vm.allRequestsIncoming = [];
         vm.AllFriends = [];
+        vm.allRequestsLen = 0;
+        vm.allRequestsIncomingLen = 0;
+        vm.AllFriendsLen = 0;
 
         initController();
 
@@ -36,7 +39,12 @@
             UserService.GetRequestedFriends(current)
                 .then(function (users) {
                     vm.allRequests = users['person'];
-                    console.log(vm.allRequests);
+                    console.log("Outgoing");
+                    console.log(vm.allRequests.length);
+                    if (vm.allRequests.length !== 0){
+                        vm.allRequestsLen = 1;
+                    }
+                    console.log(vm.allRequestsLen);
                 });
         }
 
@@ -44,7 +52,12 @@
             UserService.GetIncomingFriends(current)
                 .then(function (users) {
                     vm.allRequestsIncoming = users['person'];
-                    console.log(vm.allRequestsIncoming);
+                    console.log("Incoming");
+                    console.log(vm.allRequestsIncoming.length);
+                    if (vm.allRequestsIncoming.length !== 0){
+                        vm.allRequestsIncomingLen =  1;
+                    }
+                    console.log(vm.allRequestsIncomingLen);
                 });
         }
 
@@ -52,7 +65,12 @@
             UserService.GetAllFriends(current)
                 .then(function (users) {
                     vm.AllFriends = users['person'];
-                    console.log(vm.AllFriends);
+                    console.log("All");
+                    console.log(vm.AllFriends.length);
+                    if (vm.AllFriends.length !== 0){
+                        vm.AllFriendsLen = 1;
+                    }
+                    console.log(vm.AllFriendsLen);
                 });
         }
 

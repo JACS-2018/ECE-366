@@ -36,7 +36,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     <!-- Friends -->
     <div class="grid-container">
         
-
+      <div ng-if="vm.allRequestsIncomingLen == 1">
         <li ng-repeat="request in vm.allRequestsIncoming">
         <div class="grid-item">
           <div class="w3-card w3-round w3-white">
@@ -54,6 +54,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         </div>
         <br>
       </li>
+    </div>
+    <div ng-if="vm.allRequestsIncomingLen == 0">
+      <center><h4>You have no incoming friend requests <br> Feelsbadman :(</h4></center>
+    </div>
 
     </div>
       <br>
