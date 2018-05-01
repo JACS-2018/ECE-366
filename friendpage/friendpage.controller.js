@@ -19,6 +19,8 @@
         vm.noPosts = true;
         vm.friendUser = $location.url().split('#')[1];
         vm.friendrequestsuccess = friendrequestsuccess;
+        vm.friendrequestsuccesser = null
+        vm.canceller = null;
         vm.requestings = null;
         vm.cancel = cancel;
         vm.getUser = getUser;
@@ -39,7 +41,7 @@
             var morefriend = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1]});
             UserService.MakeFriend(morefriend)
                 .then(function (response) {
-                    vm.friendrequestsuccess = response['success'];
+                    vm.friendrequestsuccesser = response['success'];
                     console.log(response);
                     requestexists(vm.user.username);
                 });
@@ -59,8 +61,8 @@
             var morecancel = JSON.stringify({'user_id_a':vm.user.username,'user_id_b':$location.url().split('#')[1], 'status':0});
             UserService.ConfirmFriend(morecancel)
                 .then(function (response) {
-                    vm.cancel = response['result'];
-                    console.log(vm.cancel);
+                    vm.canceller = response['result'];
+                    console.log(vm.canceller);
                     requestexists(vm.user.username);
                 });
         }
