@@ -39,14 +39,29 @@ def add_f(cursor, username_a, username_b):
 def confirm_f(cursor, username_a, username_b, status):
 	user_id_a = edit_user.find_u(cursor, username_a)
 	user_id_b = edit_user.find_u(cursor, username_b)
-	
+
 	if status:
 		confirm = ("UPDATE Friendships SET status = 1 WHERE user_id_a = %s AND user_id_b = %s")
 		value = (user_id_a, user_id_b)
 		cursor.execute(confirm, value)
+		test = ("SELECT * WHERE user_id_a = %s AND user_id_b = %s AND status = 1")
+		value = (user_id_a, user_id_b)
+		cursor.execute(confirm, value)
+		found = cursor.fetchall()
+		if found:
+			return 1
+		else:
+			return -1
 	else:
 		delete_f(cursor, user_id_a, user_id_b)
-
+		test = ("SELECT * WHERE user_id_a = %s AND user_id_b = %s")
+		value = (user_id_a, user_id_b)
+		cursor.execute(confirm, value)
+		found = cursor.fetchall()
+		if found:
+			return 2
+		else:
+			return -2
 
 ## See All Friendships & Potential Friendships (0- where you guys are friends, 1 - where you have to accept, 2 - where you are awaiting their acceptance) ##
 def allpotential_f(cursor, username, val):
@@ -70,7 +85,7 @@ def allpotential_f(cursor, username, val):
 	cursor.execute(find_p_f, value)
 	u_friends = cursor.fetchall()
 
-	ap_dict = []
+	ap_dict = []	
 	for all_u_f in u_friends:
 		if all_u_f[0] == user_id:
 			user_id2 = all_u_f[1]
@@ -82,7 +97,6 @@ def allpotential_f(cursor, username, val):
 		cursor.execute(find_f, value)
 		u_f_name = cursor.fetchone()
 		i_conf = edit_user.user(u_f_name[0], u_f_name[1], u_f_name[2], u_f_name[3], u_f_name[4], u_f_name[5], u_f_name[6], u_f_name[7], u_f_name[8], u_f_name[9])
-		print("%s %s", u_f_name[1], u_f_name[2])
 		ap_dict.append(i_conf)
 
 	return ap_dict
