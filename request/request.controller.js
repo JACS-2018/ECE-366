@@ -26,6 +26,7 @@
         vm.allRequestsLen = 0;
         vm.allRequestsIncomingLen = 0;
         vm.AllFriendsLen = 0;
+        vm.result = result;
 
         initController();
 
@@ -81,6 +82,10 @@
                     vm.friendrequestsuccess = response['success'];
                     requestexists(vm.user.username);
                 });
+        }
+
+        function result(requester, status){
+            console.log(requester);
         }
 
         function post(content) {
