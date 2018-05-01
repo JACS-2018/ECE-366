@@ -19,6 +19,7 @@
         vm.noPosts = true;
         vm.friendUser = $location.url().split('#')[1];
         vm.friendrequestsuccess = friendrequestsuccess;
+        vm.requestexists = requestexists;
 
         initController();
 
@@ -33,6 +34,16 @@
             UserService.MakeFriend(morefriend)
                 .then(function (response) {
                     vm.friendrequestsuccess = response['success'];
+                    console.log(response);
+                });
+        }
+
+        function requestexists(current){
+            var morefriend = JSON.stringify({'user_id_a':current,'user_id_b':$location.url().split('#')[1]});
+            UserService.RequestExists(morefriend)
+                .then(function (response) {
+                    vm.requestexists = response['exists'];
+                    console.log("AY");
                     console.log(response);
                 });
         }
@@ -61,6 +72,7 @@
                     console.log(user['person'][0].id)
                     var getpost = JSON.stringify({'user_id_a':user['person'][0].username,'user_id_b':$location.url().split('#')[1]});
                     loadPosts(getpost);
+                    requestexists(user['person'][0].username);
                 });
         }
 

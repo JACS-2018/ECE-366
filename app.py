@@ -190,6 +190,24 @@ def see_pot_friends(username):
 
     return jsonify({'person':array_f})
 
+@app.route('/api/friendships/exists/<requestexists>',methods=['GET'])
+def check_request(requestexists):
+    content = request.json
+    print "content2"
+    print content
+
+    db = start_db.launchdb()
+    cursor = start_db.launchcursor(db)
+
+    f_dict = edit_friendships.request_exists_f(cursor, requestexists['user_id_a'],requestexists['user_id_b'])
+    
+    start_db.commitclose(cursor, db)
+
+    if f_dict == 1:
+        return jsonify({'exists':'requestgood'})
+    else:
+        return jsonify({'exists':'requestbad'})
+
 # #Friends you're awaiting confirmation from
 @app.route('/api/friendships/awaiting/<username>',methods=['GET'])
 def wait_confirm(username):

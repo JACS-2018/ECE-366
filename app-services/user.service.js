@@ -76,6 +76,10 @@
         function ConfirmFriend(friend){
             return $http.post('http://127.0.0.1:5000/api/friendships/confirming', friend).then(handleSuccess, handleError('Error confirming friend'));
         }
+
+        function RequestExists(id) {
+            return $http.get('http://127.0.0.1:5000/api/friendships/exists/' + id).then(handleSuccess, handleError('Error getting request'));
+        }
         // private functions
 
         function handleSuccess(res) {
