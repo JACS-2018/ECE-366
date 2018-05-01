@@ -14,6 +14,8 @@ import start_db
 ## Add Friends ##
 # Creates new table entry for friendship
 def add_f(cursor, username_a, username_b):
+	if username_a == username_b:
+		return 0
 	user_id_a = edit_user.find_u(cursor, username_a)
 	user_id_b = edit_user.find_u(cursor, username_b)
 	pot = ("SELECT * FROM Friendships WHERE (user_id_a = %s AND user_id_b = %s) OR (user_id_a = %s AND user_id_b = %s)")
@@ -119,6 +121,20 @@ def is_f(cursor, username_a, username_b):
 	friends = cursor.fetchone()
 
 	if friends:
+		return 1
+	else:
+		return 0
+
+def request_exists_f(cursor, username_a, username_b):
+	user_a = edit_user.find_u(cursor, username_a)
+	user_b = edit_user.find_u(cursor, username_b)
+	find = ("SELECT * FROM Friendships WHERE user_id_a = %s AND user_id_b = %s AND status = 0")
+	value = (user_a, user_b)
+
+	cursor.execute(find, value)
+	exists = cursor.fetchone()
+
+	if exists:
 		return 1
 	else:
 		return 0
