@@ -9,7 +9,7 @@ import start_db
 ############################### User Class Declarations ###############################
 
 class user:
-	def __init__(self, user_id, f_name, l_name, u_name, pwrd, pro_pic, about, email, time, active):
+	def __init__(self, user_id, f_name, l_name, u_name, pwrd, pro_pic, about, occupation, bday, email, time, active):
 		self.user_id = user_id
 		self.f_name = f_name
 		self.l_name = l_name
@@ -17,6 +17,8 @@ class user:
 		self.pwrd = pwrd
 		self.pro_pic = pro_pic
 		self.about = about
+		self.occupation = occupation
+		self.bday = bday
 		self.email = email
 		self.time = time
 		self.active = active
@@ -35,9 +37,9 @@ def insert_u(cursor, user):
 		return 0
 	else: 
 		ins = ("INSERT INTO User" 
-				"(user_id, first_name, last_name, username, password, pro_pic, about, email, signup_date, active)"
-				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.email, user.time, user.active)
+				"(user_id, first_name, last_name, username, password, pro_pic, about, occupation, bday, email, signup_date, active)"
+				"VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+		data_user = (user.user_id, user.f_name, user.l_name, user.u_name, user.pwrd, user.pro_pic, user.about, user.occupation, user.bday, user.email, user.time, user.active)
 
 		cursor.execute(ins, data_user)
 		return 1
@@ -63,7 +65,7 @@ def read_u(cursor, f_name, l_name, u_name):
 	user_dict = {}
 	
 	for r_user in data:
-	 	user_dict[r_user[0]] = user(r_user[0], r_user[1], r_user[2], r_user[3], r_user[4], r_user[5], r_user[6], r_user[7], r_user[8], r_user[9])
+	 	user_dict[r_user[0]] = user(r_user[0], r_user[1], r_user[2], r_user[3], r_user[4], r_user[5], r_user[6], r_user[7], r_user[8], r_user[9], r_user[10], r_user[11])
 	
 	# for u_id in user_dict:
 		# 	print("%s" %(user_dict[u_id].f_name))
@@ -80,7 +82,7 @@ def update_u(cursor, u_name, new_u):
 	cursor.execute(read, value) 
 	
 	u_user = cursor.fetchone()
-	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7], u_user[8], u_user[9])
+	old_u = user(u_user[0], u_user[1], u_user[2], u_user[3], u_user[4], u_user[5], u_user[6], u_user[7], u_user[8], u_user[9], r_user[10], r_user[11])
 
 
 	if old_u.u_name != new_u.u_name:
@@ -99,11 +101,22 @@ def update_u(cursor, u_name, new_u):
 		update = ("UPDATE User SET password = %s WHERE user_id = %s")
 		value = (new_u.pwrd, old_u.user_id)
 		cursor.execute(update, value)
+	if old_u.pro_pic != new_u.pro_pic:
+		update = ("UPDATE User SET pro_pic = %s WHERE user_id = %s")
+		value = (new_u.email, old_u.user_id)
+		cursor.execute(update, value)
+	if old_u.about != new_u.about:
+		update = ("UPDATE User SET about = %s WHERE user_id = %s")
+		value = (new_u.email, old_u.user_id)
+		cursor.execute(update, value)
+	if old_u.occupation != new_u.occupation:
+		update = ("UPDATE User SET occupation = %s WHERE user_id = %s")
+		value = (new_u.email, old_u.user_id)
+		cursor.execute(update, value)
 	if old_u.email != new_u.email:
 		update = ("UPDATE User SET email = %s WHERE user_id = %s")
 		value = (new_u.email, old_u.user_id)
 		cursor.execute(update, value)
-
 	return 1
 
 ## Confirm user exists ##
@@ -162,61 +175,82 @@ def find_u(cursor, username):
 	return person[0]
 
 
-
 ############################### Finished Function Declarations ###############################
-
-
 '''
+
+
 db = start_db.launchdb()
 cursor = start_db.launchcursor(db)    
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'cardywei', '', '5V ground', 'wei@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+bday = '2016-05-09'
+car = user(user_id, 'Cardy', 'Wei', 'cwei3', 'cardywei', '', '5V ground', 'UNDERWATER DOLPHIN CHARMER', bday, 'wei@cooper.edu', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# jas = user(user_id, 'Jasmine', 'Tang', 'jtangqt', 'jasminetang', '', 'Friends dont harrass other friends.', 'tang@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+jas = user(user_id, 'Jasmine', 'Tang', 'jtangqt', 'jasminetang', '', 'Friends dont harrass other friends.', 'supermodel', bday, 'tang@cooper.edu', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# sam = user(user_id, 'sam', 'cheng', 'scheng829', 'samcheng', '', 'Watch my dance moves', 'scheng839@gmail.com', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+sam = user(user_id, 'sam', 'cheng', 'scheng829', 'samcheng', '', 'Watch my dance moves', 'professional dancer', bday, 'scheng839@gmail.com', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# alex = user(user_id, 'alex', 'hu', 'enigmamemoryg', 'alexhu', '', 'AHH NLP', 'hu5@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+alex = user(user_id, 'alex', 'hu', 'enigmamemoryg', 'alexhu', '', 'AHH NLP', 'cooper union student', bday,'hu5@cooper.edu', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# kc = user(user_id, 'casey', 'he', 'squishybluewristbutt', 'caseyhe', '', 'ROCK CLIMBING', 'he@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+kc = user(user_id, 'casey', 'he', 'squishybluewristbutt', 'caseyhe', '', 'ROCK CLIMBING', 'ALIVE', bday,'he@cooper.edu', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# joey = user(user_id, 'joey', 'benghaasllkfdldaflaf', 'tritus', 'joey', '', '@everyone, league???', 'jbengtlfdf15@gmail.com', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+joey = user(user_id, 'joey', 'benghaasllkfdldaflaf', 'tritus', 'joey', '', '@everyone, league???', 'miner in data', bday,'jbengtlfdf15@gmail.com', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# jerry = user(user_id, 'jeremiah', 'pratt', 'sabooap', 'jeremiahpratt', '', 'Again, our sincere apologies to the families who went home disappointed.', 'pratt@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+jerry = user(user_id, 'jeremiah', 'pratt', 'sabooap', 'jeremiahpratt', '', 'Again, our sincere apologies to the families who went home disappointed.', 'politician', bday, 'pratt@cooper.edu', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# dan = user(user_id, 'dan', 'park', 'solarien', 'danpark', '', 'Join the army with me!', 'park100000@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+dan = user(user_id, 'dan', 'park', 'solarien', 'danpark', '', 'Join the army with me!', 'General of the ONE Korean Army', bday, 'park100000@cooper.edu', start_time, 1)
 
-# user_id = cursor.lastrowid
-# start_time = datetime.datetime.now()
-# chris = user(user_id, 'chris', 'watkins', 'WATGOIN', 'chriswatkins', '', 'I am a front end developer', 'watkins@cooper.edu', start_time, 1)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+dk = user(user_id, 'dongkyu', 'kim', 'dongkyu0419', 'dongkyukim', '', 'TRIVIAL', 'Professor Kirtman :POGGERS:', bday, 'kim800@cooper.edu', start_time, 1)
 
-# insert_u(cursor, car)
-# insert_u(cursor, jas)
-# insert_u(cursor, sam)
-# insert_u(cursor, alex)
-# insert_u(cursor, kc)
-# insert_u(cursor, joey)
-# insert_u(cursor, jerry)
-# insert_u(cursor, dan)
-# insert_u(cursor, chris)
-new_user = user(0, 'alex', 'hu', 'enigmamemory', 'alexhu', '', 'AHH NLP', 'hu5@cooper.edu', 0, 1)
-update_u(cursor, 'enigmamemoryg', new_user)
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+minyoung = user(user_id, 'minyoung', 'na', 'BSEintruder', 'minyuongna', '', 'REEEEEEEEEEEEE', 'i want to be a puppy', bday, 'na4@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+bri = user(user_id, 'brian', 'hong', 'th0m4s', 'brianhong', '', '66k+ groups', 'thomas', bday, 'bri@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+paul = user(user_id, 'paul', 'kang', 'cheeseheadpk', 'paulkang', '', 'I own a burger joint', 'Construction Worker/Bob the Builder', bday, 'kang3@cooper.edu', start_time, 1)
+
+user_id = cursor.lastrowid
+start_time = datetime.datetime.now()
+chris = user(user_id, 'chris', 'watkins', 'WATGOIN', 'chriswatkins', '', 'I am a front end developer', 'full stack developer', bday, 'watkins@cooper.edu', start_time, 1)
+
+
+insert_u(cursor, car)
+insert_u(cursor, jas)
+insert_u(cursor, sam)
+insert_u(cursor, alex)
+insert_u(cursor, kc)
+insert_u(cursor, joey)
+insert_u(cursor, jerry)
+insert_u(cursor, dan)
+insert_u(cursor, dk)
+insert_u(cursor, minyoung)
+insert_u(cursor, bri)
+insert_u(cursor, paul)
+insert_u(cursor, chris)
+# new_user = user(0, 'alex', 'hu', 'enigmamemory', 'alexhu', '', 'AHH NLP', 'hu5@cooper.edu', 0, 1)
+# update_u(cursor, 'enigmamemoryg', new_user)
 
 start_db.commitclose(cursor, db)
 '''

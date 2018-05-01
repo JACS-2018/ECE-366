@@ -121,39 +121,47 @@ def edit_p(cursor, post_id, new_p):
 
 ############################### Finished Function Declarations ###############################
 
-'''
-  
+
+  '''
+
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post1 = post(post_id, 'scheng829', 'jtangqt', post_time, 'once upon a time')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post2 = post(post_id, 'jtangqt', 'jtangqt', post_time, 'there was a person')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post3 = post(post_id, 'sabooap', 'jtangqt', post_time, 'who wanted to eat ')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post4 = post(post_id, 'tritus', 'jtangqt', post_time, 'cup noooooodles all the time')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post5 = post(post_id, 'squishybluewristbutt','jtangqt', post_time, 'and his name was........ exdee')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post6 = post(post_id, 'enigmamemory','enigmamemory', post_time, 'and his name was........ exdee')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post7 = post(post_id, 'cwei3','enigmamemory', post_time, 'and his name was........ exdee')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post8 = post(post_id, 'cwei3','jtangqt', post_time, 'and his name was........ exdee')
+# post_time = datetime.datetime.now()
+# post_id = cursor.lastrowid
+# post9 = post(post_id, 'solarien','jtangqt', post_time, 'YA LIKE JAZZ?')
+
+
+db = start_db.launchdb()
+cursor = start_db.launchcursor(db) 
 
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post1 = post(post_id, 'scheng829', 'jtangqt', post_time, 'once upon a time')
+post10 = post(post_id, 'sabooap','enigmamemory', post_time, 'i know you do')
 post_time = datetime.datetime.now()
 post_id = cursor.lastrowid
-post2 = post(post_id, 'jtangqt', 'jtangqt', post_time, 'there was a person')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post3 = post(post_id, 'sabooap', 'jtangqt', post_time, 'who wanted to eat ')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post4 = post(post_id, 'tritus', 'jtangqt', post_time, 'cup noooooodles all the time')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post5 = post(post_id, 'squishybluewristbutt','jtangqt', post_time, 'and his name was........ exdee')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post6 = post(post_id, 'enigmamemory','enigmamemory', post_time, 'and his name was........ exdee')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post7 = post(post_id, 'cwei3','enigmamemory', post_time, 'and his name was........ exdee')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post8 = post(post_id, 'cwei3','jtangqt', post_time, 'and his name was........ exdee')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post9 = post(post_id, 'solarien','jtangqt', post_time, 'YA LIKE JAZZ?')
-post_time = datetime.datetime.now()
-post_id = cursor.lastrowid
-post10 = post(post_id, 'solarien','jtangqt', post_time, 'i know you do')
+post11 = post(post_id, 'sabooap','enigmamemory', post_time, 'HEH')
 
 
 # create_p(cursor, post1)
@@ -167,8 +175,9 @@ post10 = post(post_id, 'solarien','jtangqt', post_time, 'i know you do')
 # create_p(cursor, post9)
 # create_p(cursor, post10)
 
-db = start_db.launchdb()
-cursor = start_db.launchcursor(db) 
+
+create_p(cursor, post10)
+create_p(cursor, post11)
 show_p(cursor, 'solarien', 'jtangqt')
 
 #edit_p(cursor, 4, 'HIIII WAZZUP')
