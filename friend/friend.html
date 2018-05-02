@@ -33,8 +33,44 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <center><h4>All Users</h4></center>
     </div>
     <!-- Friends -->
+
+  <br>
+  <style>
+    textarea {
+      width: 97%;
+      height: 55px;
+      padding: 12px 20px;
+      margin: 20px 0;
+      box-sizing: border-box;
+      border: 3px solid #555;
+      overflow: auto;
+      resize: none;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #f8f8f8;
+    }
+
+</style>
+<script  type="text/javascript">
+  function clearTextArea() {
+  document.getElementById("txtArea").value='';
+  }
+</script>
+   <form>
+          <br>
+          <center>Search for a user</center>
+          <br>
+            Username: <br>
+            <textarea id=txtArea type="text" ng-model="username" placeholder="Username"></textarea><br>
+             <button type="submit" class="w3-button w3-dark-grey w3-margin-bottom" ng-click="vm.find(username)" onclick="clearTextArea()"><i class="fa fa-pencil"></i>Search</button>
+             <br>
+        </form>
+        <br>
     <div class="grid-container">
         
+
+    <div ng-if="vm.searching == 0">
       <div ng-if="vm.allUsersLen == 1">
         <li ng-repeat="user in vm.allUsers">
         <div class="grid-item">
@@ -79,7 +115,57 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <center><h4>There are no users currently registered on the site! <br> Feelsbadman :(</h4></center>
     </div>
 
+  </div>
+
+  <div ng-if="vm.searching == 1">
+      <div ng-if="vm.exists == 1">
+        <li ng-repeat="user in vm.person">
+        <div class="grid-item">
+          <div class="w3-card w3-round w3-white">
+            <div class="w3-container">
+              <style>
+                a:link {
+                    text-decoration: none;
+                }
+
+                a:visited {
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    text-decoration: none;
+                    color:black;
+                }
+
+                a:active {
+                    text-decoration: none;
+                }
+              </style>
+             <div ng-if="user.username==vm.user.username">
+            <h4 class="w3-center"><a ng-href="#!/">{{user.username}}</a></h4><br>
+          </div>
+          <div ng-if="user.username !=vm.user.username">
+            <h4 class="w3-center"><a ng-href="#!/friendpage/#{{user.username}}">{{user.username}}</a></h4><br>
+          </div>
+             <p class="w3-center"><img src="http://www.cartoonbucket.com/wp-content/uploads/2017/03/Jhonny-Dancing-Image-600x565.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+             <hr>
+             <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> {{user.about}}</p>
+             <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> {{user.email}}</p>
+             <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> {{user.bday}}</p>
+            </div>
+          </div>
+        </div>
+        <br>
+      </li>
+
     </div>
+    <div ng-if="vm.exists == 0">
+      <center><h4>There is no user with that username currenty registered!</h4></center>
+      <button class="btn btn-primary" ng-click="vm.find2()" >Return to All Users</button>
+    </div>
+  </div>
+
+
       <br>
       
     <!-- End Profile -->
