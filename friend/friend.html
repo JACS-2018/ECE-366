@@ -59,11 +59,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </script>
    <form>
           <br>
-          <center>Search for a user</center>
-          <br>
-            Username: <br>
+            Search for a user: <br>
             <textarea id=txtArea type="text" ng-model="username" placeholder="Username"></textarea><br>
-             <button type="submit" class="w3-button w3-dark-grey w3-margin-bottom" ng-click="vm.find(username)" onclick="clearTextArea()"><i class="fa fa-pencil"></i>Search</button>
+             <button type="submit" class="w3-button w3-dark-grey w3-margin" ng-click="vm.find(username)" onclick="clearTextArea()"><i class="fa fa-pencil"></i>Search</button> 
              <br>
         </form>
         <br>
@@ -158,12 +156,14 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
           </div>
         </div>
         <br>
+        <center><button class="btn btn-primary" ng-click="vm.find2()" >Return to All Users</button></center>
+        <br>
       </li>
 
     </div>
     <div ng-if="vm.exists == 0">
       <center><h4>There is no user with that username currenty registered!</h4></center>
-      <button class="btn btn-primary" ng-click="vm.find2()" >Return to All Users</button>
+      <center><button class="btn btn-primary" ng-click="vm.find2()" >Return to All Users</button></center>
     </div>
   </div>
 
