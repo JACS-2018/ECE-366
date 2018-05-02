@@ -38,7 +38,7 @@ def register_user():
     
     user_id = cursor.lastrowid
     start_time = datetime.datetime.now()
-    test = edit_user.user(user_id, firstname, lastname, username, password,'','N/A','','N/A','N/A', start_time, 1)
+    test = edit_user.user(user_id, firstname, lastname, username, hash(password),'','N/A','','N/A','N/A', start_time, 1)
     check = edit_user.insert_u(cursor, test)
     
     start_db.commitclose(cursor, db)
@@ -158,7 +158,7 @@ def Authenticate():
     username = content['username']
     password = content['password']
 
-    check = edit_user.confirm_u(cursor, username, password)
+    check = edit_user.confirm_u(cursor, username, hash(password))
 
     start_db.commitclose(cursor, db)
 
